@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/abdujemal/alx-webstack-simple-inventory#readme",
   "dependencies": {
-    "mongoose": "^8.5.2"
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.2",
+    "uuid": "^10.0.0"
   }
 }
