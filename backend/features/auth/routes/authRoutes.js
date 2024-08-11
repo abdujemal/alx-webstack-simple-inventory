@@ -1,0 +1,25 @@
+// routes/authRoutes.js
+import express from 'express';
+import {login, register, logout, resetPassword, googleAuth, googleCallback} from '../controllers/authController.js';
+
+const authRoute = express.Router();
+
+//https://localhost:3000/api/v1/auth/register
+
+// Register route
+authRoute.post('/register',  register);
+
+// Login route
+authRoute.post('/login', login);
+
+// Logout route
+authRoute.post('/logout', logout);
+
+// Password reset route
+authRoute.post('/reset-password', resetPassword);
+
+// Google OAuth route
+authRoute.get('/google', googleAuth);
+authRoute.get('/google/callback', googleCallback);
+
+export default authRoute;
