@@ -6,6 +6,7 @@ import authorizeUser from './features/shared/middleware/authMiddleware.js';
 import { googleCallback } from './features/auth/controllers/authController.js';
 
 import env from 'dotenv'
+import activityRoutes from './features/activity/routes/activityRoute.js';
 
 env.config();
 
@@ -18,6 +19,8 @@ app.use(express.json()); // Parse JSON request bodies
 
 //Routes
 app.use('/api/v1/auth', authRoute)
+app.use('/api/v1/activity', authorizeUser, activityRoutes)
+
 
 // app.post('/google/callback', googleCallback)
 
