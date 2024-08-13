@@ -9,6 +9,7 @@ import activityRoutes from './features/activity/routes/activityRoute.js';
 import chatRoutes from './features/chat/routes/chatRoutes.js';
 import productRoutes from './features/product/routes/productRoutes.js';
 import cors from 'cors'
+import customerRoutes from './features/customers/routes/customerRoutes.js';
 
 
 
@@ -24,7 +25,6 @@ app.use(express.json()); // Parse JSON request bodies
 //Routes
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/activity', authorizeUser, activityRoutes)
-
 app.use('/api/v1/chat', authorizeUser, chatRoutes)
 app.use('/api/v1/customers', authorizeUser, customerRoutes);
 app.use('/api/v1/products', authorizeUser, productRoutes);
