@@ -6,9 +6,6 @@ import isUserLoggedOut from '../../shared/middleware/logoutMiddleware.js';
 
 const productRoutes = express.Router();
 
-// Apply middlewares
-productRoutes.use(authorizeUser);
-
 // // Public routes for logged out users
 // productRoutes.post('/register', isUserLoggedOut, (req, res) => {
 //     // Registration logic here
