@@ -10,8 +10,9 @@ const createProduct = async (req, res) => {
 };
 
 const getProducts = async (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
     try {
-        const products = await productService.getProducts();
+        const products = await productService.getProducts(parseInt(page), parseInt(limit));
         res.status(200).json(products);
     } catch (error) {
         res.status(500).json({ message: error.message });
