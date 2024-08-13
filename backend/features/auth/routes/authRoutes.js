@@ -1,5 +1,7 @@
 // routes/authRoutes.js
 import express from 'express';
+import upload from '../../shared/middleware/mutlerMiddleware.js';
+
 import {login, register, logout, resetPassword, googleAuth, googleCallback} from '../controllers/authController.js';
 
 const authRoute = express.Router();
@@ -7,7 +9,7 @@ const authRoute = express.Router();
 //https://localhost:3000/api/v1/auth/register
 
 // Register route
-authRoute.post('/register',  register);
+authRoute.post('/register', upload.single('image'), register);
 
 // Login route
 authRoute.post('/login', login);

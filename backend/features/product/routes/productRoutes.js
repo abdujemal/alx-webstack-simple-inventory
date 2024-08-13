@@ -1,7 +1,6 @@
 import express from 'express';
 import productController from '../controllers/productController.js';
-import authorizeUser from '../../shared/middleware/authMiddleware.js';
-import isUserLoggedOut from '../../shared/middleware/logoutMiddleware.js';
+import upload from '../../shared/middleware/mutlerMiddleware.js';
 
 
 const productRoutes = express.Router();
@@ -12,7 +11,7 @@ const productRoutes = express.Router();
 // });
 
 // CRUD routes for products
-productRoutes.post('/', productController.createProduct);
+productRoutes.post('/', upload.single('image'), productController.createProduct);
 productRoutes.get('/', productController.getProducts);
 productRoutes.get('/:id', productController.getProductById);
 productRoutes.put('/:id', productController.updateProduct);

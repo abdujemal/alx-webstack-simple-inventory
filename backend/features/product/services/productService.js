@@ -1,8 +1,9 @@
 import Product from '../models/productModel.js';
 
-const createProduct = async (productData) => {
+const createProduct = async (productData, imageUrl) => {
     try {
         const product = new Product(productData);
+        product.image = imageUrl;
         return await product.save();
     } catch (error) {
         throw new Error('Error creating product: ' + error.message);
