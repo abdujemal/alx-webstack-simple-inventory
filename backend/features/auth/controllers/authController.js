@@ -34,7 +34,7 @@ export const register = async (req, res) => {
 
       
         // Generate a JWT token
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
+        const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
       
         res.status(201).json({ token, user: { name, email } });
     }catch(e){
@@ -59,7 +59,7 @@ export const login = async (req, res) => {
 
   
   // Generate a JWT token
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
+  const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
 
   res.json({ token, user: { name: user.name, email: user.email } });
 };
@@ -145,7 +145,7 @@ export const googleCallback = async (req, res) => {
           await user.save();
         }
       
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
+        const token = jwt.sign({ id: user.id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
         res.json({ token, user: { name, email, picture } });
         // res.redirect(303, 'https://localhost:5173/');
     }catch(e){

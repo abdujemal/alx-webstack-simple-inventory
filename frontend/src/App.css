@@ -40,3 +40,53 @@
 .read-the-docs {
   color: #888;
 } */
+.App {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.messages li {
+  padding: 8px;
+  margin-bottom: 4px;
+  background-color: #f3f3f3;
+  border-radius: 4px;
+}
+
+.message-form {
+  display: flex;
+  margin-top: 10px;
+}
+
+.message-form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.message-form button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.message-form button:hover {
+  background-color: #0056b3;
+}
