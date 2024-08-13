@@ -10,14 +10,16 @@ import chatRoutes from './features/chat/routes/chatRoutes.js';
 import productRoutes from './features/product/routes/productRoutes.js';
 import cors from 'cors'
 import customerRoutes from './features/customers/routes/customerRoutes.js';
-
-
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 env.config();
 
-
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(express.json()); // Parse JSON request bodies
@@ -27,8 +29,11 @@ app.use(cors())
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/activity', authorizeUser, activityRoutes)
 app.use('/api/v1/chat', authorizeUser, chatRoutes)
-app.use('/api/v1/customers', authorizeUser, customerRoutes);
+app.use('/api/v1/customers',  authorizeUser, customerRoutes);
 app.use('/api/v1/products', authorizeUser, productRoutes);
+
+//handles images uploaded
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // init socket.io
 const server = createServer(app);

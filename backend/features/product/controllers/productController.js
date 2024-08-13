@@ -2,7 +2,12 @@ import productService from '../services/productService.js';
 
 const createProduct = async (req, res) => {
     try {
-        const product = await productService.createProduct(req.body);
+        if(!req.file){
+           return res.status(404).json({ message: 'Image is required' });
+        }
+        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+
+        const product = await productService.createProduct(req.body, imageUrl);
         res.status(201).json(product);
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -25,11 +25,19 @@ export const register = async (req, res) => {
         if (existingUser) {
           return res.status(200).json({ message: 'User already exists' });
         }
+
+        if(!req.file){
+          return res.status(404).json({ message: 'Image is required' });
+        }
+
+        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+
+
         // Hash the password using Argon2
         const hashedPassword = await argon2.hash(password);
       
         // Create a new user
-        const user = new User({ name, email, role, pp, password: hashedPassword });
+        const user = new User({ name, email, role, pp:imageUrl, password: hashedPassword });
         await user.save();
 
       
