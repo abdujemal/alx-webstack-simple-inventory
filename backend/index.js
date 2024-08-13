@@ -23,6 +23,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json()); // Parse JSON request bodies
 
 //Routes
+app.use(cors())
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/activity', authorizeUser, activityRoutes)
 app.use('/api/v1/chat', authorizeUser, chatRoutes)
