@@ -9,9 +9,11 @@ const getCustomerById = async (id) => {
   return await Customer.findById(id);
 };
 
-const getAllCustomers = async () => {
-  return await Customer.find();
+const getAllCustomers = async (page = 1, limit = 10) => {
+  const skip = (page - 1) * limit;
+  return await Customer.find().skip(skip).limit(limit);
 };
+
 
 const updateCustomer = async (id, updateData) => {
   return await Customer.findByIdAndUpdate(id, updateData, { new: true });

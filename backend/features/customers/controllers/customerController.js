@@ -21,12 +21,14 @@ const getCustomerById = async (req, res) => {
 
 const getAllCustomers = async (req, res) => {
   try {
-    const customers = await customerService.getAllCustomers();
+    const { page = 1, limit = 10 } = req.query;
+    const customers = await customerService.getAllCustomers(Number(page), Number(limit));
     res.json(customers);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 const updateCustomer = async (req, res) => {
   try {
