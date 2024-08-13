@@ -7,7 +7,10 @@ import { createServer } from "http";
 import env from 'dotenv'
 import activityRoutes from './features/activity/routes/activityRoute.js';
 import chatRoutes from './features/chat/routes/chatRoutes.js';
+import productRoutes from './features/product/routes/productRoutes.js';
 import cors from 'cors'
+
+
 
 env.config();
 
@@ -21,7 +24,10 @@ app.use(express.json()); // Parse JSON request bodies
 //Routes
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/activity', authorizeUser, activityRoutes)
+
 app.use('/api/v1/chat', authorizeUser, chatRoutes)
+app.use('/api/v1/customers', authorizeUser, customerRoutes);
+app.use('/api/v1/products', authorizeUser, productRoutes);
 
 // init socket.io
 const server = createServer(app);
@@ -52,6 +58,7 @@ io.on('connection', (socket) => {
     console.log(`${conversation}`);
   });
 
+
   // Handle chat messages
   socket.on('chat message', (data) => {
       const { room, reciverId, message } = data;
@@ -68,8 +75,9 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   
   connectToMongo().then((v)=>{
+
     console.log(`Server is running on port ${port}`);
-  }).catch((e)=>{
+  }).catch((e) => {
     console.log(`Error: ${e}`);
   })
 });
