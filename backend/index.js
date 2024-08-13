@@ -1,13 +1,16 @@
 import express from 'express';
 import connectToMongo from './features/shared/utils/db.js';
 import authRoute from './features/auth/routes/authRoutes.js';
-import isUserLoggedOut from './features/shared/middleware/logoutMiddleware.js';
 import authorizeUser from './features/shared/middleware/authMiddleware.js';
-import { googleCallback } from './features/auth/controllers/authController.js';
+import { Server } from 'socket.io';
+import { createServer } from "http";
 import env from 'dotenv'
 import activityRoutes from './features/activity/routes/activityRoute.js';
-import customerRoutes from './features/customers/routes/customerRoutes.js';
+import chatRoutes from './features/chat/routes/chatRoutes.js';
 import productRoutes from './features/product/routes/productRoutes.js';
+import cors from 'cors'
+
+
 
 env.config();
 
@@ -21,15 +24,58 @@ app.use(express.json()); // Parse JSON request bodies
 //Routes
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/activity', authorizeUser, activityRoutes)
+
+app.use('/api/v1/chat', authorizeUser, chatRoutes)
 app.use('/api/v1/customers', authorizeUser, customerRoutes);
 app.use('/api/v1/products', authorizeUser, productRoutes);
 
-// app.post('/google/callback', googleCallback)
+// init socket.io
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+      origin: "*",  // Adjust this to your client origin if needed
+      methods: ["GET", "POST"]
+  }
+});
+
+// implement socket.io
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  // Join a room
+  socket.on('join room', (room) => {
+    socket.join(room);
+    console.log(`User joined room: ${room}`);
+  });
+
+  // Handle my conversation
+  socket.on('join my conversations', (userId) => {
+    socket.join(userId);
+    console.log(`conversation joined: ${userId}`);
+  });
+
+  socket.on('conversation', (data) => {
+    console.log(`${conversation}`);
+  });
 
 
-app.listen(port, () => {
+  // Handle chat messages
+  socket.on('chat message', (data) => {
+      const { room, reciverId, message } = data;
+      io.to(room).emit('chat message', message); // Broadcast message to specific room
+      io.to(reciverId).emit('conversation', message);
+  });
 
-  connectToMongo().then((v) => {
+  // Handle disconnection
+  socket.on('disconnect', () => {
+      console.log('User disconnected');
+  });
+});
+
+server.listen(port, () => {
+  
+  connectToMongo().then((v)=>{
+
     console.log(`Server is running on port ${port}`);
   }).catch((e) => {
     console.log(`Error: ${e}`);
