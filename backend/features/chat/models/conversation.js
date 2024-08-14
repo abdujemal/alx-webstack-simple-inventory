@@ -5,7 +5,8 @@ const conversationSchema = new mongoose.Schema({
     {
       _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
       username: { type: String },
-      profileImage: { type: String }
+      profileImage: { type: String },
+      online: {type: String, enum: ["online","offline"], default: "online"}
     }
   ],
   lastMessage: {

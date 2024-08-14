@@ -180,6 +180,41 @@ export const markMessagesSeen = async (req, res) => {
     }
   };
 
+  export const toogleStatus = async (req, res) => {
+    try {
+      const { conversationId, online } = req.params;
+      // const { userId } = req.body;
+  
+      const conversation = await Conversation.findById(conversationId);
+  
+      if (!conversation) {
+        return res.status(404).json({ message: 'Conversation not found' });
+      }
+
+      const isMember = conversation.participants.find((e)=>e._id.toString() ===  req.user.id)
+
+      if(!isMember){
+        return res.status(403).json({ message: 'You are not a participant in this conversation'});
+
+      }
+
+
+      conversation.participants.forEach((e, i)=>{
+        if(req.user.id == e.id){
+          conversation.participants[i].online = online == "0" ? "offline" : "online"
+        }
+      });
+  
+      // Save the updated conversation
+      await Conversation.findByIdAndUpdate(conversation._id, conversation);
+
+      res.json({ message: `Change status in ${online == "0" ? "offline" : "online"}` });
+    } catch (error) {
+      console.log(error)
+      res.status(400).json({ message: error.message });
+    }
+  };
+
 
 export const createConversation = async (req, res) => {
   try {
