@@ -182,7 +182,7 @@ export const markMessagesSeen = async (req, res) => {
 
   export const toogleStatus = async (req, res) => {
     try {
-      const { conversationId, online } = req.params;
+      const { conversationId, status } = req.params;
       // const { userId } = req.body;
   
       const conversation = await Conversation.findById(conversationId);
@@ -201,7 +201,7 @@ export const markMessagesSeen = async (req, res) => {
 
       conversation.participants.forEach((e, i)=>{
         if(req.user.id == e.id){
-          conversation.participants[i].online = online == "0" ? "offline" : "online"
+          conversation.participants[i].online = status == "0" ? "offline": status == "1" ? "online" : "typing"
         }
       });
   

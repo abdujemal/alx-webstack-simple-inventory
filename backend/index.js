@@ -12,6 +12,7 @@ import cors from 'cors'
 import customerRoutes from './features/customers/routes/customerRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import notificationRouter from './features/Notification/routes/notificationRoute.js';
 
 env.config();
 
@@ -31,6 +32,8 @@ app.use('/api/v1/activity', authorizeUser, activityRoutes)
 app.use('/api/v1/chat', authorizeUser, chatRoutes)
 app.use('/api/v1/customers',  authorizeUser, customerRoutes);
 app.use('/api/v1/products', authorizeUser, productRoutes);
+app.use('/api/v1/notifications', authorizeUser, notificationRouter);
+
 
 
 //handles images uploaded
