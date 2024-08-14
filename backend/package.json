@@ -2,7 +2,7 @@
   "name": "backend",
   "type": "module",
   "version": "1.0.0",
-  "description": "Backend for simple invernoty managment web application",
+  "description": "Backend for simple inventory management web application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
