@@ -49,6 +49,16 @@ export const getActivitiesByPid = async (req, res) => {
     }
 };
 
+export const getActivitiesByCid = async (req, res) => {
+  try {
+    const { customerId } = req.params;
+    const activities = await Activity.find({ customerId });
+    res.json(activities);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 export const updateActivity = async (req, res) => {
   try {
     const activity = await Activity.findById(req.params.id);
