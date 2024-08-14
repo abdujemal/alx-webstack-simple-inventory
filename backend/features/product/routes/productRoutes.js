@@ -17,4 +17,8 @@ productRoutes.get('/:id', productController.getProductById);
 productRoutes.put('/:id', productController.updateProduct);
 productRoutes.delete('/:id', productController.deleteProduct);
 
+// Search route
+productRoutes.get('/search', productController.searchProducts);
+
+
 export default productRoutes;
