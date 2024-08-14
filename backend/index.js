@@ -16,7 +16,7 @@ import { fileURLToPath } from 'url';
 env.config();
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,6 +31,7 @@ app.use('/api/v1/activity', authorizeUser, activityRoutes)
 app.use('/api/v1/chat', authorizeUser, chatRoutes)
 app.use('/api/v1/customers',  authorizeUser, customerRoutes);
 app.use('/api/v1/products', authorizeUser, productRoutes);
+
 
 //handles images uploaded
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
