@@ -15,10 +15,10 @@ const client = new OAuth2Client(
     process.env.GOOGLE_CLIENT_ID,
     process.env.CLIENT_SECRET,
     "http://127.0.0.1:3000/api/v1/auth/google/callback",
-)//process.env.GOOGLE_CLIENT_ID);
+)
 
 export const register = async (req, res) => {
-    const { name, email, password, role, pp } = req.body;
+    const { name, email, password, role, } = req.body;
     try{      
         // Check if user already exists
         const existingUser = await User.findOne({ email });
@@ -32,14 +32,12 @@ export const register = async (req, res) => {
 
         const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
 
-
         // Hash the password using Argon2
         const hashedPassword = await argon2.hash(password);
       
         // Create a new user
         const user = new User({ name, email, role, pp:imageUrl, password: hashedPassword });
         await user.save();
-
       
         // Generate a JWT token
         const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
@@ -48,6 +46,67 @@ export const register = async (req, res) => {
     }catch(e){
         res.status(500).json({ error: 'Internal server error' });
     }
+};
+
+export const update = async (req, res) => {
+  const { name, email, password, role, pp } = req.body;
+  const { id } = req.user;
+
+  try{ 
+      if(!req.file){
+        
+        let hashedPassword = null;
+        if(password){
+          // Hash the password using Argon2
+          hashedPassword = await argon2.hash(password);
+        }                      
+        
+        // Check if user already exists
+        const user = await User.findByIdAndUpdate(
+          id,
+          hashedPassword ? 
+          { name, email, password: hashedPassword, role, pp}: 
+          { name, email, role, pp},
+          {
+            new: true,        // Return the updated document
+            runValidators: true // Validate the update against the schema
+          }
+        );
+        
+        // Generate a JWT token
+        const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
+
+        res.status(201).json({ token, user: { name, email } });
+      }else{
+        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`; 
+        
+        let hashedPassword = null;
+        if(password){
+          // Hash the password using Argon2
+          hashedPassword = await argon2.hash(password);
+        }                
+        
+        // Check if user already exists
+        const user = await User.findByIdAndUpdate(
+          id,
+          hashedPassword !== null ? 
+          { name, email, password: hashedPassword, role, pp: imageUrl}: 
+          { name, email, role, pp: imageUrl},
+          {
+            new: true,        // Return the updated document
+            runValidators: true // Validate the update against the schema
+          }
+        );
+        
+
+        // Generate a JWT token
+        const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
+
+        res.status(201).json({ token, user: { name, email } });
+      }
+  }catch(e){
+      res.status(500).json({ error: e });
+  }
 };
 
 export const login = async (req, res) => {

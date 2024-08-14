@@ -12,7 +12,15 @@ export const createActivity = async (req, res) => {
 
 export const getActivities = async (req, res) => {
   try {
-    const activities = await Activity.find();
+    const { page = 1, limit = 10 } = req.query;
+
+    const skip = (page - 1) * limit;
+
+    const activities = await Activity.find()
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
     res.json(activities);
   } catch (err) {
     res.status(500).json({ message: err.message });
