@@ -45,10 +45,27 @@ const deleteProduct = async (id) => {
     }
 };
 
+const searchProducts = async (query) => {
+    try {
+       
+        const regex = new RegExp(query, 'i'); // Case-insensitive search
+        return await Product.find({
+            $or: [
+                { productName: regex },
+                { SKU: regex },
+                { location: regex }
+            ]
+        });
+    } catch (error) {
+        throw new Error('Error searching products: ' + error.message);
+    }
+};
+
 export default {
     createProduct,
     getProducts,
     getProductById,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    searchProducts
 };
