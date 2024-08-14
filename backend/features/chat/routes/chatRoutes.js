@@ -8,6 +8,6 @@ chatRoutes.get('/messages', chatController.getMessages);
 chatRoutes.get('/conversations', chatController.getConversations);
 chatRoutes.post('/conversations', chatController.createConversation);
 chatRoutes.post('/conversations/:conversationId/seen', chatController.markMessagesSeen);
-chatRoutes.post('/conversations/:conversationId/status/:online', chatController.toogleStatus);
+chatRoutes.post('/conversations/:conversationId/status/:status', chatController.toogleStatus);
 
 export default chatRoutes;
