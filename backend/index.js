@@ -58,14 +58,22 @@ io.on('connection', (socket) => {
 
   // Join a room
   socket.on('join room', (room) => {
-    socket.join(room);
-    console.log(`User joined room: ${room}`);
+    try{
+      socket.join(room);
+      console.log(`User joined room: ${room}`);
+    }catch(e){
+      console.log(e);
+    }
   });
 
   // Handle my conversation
   socket.on('join my conversations', (userId) => {
-    socket.join(userId);
-    console.log(`conversation joined: ${userId}`);
+    try{
+      socket.join(userId);
+      console.log(`conversation joined: ${userId}`);
+    }catch(e){
+      console.log(e)
+    }
   });
 
   socket.on('conversation', (data) => {
@@ -75,9 +83,13 @@ io.on('connection', (socket) => {
 
   // Handle chat messages
   socket.on('chat message', (data) => {
-    const { room, reciverId, message } = data;
-    io.to(room).emit('chat message', message); // Broadcast message to specific room
-    io.to(reciverId).emit('conversation', message);
+    try{
+      const { room, reciverId, message } = data;
+      io.to(room).emit('chat message', message); // Broadcast message to specific room
+      io.to(reciverId).emit('conversation', message);
+    }catch(e){
+      console.log(e)
+    }
   });
 
   // Handle disconnection
