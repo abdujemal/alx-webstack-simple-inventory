@@ -5,6 +5,7 @@ import * as activityController from '../controllers/activityController.js';
 activityRoutes.post('/', activityController.createActivity);
 activityRoutes.get('/', activityController.getActivities);
 activityRoutes.get('/pid/:pid', activityController.getActivitiesByPid);
+activityRoutes.get('/cid/:customerId', activityController.getActivitiesByCid);
 activityRoutes.get('/:id', activityController.getActivityById);
 activityRoutes.put('/:id', activityController.updateActivity);
 activityRoutes.delete('/:id', activityController.deleteActivity);
