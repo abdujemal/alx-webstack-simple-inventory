@@ -13,6 +13,7 @@ import customerRoutes from './features/customers/routes/customerRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import notificationRouter from './features/Notification/routes/notificationRoute.js';
+import searchRoute from './features/product/routes/productSearchRoute.js';
 
 env.config();
 
@@ -30,10 +31,13 @@ app.use(cors())
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/activity', authorizeUser, activityRoutes)
 app.use('/api/v1/chat', authorizeUser, chatRoutes)
-app.use('/api/v1/customers',  authorizeUser, customerRoutes);
+app.use('/api/v1/customers', authorizeUser, customerRoutes);
 app.use('/api/v1/products', authorizeUser, productRoutes);
 app.use('/api/v1/notifications', authorizeUser, notificationRouter);
 
+
+// Search for products route
+app.use('/api/v1/search', authorizeUser, searchRoute);
 
 
 //handles images uploaded
@@ -43,8 +47,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-      origin: "*",  // Adjust this to your client origin if needed
-      methods: ["GET", "POST"]
+    origin: "*",  // Adjust this to your client origin if needed
+    methods: ["GET", "POST"]
   }
 });
 
@@ -71,20 +75,20 @@ io.on('connection', (socket) => {
 
   // Handle chat messages
   socket.on('chat message', (data) => {
-      const { room, reciverId, message } = data;
-      io.to(room).emit('chat message', message); // Broadcast message to specific room
-      io.to(reciverId).emit('conversation', message);
+    const { room, reciverId, message } = data;
+    io.to(room).emit('chat message', message); // Broadcast message to specific room
+    io.to(reciverId).emit('conversation', message);
   });
 
   // Handle disconnection
   socket.on('disconnect', () => {
-      console.log('User disconnected');
+    console.log('User disconnected');
   });
 });
 
 server.listen(port, () => {
-  
-  connectToMongo().then((v)=>{
+
+  connectToMongo().then((v) => {
 
     console.log(`Server is running on port ${port}`);
   }).catch((e) => {

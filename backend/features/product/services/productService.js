@@ -10,9 +10,12 @@ const createProduct = async (productData, imageUrl) => {
     }
 };
 
-const getProducts = async () => {
+const getProducts = async (page = 1, limit = 10) => {
     try {
-        return await Product.find();
+        const skip = (page - 1) * limit;
+        return await Product.find()
+                            .skip(skip)
+                            .limit(limit);
     } catch (error) {
         throw new Error('Error fetching products: ' + error.message);
     }
@@ -42,10 +45,27 @@ const deleteProduct = async (id) => {
     }
 };
 
+const searchProducts = async (query) => {
+    try {
+       
+        const regex = new RegExp(query, 'i'); // Case-insensitive search
+        return await Product.find({
+            $or: [
+                { productName: regex },
+                { SKU: regex },
+                { location: regex }
+            ]
+        });
+    } catch (error) {
+        throw new Error('Error searching products: ' + error.message);
+    }
+};
+
 export default {
     createProduct,
     getProducts,
     getProductById,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    searchProducts
 };
