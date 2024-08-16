@@ -40,7 +40,7 @@
 .read-the-docs {
   color: #888;
 } */
-.App {
+/* .App {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
@@ -89,4 +89,8 @@
 
 .message-form button:hover {
   background-color: #0056b3;
+} */
+
+*{
+  margin: 0px;
 }
