@@ -2,37 +2,32 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import MyComponent from './zresources/admin.jsx'
+import SideBar from './shared/components/sidebar.jsx'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import NotFound from './shared/components/notFound.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div className='flex m-auto justify-center'>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="http://localhost:3000/api/v1/auth/google" >
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+  return (   
+    <Router>
+      <div className='flex flex-col md:flex-row  min-h-screen w-screen overflow-hidden'>
+        <SideBar />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<h1>Dashboard</h1>} />
+            <Route path="/products" element={<h1>products</h1>} />
+            <Route path="/customers" element={<h1>custommers</h1>} />
+            <Route path="*" element={<NotFound/>} />
+          </Routes>
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </Router>
   )
 }
 
 export default App
+
 // import React, { useState, useEffect, useRef } from 'react';
 // import io from 'socket.io-client';
 // import './App.css';
