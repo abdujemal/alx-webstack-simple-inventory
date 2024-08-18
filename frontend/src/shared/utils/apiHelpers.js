@@ -30,32 +30,32 @@ export const postRequest = (path="", payload={}, withToken=true, image)=>{
     }
 }
 
-export const getRequest = (path="", payload={}, withToken=true)=>{
-    
-    if(withToken){
-        if(!token){
+export const getRequest = (path = "", payload = {}, withToken = true) => {
+
+    if (withToken) {
+        if (!token) {
             return null;
         }
-        return axios.get(path,  {
+        return axios.get(path, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
             params: payload,
         })
-    }else{
+    } else {
         return axios.get(path, {
             params: payload,
         })
     }
 }
 
-export const putRequest = (path="", payload={}, withToken=true, image)=>{
-    if(image){
+export const putRequest = (path = "", payload = {}, withToken = true, image) => {
+    if (image) {
         payload.append('image', image)
     }
-    if(withToken){
-        if(!token){
+    if (withToken) {
+        if (!token) {
             return null;
         }
         return axios.put(path, payload, {
@@ -64,17 +64,17 @@ export const putRequest = (path="", payload={}, withToken=true, image)=>{
                 'Content-Type': 'application/json',
             },
         });
-    }else{
+    } else {
         return axios.put(path, payload)
     }
 }
 
-export const patchRequest = (path="", payload={}, withToken=true, image)=>{
-    if(image){
+export const patchRequest = (path = "", payload = {}, withToken = true, image) => {
+    if (image) {
         payload.append('image', image)
     }
-    if(withToken){
-        if(!token){
+    if (withToken) {
+        if (!token) {
             return null;
         }
         return axios.patch(path, payload, {
@@ -83,7 +83,7 @@ export const patchRequest = (path="", payload={}, withToken=true, image)=>{
                 'Content-Type': 'application/json',
             },
         });
-    }else{
+    } else {
         return axios.patch(path, payload)
     }
 }
@@ -94,14 +94,14 @@ export const deleteRequest = (path, withToken=true)=>{
         if(!token){
             return null;
         }
-        return axios.delete(path,  {
+        return axios.delete(path, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
-           
+
         });
-    }else{
+    } else {
         return axios.delete(path)
     }
 }

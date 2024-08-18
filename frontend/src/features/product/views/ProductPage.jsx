@@ -4,8 +4,10 @@ import { IoIosAdd } from "react-icons/io";
 import { MdOutlineEdit } from "react-icons/md";
 import { TbInfoSquareRounded } from "react-icons/tb";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { BiCartDownload } from "react-icons/bi";
 import { useProducts } from '../context/ProductContext';
 import { getProducts, createProduct, searchProducts, deleteProduct } from '../services/productService';
+import { Link } from 'react-router-dom';
 
 const ProductPage = () => {
   const { products, setProducts, filteredProducts, setFilteredProducts } = useProducts();
@@ -39,7 +41,7 @@ const ProductPage = () => {
     setSearchQuery(query);
 
     // Debounce the search request
-    const delay = 500; // milliseconds
+    const delay = 300; // milliseconds
     clearTimeout(window.searchTimeout);
     window.searchTimeout = setTimeout(async () => {
       if (query) {
@@ -105,7 +107,7 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row overflow-hidden  bg-white">
+    <div className="flex flex-col lg:flex-row overflow-hidden scroll-auto bg-white">
       <div className={`flex-auto transition-all duration-300 ${preview ? 'lg:w-3/4' : 'w-full'}`}>
         <div className="flex flex-col lg:flex-row lg:gap-5 ">
           <div className={`flex flex-col ${preview ? 'lg:w-3/4 h-screen' : 'w-full'} transition-all duration-500`}>
@@ -163,11 +165,14 @@ const ProductPage = () => {
                             <button onClick={() => setPreview(product)}>
                               <TbInfoSquareRounded className="text-blue-400 size-5" />
                             </button>
-                            <a href="/edit-path" className="text-yellow-400 size-5">
+                            <Link to={`/edit-product/${product._id}`} className="text-yellow-400 size-5">
                               <MdOutlineEdit />
-                            </a>
+                            </Link>
                             <button onClick={() => handleDeleteProduct(product._id)} className="text-red-400 size-5">
                               <RiDeleteBin5Line />
+                            </button>
+                            <button onClick={() => alert("here it is ")} className="text-primary size-5">
+                            <BiCartDownload />
                             </button>
                           </div>
                         </td>
