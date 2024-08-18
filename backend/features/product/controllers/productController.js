@@ -2,12 +2,13 @@ import productService from '../services/productService.js';
 
 const createProduct = async (req, res) => {
     try {
-        if(!req.file){
-           return res.status(404).json({ message: 'Image is required' });
+        if (!req.file) {
+            return res.status(404).json({ message: 'Image is required' });
         }
         const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
 
         const product = await productService.createProduct(req.body, imageUrl);
+
         res.status(201).json(product);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -72,7 +73,7 @@ const searchProducts = async (req, res) => {
         const products = await productService.searchProducts(query);
         res.status(200).json(products);
     } catch (error) {
-       
+
         res.status(500).json({ message: error.message });
     }
 };

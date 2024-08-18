@@ -1,5 +1,7 @@
+
 import React, { useContext } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+
 import { LuHome } from "react-icons/lu";
 import { AiOutlineProduct } from "react-icons/ai";
 import { BsPersonGear } from "react-icons/bs";
@@ -9,36 +11,36 @@ import { useAuthState } from '../controllers/authStateProvider';
 import { useAuth } from '../../features/auth/controllers/AuthProvider';
 
 
-
-
 const SideBarLayout = () => {
     const {pathname} = useLocation();  
     
     const { logout } = useAuth()
-    
+
     const menus = [
         {
             path: '/',
-            name:"Dashboard",
-            icon: <LuHome size={'1.3em'}/>
+            name: "Dashboard",
+            icon: <LuHome size={'1.3em'} />
         },
         {
             path: '/products',
-            name:"Products",
-            icon: <AiOutlineProduct size={'1.3em'}/>
+            name: "Products",
+            icon: <AiOutlineProduct size={'1.3em'} />
         },       
         {
             path: '/customers',
-            name:"Customers",
-            icon: <BsPersonGear size={'1.3em'}/>
+            name: "Customers",
+            icon: <BsPersonGear size={'1.3em'} />
         },
         {
             path: '/logout',
             name:"Log Out",
             icon: <FiLogOut size={'1.3em'}/>
         },
-    ]
+    ];
+
     return (
+
         <div className='flex flex-col md:flex-row min-h-screen w-screen overflow-hidden'>            
             <aside className="flex flex-col w-[250px] max-md:ml-0 max-md:w-full bg-primary">
                 <div className="flex flex-col pt-10 pr-8 mx-auto w-full text-lg text-white pb-[636px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] max-md:pb-24 max-md:mt-2.5">
@@ -71,6 +73,6 @@ const SideBarLayout = () => {
             </main>
         </div>
     );
-}
+};
 
 export default SideBarLayout;
