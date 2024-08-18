@@ -1,26 +1,49 @@
 import './App.css'
-import SideBar from './shared/components/sidebar.jsx'
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import NotFound from './shared/components/notFound.jsx'
-import ProductPage from './features/product/views/ProductPage.jsx'
-import { ProductProvider } from './features/product/context/ProductContext.jsx'
+import PrivateRoute from './shared/components/privateRoute.jsx'
+import Login from './features/auth/views/login.jsx'
+import SideBarLayout from './shared/components/sidebar.jsx'
+import Register from './features/auth/views/register.jsx'
+import { useAuth } from './features/auth/controllers/AuthProvider.jsx'
+import { useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 function App() {
-  return (
+
+  // const { currentUser:user } = useAuth()
+
+  // useEffect(()=>{
+    
+  //   toast.success("Works")
+  // })
+
+
+  return (  
     <Router>
-      <ProductProvider>
-        <div className='flex flex-col md:flex-row min-h-screen overflow-hidden'>
-          <SideBar />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<h1>Dashboard</h1>} />
-              <Route path="/products" element={<ProductPage />} />
-              <Route path="/customers" element={<h1>customers</h1>} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </div>
-      </ProductProvider>
+      <Routes>
+        <Route path="/" element={
+          <PrivateRoute>
+            <SideBarLayout />
+          </PrivateRoute>
+          }> 
+          <Route index element={<h1>dashboard</h1>}/>
+          <Route path="products" element={<h1>Products</h1>}/>
+          <Route path="customers" element={<h1>Custommers</h1>}/>
+        </Route>
+        <Route path="*" element={<NotFound/>} />
+        <Route path='/login' element={
+          <PrivateRoute>            
+            <Login/>
+          </PrivateRoute>
+          }/>
+        <Route path='/register' element={
+           <PrivateRoute>            
+            <Register/>
+          </PrivateRoute>
+        }/>
+      </Routes>
     </Router>
   )
 }
