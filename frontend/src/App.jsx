@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <ProductProvider>
-        <div className='flex flex-col md:flex-row min-h-screen w-screen overflow-hidden'>
+        <div className='flex flex-col md:flex-row min-h-screen overflow-hidden'>
           <SideBar />
           <main className="flex-1">
             <Routes>
