@@ -25,9 +25,13 @@ const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(express.json()); // Parse JSON request bodies
+app.use(cors(
+  {
+    origin: '*', // Allow requests from this origin
+  }
+));
 
 //Routes
-app.use(cors())
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/activity', authorizeUser, activityRoutes)
 app.use('/api/v1/chat', authorizeUser, chatRoutes)
