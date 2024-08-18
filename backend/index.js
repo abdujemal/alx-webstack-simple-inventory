@@ -39,6 +39,9 @@ app.use('/api/v1/customers', authorizeUser, customerRoutes);
 app.use('/api/v1/products', authorizeUser, productRoutes);
 app.use('/api/v1/notifications', authorizeUser, notificationRouter);
 
+app.use((err, req, res, next)=>{
+  res.status(500).json({message: "Server Error Occured"})
+})
 
 // Search for products route
 app.use('/api/v1/search', authorizeUser, searchRoute);

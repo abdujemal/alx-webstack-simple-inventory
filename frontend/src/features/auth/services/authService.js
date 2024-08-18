@@ -25,15 +25,18 @@ export const register = async (name, email, password, role, image) =>{
     try{
         const res = await postRequest(
             `${AUTH_URL}/register`, 
-            {name, email, password, role,}, 
+            {name, email, password, role}, 
             false, //pass the token on the header
             image
         );
         if(!res){
             throw new Error('Failed to authenticate token')
         }
+        storage.saveToken(res.data.token)
         return res.data;
     }catch(error){
+        console.log(error);
+        
         throw new Error(error.response?.data?.message || 'Registeration failed');
     }
 }

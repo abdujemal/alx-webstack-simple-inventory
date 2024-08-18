@@ -11,3 +11,5 @@ export const NOTIFICATIONS_URL = `${BASE_URL}/notifications`;
 export const SEARCH_URL = `${BASE_URL}/search`;
 
 export const GOOGLE_URL = `${BASE_URL}/auth/google`;
+
+export const roles =  ["Sales", "Manager"];
