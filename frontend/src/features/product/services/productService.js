@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { deleteRequest, getRequest, postRequest, putRequest } from '../../../shared/utils/apiHelpers';
 
 // Base URL for API
 const API_URL = 'http://localhost:3000/api/v1'; // Change to your back-end URL
 
 export const getProducts = async () => {
   try {
-    const response = await axios.get(`${API_URL}/products`);
+    const response = await getRequest(`${API_URL}/products`);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Error fetching products');
@@ -14,7 +15,7 @@ export const getProducts = async () => {
 
 export const createProduct = async (productData) => {
   try {
-    const response = await axios.post(`${API_URL}/products`, productData, {
+    const response = await postRequest(`${API_URL}/products`, productData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
     return response.data;
@@ -25,7 +26,7 @@ export const createProduct = async (productData) => {
 
 export const updateProduct = async (id, productData) => {
   try {
-    const response = await axios.put(`${API_URL}/products/${id}`, productData);
+    const response = await putRequest(`${API_URL}/products/${id}`, productData);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Error updating product');
@@ -34,7 +35,7 @@ export const updateProduct = async (id, productData) => {
 
 export const deleteProduct = async (id) => {
   try {
-    const response = await axios.delete(`${API_URL}/products/${id}`);
+    const response = await deleteRequest(`${API_URL}/products/${id}`);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Error deleting product');
@@ -43,7 +44,7 @@ export const deleteProduct = async (id) => {
 
 export const searchProducts = async (query) => {
   try {
-    const response = await axios.get(`${API_URL}/search`, { params: { query } });
+    const response = await getRequest(`${API_URL}/search`, { query });
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Error searching products');

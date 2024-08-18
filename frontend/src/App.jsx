@@ -9,6 +9,7 @@ import Register from './features/auth/views/register.jsx'
 import { useAuth } from './features/auth/controllers/AuthProvider.jsx'
 import { useEffect } from 'react'
 import toast from 'react-hot-toast'
+import ProductPage from './features/product/views/ProductPage.jsx'
 
 function App() {
 
@@ -29,7 +30,7 @@ function App() {
           </PrivateRoute>
           }> 
           <Route index element={<h1>dashboard</h1>}/>
-          <Route path="products" element={<h1>Products</h1>}/>
+          <Route path="products" element={<ProductPage/>}/>
           <Route path="customers" element={<h1>Custommers</h1>}/>
         </Route>
         <Route path="*" element={<NotFound/>} />
