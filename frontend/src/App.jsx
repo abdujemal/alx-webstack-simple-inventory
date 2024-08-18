@@ -11,40 +11,42 @@ import { useAuth } from './features/auth/controllers/AuthProvider.jsx'
 import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import ProductPage from './features/product/views/ProductPage.jsx'
+import EditProductPage from './features/product/views/EditProductPage.jsx'
 
 function App() {
 
   // const { currentUser:user } = useAuth()
 
   // useEffect(()=>{
-    
+
   //   toast.success("Works")
   // })
 
 
-  return (  
+  return (
     <Router>
       <Routes>
         <Route path="/" element={
           <PrivateRoute>
             <SideBarLayout />
           </PrivateRoute>
-          }> 
-          <Route index element={<h1>dashboard</h1>}/>
-          <Route path="products" element={<ProductPage/>}/>
-          <Route path="customers" element={<h1>Custommers</h1>}/>
+        }>
+          <Route index element={<h1>dashboard</h1>} />
+          <Route path="products" element={<ProductPage />} />
+          <Route path="/edit-product/:id" element={<EditProductPage />} />
+          <Route path="customers" element={<h1>Custommers</h1>} />
         </Route>
-        <Route path="*" element={<NotFound/>} />
+        <Route path="*" element={<NotFound />} />
         <Route path='/login' element={
-          <PrivateRoute>            
-            <Login/>
+          <PrivateRoute>
+            <Login />
           </PrivateRoute>
-          }/>
+        } />
         <Route path='/register' element={
-           <PrivateRoute>            
-            <Register/>
+          <PrivateRoute>
+            <Register />
           </PrivateRoute>
-        }/>
+        } />
       </Routes>
     </Router>
   )
