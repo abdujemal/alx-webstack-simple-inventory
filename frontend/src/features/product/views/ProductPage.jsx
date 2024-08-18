@@ -39,7 +39,7 @@ const ProductPage = () => {
     setSearchQuery(query);
 
     // Debounce the search request
-    const delay = 500; // milliseconds
+    const delay = 300; // milliseconds
     clearTimeout(window.searchTimeout);
     window.searchTimeout = setTimeout(async () => {
       if (query) {
@@ -105,7 +105,7 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row overflow-hidden  bg-white">
+    <div className="flex flex-col lg:flex-row overflow-hidden scroll-auto bg-white">
       <div className={`flex-auto transition-all duration-300 ${preview ? 'lg:w-3/4' : 'w-full'}`}>
         <div className="flex flex-col lg:flex-row lg:gap-5 ">
           <div className={`flex flex-col ${preview ? 'lg:w-3/4 h-screen' : 'w-full'} transition-all duration-500`}>
