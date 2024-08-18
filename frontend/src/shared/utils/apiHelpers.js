@@ -86,7 +86,7 @@ export const deleteRequest = (path, withToken)=>{
         if(!token){
             return null;
         }
-        return axios.patch(path,  {
+        return axios.delete(path,  {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ export const deleteRequest = (path, withToken)=>{
            
         });
     }else{
-        return axios.patch(path)
+        return axios.delete(path)
     }
 }
 
