@@ -2,7 +2,7 @@
 import express from 'express';
 import upload from '../../shared/middleware/mutlerMiddleware.js';
 
-import {login, register, logout, resetPassword, googleAuth, googleCallback, update} from '../controllers/authController.js';
+import {login, register, logout, resetPassword, googleAuth, googleCallback, update, getUser} from '../controllers/authController.js';
 import authorizeUser from '../../shared/middleware/authMiddleware.js';
 
 const authRoute = express.Router();
@@ -13,6 +13,9 @@ const authRoute = express.Router();
 // Register route
 authRoute.post('/register', upload.single('image'), register);
 authRoute.post('/update', authorizeUser, upload.single('image'), update);
+
+// get user
+authRoute.get('/', authorizeUser, getUser)
 
 // Login route
 authRoute.post('/login', login);

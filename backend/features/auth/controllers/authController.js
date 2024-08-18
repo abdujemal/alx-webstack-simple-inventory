@@ -4,17 +4,17 @@ import  argon2 from 'argon2';
 import  jwt from 'jsonwebtoken';
 import  { OAuth2Client } from 'google-auth-library';
 import User from '../models/user.js';
-
+import request from 'request'
 import env from 'dotenv'
 import { getUserData } from '../services/authService.js';
 
 env.config();
 
-
+const redirect_uri = "http://127.0.0.1:3000/api/v1/auth/google/callback";
 const client = new OAuth2Client(
     process.env.GOOGLE_CLIENT_ID,
     process.env.CLIENT_SECRET,
-    "http://127.0.0.1:3000/api/v1/auth/google/callback",
+    redirect_uri,
 )
 
 export const register = async (req, res) => {
@@ -42,7 +42,7 @@ export const register = async (req, res) => {
         // Generate a JWT token
         const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
       
-        res.status(201).json({ token, user: { name, email } });
+        res.status(201).json({ token, user });
     }catch(e){
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -76,7 +76,7 @@ export const update = async (req, res) => {
         // Generate a JWT token
         const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
 
-        res.status(201).json({ token, user: { name, email } });
+        res.status(201).json({ token, user });
       }else{
         const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`; 
         
@@ -102,7 +102,7 @@ export const update = async (req, res) => {
         // Generate a JWT token
         const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
 
-        res.status(201).json({ token, user: { name, email } });
+        res.status(201).json({ token, user });
       }
   }catch(e){
       res.status(500).json({ error: e });
@@ -118,17 +118,34 @@ export const login = async (req, res) => {
     return res.status(401).json({ message: 'Invalid email or password' });
   }
 
+  if(user.isGoogle){
+    return res.status(401).json({ message: 'This email is signed as a google account' });
+  }
+
   // Verify the password using Argon2
   const isValid = await argon2.verify(user.password, password);
   if (!isValid) {
     return res.status(401).json({ message: 'Invalid email or password' });
   }
-
   
   // Generate a JWT token
   const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
 
-  res.json({ token, user: { name: user.name, email: user.email } });
+  res.json({ token, user });
+};
+
+export const getUser = async (req, res) => {
+  
+  // Find the user
+  
+  const user = await User.findOne({ _id: req.user.id });
+  console.log(user);
+  
+  if (!user) {
+    return res.status(401).json({ message: 'User not found' });
+  }
+
+  res.json({ user });
 };
 
 export const logout = async (req, res) => {
@@ -175,14 +192,14 @@ export const googleAuth = (req, res) => {
   const url = client.generateAuthUrl({
     access_type: 'offline',
     scope: 'https://www.googleapis.com/auth/userinfo.profile  openid  https://www.googleapis.com/auth/userinfo.email',
-    prompt: 'consent',
+    redirect_uri
   });
   res.redirect(url);
 };
 
 export const googleCallback = async (req, res) => {
     try{
-        res.header("Access-Control-Allow-Origin", 'http://localhost:5173');
+        res.header("Access-Control-Allow-Origin", '*');
         res.header("Access-Control-Allow-Credentials", 'true');
         res.header("Referrer-Policy","no-referrer-when-downgrade");
 
@@ -208,13 +225,13 @@ export const googleCallback = async (req, res) => {
       
         let user = await User.findOne({ email });
         if (!user) {
-          user = new User({ name, email,  pp: picture, password: '123456'});
+          user = new User({ name, email, pp: picture, isGoogle: true, password: '123456'});
           await user.save();
         }
       
         const token = jwt.sign({ id: user.id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
-        res.json({ token, user: { name, email, picture } });
-        // res.redirect(303, 'https://localhost:5173/');
+        // res.json({ token, user });{
+        res.redirect(`http://localhost:5173?token=${token}`);
     }catch(e){
         res.status(500).json({err: e});
     }
