@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { deleteRequest, getRequest, postRequest, putRequest } from '../../../shared/utils/apiHelpers';
 
 // Base URL for API
