@@ -14,7 +14,6 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    toast.success("again works")
     loginAction()
     const user = localStorage.getUser();
     if (user) {
@@ -43,6 +42,7 @@ const AuthProvider = ({ children }) => {
       const { user, token } = await authApi.register(name, email, password, role, image);
       setCurrentUser(user);
       setLoading(false);
+      window.location.href = '/';
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -57,6 +57,7 @@ const AuthProvider = ({ children }) => {
       const { user } = await authApi.update(name, email, password, role, image);
       setCurrentUser(user);
       setLoading(false);
+      
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -97,7 +98,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ currentUser, register, login, logout, error, google, loading }}>
+    <AuthContext.Provider value={{ currentUser, register, login, update, logout, error, setError, google, loading }}>
       {children}
       <Toaster/>
     </AuthContext.Provider>

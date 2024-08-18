@@ -23,7 +23,7 @@ export const register = async (req, res) => {
         // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-          return res.status(200).json({ message: 'User already exists' });
+          return res.status(401).json({ message: 'User already exists' });
         }
 
         if(!req.file){
