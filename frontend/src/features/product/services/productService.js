@@ -1,8 +1,7 @@
 import { deleteRequest, getRequest, postRequest, putRequest } from '../../../shared/utils/apiHelpers';
 
 // Base URL for API
-const API_URL = 'http://localhost:3000/api/v1'; // Change to your back-end URL
-
+const API_URL = 'http://localhost:3000/api/v1';
 export const getProducts = async () => {
   try {
     const response = await getRequest(`${API_URL}/products`);
