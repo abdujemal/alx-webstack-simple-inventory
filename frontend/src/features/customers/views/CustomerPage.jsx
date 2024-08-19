@@ -1,12 +1,41 @@
-// src/pages/CustomerPage.js
-
-import { useContext } from 'react';
+import { useState, useContext, useEffect, useRef } from 'react';
 import { BiSolidUserDetail } from "react-icons/bi";
 import { IoIosCloseCircle } from "react-icons/io";
 import { CustomerContext } from '../context/CustomerContext'; // Adjust path as necessary
 
 const CustomerPage = () => {
-    const { customers, selectedCustomer, preview, handlePreview, setPreview } = useContext(CustomerContext);
+    const { customers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers } = useContext(CustomerContext);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredCustomers, setFilteredCustomers] = useState(customers);
+    const debounceTimeout = useRef(null);
+
+    useEffect(() => {
+        // Clear the previous timeout
+        if (debounceTimeout.current) {
+            clearTimeout(debounceTimeout.current);
+        }
+
+        // Set a new timeout for debounce
+        debounceTimeout.current = setTimeout(async () => {
+            if (searchQuery.trim()) {
+                try {
+                    const results = await searchCustomers(searchQuery);
+                    setFilteredCustomers(results);
+                } catch (error) {
+                    console.error('Error searching customers:', error);
+                }
+            } else {
+                setFilteredCustomers(customers);
+            }
+        }, 300); // Adjust the debounce delay as necessary
+
+        // Cleanup function to clear timeout on unmount or query change
+        return () => {
+            if (debounceTimeout.current) {
+                clearTimeout(debounceTimeout.current);
+            }
+        };
+    }, [searchQuery, customers, searchCustomers]);
 
     return (
         <div className="flex flex-col md:flex-row gap-4 p-4 bg-white w-full h-screen overflow-auto relative">
@@ -16,6 +45,8 @@ const CustomerPage = () => {
                     {/* Search Bar */}
                     <div className="flex justify-center md:justify-start mb-4">
                         <input
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
                             className="w-full max-w-md px-4 py-2.5 bg-white rounded-lg shadow-md border border-gray-300"
                             type="search"
                             placeholder="Search..."
@@ -31,7 +62,7 @@ const CustomerPage = () => {
                     </div>
 
                     {/* Customer Rows */}
-                    {customers.map(customer => (
+                    {filteredCustomers.map(customer => (
                         <div
                             key={customer._id}
                             className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center py-3 border-b hover:bg-gray-100 transition duration-500"

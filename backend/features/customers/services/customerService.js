@@ -29,7 +29,7 @@ const searchCustomers = async (query) => {
     return await Customer.find({
       $or: [
         { name: regex },
-        { email: regex }
+        { phone: regex }
       ]
     });
   } catch (error) {

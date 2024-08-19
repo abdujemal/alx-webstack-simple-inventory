@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import  { createContext, useState, useEffect } from 'react';
-import { fetchCustomers, fetchCustomerById } from '../services/customerService'; // Adjust path as necessary
+import { createContext, useState, useEffect } from 'react';
+import { fetchCustomers, fetchCustomerById, searchCustomers } from '../services/customerService'; // Adjust path as necessary
 
 export const CustomerContext = createContext();
 
@@ -33,7 +33,7 @@ export const CustomerProvider = ({ children }) => {
     };
 
     return (
-        <CustomerContext.Provider value={{ customers, selectedCustomer, preview, handlePreview, setPreview }}>
+        <CustomerContext.Provider value={{ customers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers }}>
             {children}
         </CustomerContext.Provider>
     );

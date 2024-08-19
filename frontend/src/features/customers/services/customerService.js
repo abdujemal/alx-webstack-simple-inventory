@@ -1,6 +1,7 @@
 import { getRequest } from '../../../shared/utils/apiHelpers'; // Adjust path as necessary
 import { CUSTOMER_URL } from '../../../shared/utils/constants'; // Adjust path as necessary
 
+const API_URL = 'http://localhost:3000/api/v1';
 export const fetchCustomers = async () => {
     try {
         const response = await getRequest(CUSTOMER_URL);
@@ -21,4 +22,11 @@ export const fetchCustomerById = async (customerId) => {
     }
 };
 
-
+export const searchCustomers = async (query) => {
+    try {
+        const response = await getRequest(`${API_URL}/search-customers`, { query });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Error searching customers');
+    }
+};
