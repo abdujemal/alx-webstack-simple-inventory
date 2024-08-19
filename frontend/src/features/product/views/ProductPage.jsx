@@ -75,14 +75,13 @@ const ProductPage = () => {
 
   const handleImageChange = (e) => {
     setNewProduct((prevProduct) => ({ ...prevProduct, image: e.target.files[0] }));
-  };
-
+  };  
+  
   const handleAddProduct = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     for (const key in newProduct) {
       formData.append(key, newProduct[key]);
-      console.log(`${key}:${newProduct[key]}`);
     }
     try {
       const addedProduct = await createProduct(formData);
