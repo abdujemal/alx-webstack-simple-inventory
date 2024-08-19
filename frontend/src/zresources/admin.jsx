@@ -1,6 +1,6 @@
 import React from 'react';
 
-const admin = () => {
+const Admin = () => {
   
   return (
     <div className="overflow-hidden bg-white">
@@ -8,50 +8,7 @@ const admin = () => {
         <div className="flex flex-col w-[78%] max-md:ml-0 max-md:w-full">
           <div className="grow max-md:mt-7 max-md:max-w-full">
             <div className="flex gap-5 max-md:flex-col">
-              <div className="flex flex-col w-[17%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col pt-10 mx-auto w-full text-lg text-white border border-black border-solid bg-slate-600 pb-[636px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] max-md:pb-24 max-md:mt-2.5">
-                  <div className="self-center text-3xl text-center">
-                    Inventory
-                  </div>
-                  <div className="flex gap-5 justify-between py-3.5 pr-4 pl-2 mt-32 w-full whitespace-nowrap bg-white rounded-none text-zinc-800 max-md:mt-10">
-                    <div className="flex gap-1">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/3b8fab6474ad9821bd8777c686f23a918256a14b6cc60eb26c6f063b38ad637a?placeholderIfAbsent=true&apiKey=9392bf5430554535ad397aae3c4fade4"
-                        className="object-contain shrink-0 aspect-square w-[30px]"
-                      />
-                      <div>Home</div>
-                    </div>
-                    <div className="flex shrink-0 my-auto rounded-full bg-slate-600 h-[15px] w-[15px]" />
-                  </div>
-                  <div className="flex flex-col items-start pr-10 pl-4 mt-7 w-full max-md:pr-5">
-                    <div className="flex gap-2.5 whitespace-nowrap">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/be157f14d695b1f71c7adaffe8dbf206117bba1abb6a5073c320bcd7cfce0ac9?placeholderIfAbsent=true&apiKey=9392bf5430554535ad397aae3c4fade4"
-                        className="object-contain shrink-0 self-start aspect-square w-[18px]"
-                      />
-                      <div>Product</div>
-                    </div>
-                    <div className="flex gap-1 mt-6 whitespace-nowrap">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/eb077a3c0b694032ce0b9107928786b2b885c6f9f2a0f31051c712ab474e1e26?placeholderIfAbsent=true&apiKey=9392bf5430554535ad397aae3c4fade4"
-                        className="object-contain shrink-0 self-start w-5 aspect-[1.18]"
-                      />
-                      <div>Customer</div>
-                    </div>
-                    <div className="flex gap-2 mt-6">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/aec14320e2596ff4018cf3eb3b56d47ef3b71b3fcadc0889d1a1328d2ac6cb3c?placeholderIfAbsent=true&apiKey=9392bf5430554535ad397aae3c4fade4"
-                        className="object-contain shrink-0 self-start mt-1.5 aspect-square w-[17px]"
-                      />
-                      <div>Log Out</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             
               <div className="flex flex-col ml-5 w-[83%] max-md:ml-0 max-md:w-full">
                 <div className="flex flex-col mt-3.5 max-md:mt-6 max-md:max-w-full">
                   <div className="flex flex-col items-start pl-3 w-full max-md:max-w-full">
@@ -651,4 +608,4 @@ const admin = () => {
   );
 }
 
-export default admin;
+export default Admin;

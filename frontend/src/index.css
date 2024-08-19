@@ -11,3 +11,23 @@
     box-sizing: border-box;
   }
 
+  /* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8b8b8c7c; /* Tailwind's gray-500 */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ffffff6e; /* Tailwind's gray-600 */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f3f4f612; /* Tailwind's gray-100 */
+  border-radius: 4px;
+}
+
+

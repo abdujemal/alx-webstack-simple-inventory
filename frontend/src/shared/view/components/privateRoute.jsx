@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthState } from '../controllers/authStateProvider.jsx';
+import { useAuthState } from '../../controllers/authStateProvider.jsx';
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useAuthState();

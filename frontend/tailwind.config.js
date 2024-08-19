@@ -13,6 +13,10 @@ export default {
         primary: '#56448a',
         secondary: '#7869a1',
       },
+      animation: {
+        'spin-fast': 'spin 1s linear infinite',
+        'spin-slower': 'spin 3s linear infinite',
+      },
     },
   },
   plugins: [],

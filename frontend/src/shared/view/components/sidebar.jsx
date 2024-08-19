@@ -5,8 +5,7 @@ import { AiOutlineProduct } from "react-icons/ai";
 import { BsPersonGear } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 import Logo from './logo';
-import { useAuthState } from '../controllers/authStateProvider';
-import { useAuth } from '../../features/auth/controllers/AuthProvider';
+import { useAuth } from '../../../features/auth/controllers/AuthProvider.jsx';
 
 
 

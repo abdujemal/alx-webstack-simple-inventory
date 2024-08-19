@@ -112,14 +112,7 @@ export const getConversations = async (req, res) => {
       
       const userId = req.user.id;
       const conversations = await Conversation.find({
-        participants: { $in: [
-          { 
-            _id: req.user.id, 
-            username: req.user.username, 
-            profileImage: req.user.profileImage           
-          }
-        ] 
-        }
+        participants: { $elemMatch: { _id: userId } }
       })
         .sort({ lastMessageTimestamp: -1 })
       //   .populate('participants', 'username profileImage')

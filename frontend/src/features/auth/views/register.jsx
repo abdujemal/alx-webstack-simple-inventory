@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Logo from "../../../shared/components/logo";
-import MainButton from "../../../shared/components/mainButton";
+import Logo from "../../../shared/view/components/logo.jsx";
+import MainButton from "../../../shared/view/components/mainButton.jsx";
 import {  useState } from "react";
 import { useAuth } from "../controllers/AuthProvider";
 import { GOOGLE_URL, roles } from "../../../shared/utils/constants";

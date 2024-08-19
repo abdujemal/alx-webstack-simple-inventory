@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import Logo from "../../../shared/components/logo";
-import MainButton from "../../../shared/components/mainButton";
+import Logo from "../../../shared/view/components/logo";
+import MainButton from "../../../shared/view/components/mainButton";
 import { useState } from "react";
 import { useAuth } from "../controllers/AuthProvider";
 import { GOOGLE_URL } from "../../../shared/utils/constants";
-import toast from "react-hot-toast";
 
 
 const Login = () => {
