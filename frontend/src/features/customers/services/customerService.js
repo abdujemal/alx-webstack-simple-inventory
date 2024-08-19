@@ -20,3 +20,5 @@ export const fetchCustomerById = async (customerId) => {
         throw error;
     }
 };
+
+

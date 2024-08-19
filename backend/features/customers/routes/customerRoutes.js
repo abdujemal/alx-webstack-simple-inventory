@@ -8,10 +8,13 @@ import isUserLoggedOut from '../../shared/middleware/authMiddleware.js';
 
 const customerRoutes = express.Router();
 
-customerRoutes.post('/',  customerController.createCustomer);
-customerRoutes.get('/:id',  customerController.getCustomerById);
-customerRoutes.get('/',  customerController.getAllCustomers);
-customerRoutes.put('/:id',  customerController.updateCustomer);
+customerRoutes.post('/', customerController.createCustomer);
+customerRoutes.get('/:id', customerController.getCustomerById);
+customerRoutes.get('/', customerController.getAllCustomers);
+customerRoutes.put('/:id', customerController.updateCustomer);
 customerRoutes.delete('/:id', customerController.deleteCustomer);
+
+// Search route
+customerRoutes.get('/search-customers', customerController.searchCustomers);
 
 export default customerRoutes;
