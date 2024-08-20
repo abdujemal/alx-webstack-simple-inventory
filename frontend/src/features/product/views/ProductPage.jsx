@@ -41,7 +41,7 @@ const ProductPage = () => {
     setSearchQuery(query);
 
     // Debounce the search request
-    const delay = 300; // milliseconds
+    const delay = 500; // milliseconds
     clearTimeout(window.searchTimeout);
     window.searchTimeout = setTimeout(async () => {
       if (query) {
