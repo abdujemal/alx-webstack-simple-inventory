@@ -23,10 +23,25 @@ const deleteCustomer = async (id) => {
   return await Customer.findByIdAndDelete(id);
 };
 
+const searchCustomers = async (query) => {
+  try {
+    const regex = new RegExp(query, 'i'); // Case-insensitive search
+    return await Customer.find({
+      $or: [
+        { name: regex },
+        { phone: regex }
+      ]
+    });
+  } catch (error) {
+    throw new Error('Error searching Customers: ' + error.message);
+  }
+};
+
 export default {
   createCustomer,
   getCustomerById,
   getAllCustomers,
   updateCustomer,
   deleteCustomer,
+  searchCustomers,
 };
