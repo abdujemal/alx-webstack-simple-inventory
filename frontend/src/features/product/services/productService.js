@@ -1,4 +1,6 @@
 import { deleteRequest, getRequest, postRequest, putRequest } from '../../../shared/utils/apiHelpers';
+import axios from 'axios';
+import { getToken } from '../../auth/services/localStorageService';
 
 // Base URL for API
 const API_URL = 'http://localhost:3000/api/v1';
@@ -13,7 +15,17 @@ export const getProducts = async () => {
 
 export const createProduct = async (productData) => {
   try {
-    const response = await postRequest(`${API_URL}/products`, productData, true);
+    const token = getToken();
+    if (!token) {
+      throw new Error("Token is not provided")
+    }
+
+    const response = await axios.post(`${API_URL}/products`, productData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    })
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Error creating product');
