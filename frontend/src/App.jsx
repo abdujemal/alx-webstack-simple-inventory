@@ -12,6 +12,8 @@ import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import ProductPage from './features/product/views/ProductPage.jsx'
 import EditProductPage from './features/product/views/EditProductPage.jsx'
+import CustomerPage from './features/customers/views/CustomerPage.jsx'
+
 
 function App() {
 
@@ -34,7 +36,7 @@ function App() {
           <Route index element={<h1>dashboard</h1>} />
           <Route path="products" element={<ProductPage />} />
           <Route path="/edit-product/:id" element={<EditProductPage />} />
-          <Route path="customers" element={<h1>Custommers</h1>} />
+          <Route path="customers" element={<CustomerPage/>} />
         </Route>
         <Route path="*" element={<NotFound />} />
         <Route path='/login' element={

@@ -5,13 +5,16 @@ import './index.css'
 import { AuthStateProvider } from './shared/controllers/authStateProvider.jsx'
 import { AuthProvider } from './features/auth/controllers/AuthProvider.jsx'
 import { ProductProvider } from './features/product/context/ProductContext.jsx'
+import { CustomerProvider } from './features/customers/context/CustomerContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthStateProvider>
       <AuthProvider>
         <ProductProvider>
-          <App />
+          <CustomerProvider>
+            <App />
+          </CustomerProvider>
         </ProductProvider>
       </AuthProvider>
     </AuthStateProvider>
