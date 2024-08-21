@@ -87,17 +87,37 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('conversation', (data) => {
-    console.log(`${conversation}`);
+  socket.on('conversation', ({ conversation, userId }) => {
+    io.to(userId).emit('conversation', conversation);
   });
 
 
   // Handle chat messages
   socket.on('chat message', (data) => {
     try {
-      const { room, reciverId, message } = data;
+      const { room, conversation, message, recieverId } = data;
       io.to(room).emit('chat message', message); // Broadcast message to specific room
-      io.to(reciverId).emit('conversation', message);
+      io.to(recieverId).emit('conversation', conversation);
+      io.to(message.sender).emit('conversation', conversation);
+    } catch (e) {
+      console.log(e)
+    }
+  });
+
+  socket.on('leave room', (room) => {
+    try {
+      socket.leave(room);
+      console.log(`User leaved room: ${room}`);
+    } catch (e) {
+      console.log(e);
+    }
+  });
+
+  // Handle my conversation
+  socket.on('leave my conversations', (userId) => {
+    try {
+      socket.leave(userId);
+      console.log(`conversation leaved: ${userId}`);
     } catch (e) {
       console.log(e)
     }

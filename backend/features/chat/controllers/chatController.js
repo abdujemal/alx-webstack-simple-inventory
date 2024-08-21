@@ -79,7 +79,7 @@ export const sendMessage = async (req, res) => {
 
     await message.save();
 
-    res.status(201).json(conversation);
+    res.status(201).json({ message, conversation });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -111,15 +111,10 @@ export const getConversations = async (req, res) => {
     try {
       
       const userId = req.user.id;
+      console.log({userId});
+      
       const conversations = await Conversation.find({
-        participants: { $in: [
-          { 
-            _id: req.user.id, 
-            username: req.user.username, 
-            profileImage: req.user.profileImage           
-          }
-        ] 
-        }
+        participants: { $elemMatch: { _id: userId } }
       })
         .sort({ lastMessageTimestamp: -1 })
       //   .populate('participants', 'username profileImage')
@@ -173,7 +168,7 @@ export const markMessagesSeen = async (req, res) => {
       // Save the updated conversation
       await Conversation.findByIdAndUpdate(conversation._id, conversation);
 
-      res.json({ message: 'Messages marked as seen' });
+      res.json({ conversation });
     } catch (error) {
       console.log(error)
       res.status(400).json({ message: error.message });
@@ -208,7 +203,7 @@ export const markMessagesSeen = async (req, res) => {
       // Save the updated conversation
       await Conversation.findByIdAndUpdate(conversation._id, conversation);
 
-      res.json({ message: `Change status in ${online == "0" ? "offline" : "online"}` });
+      res.json({ message: `Changed status` });
     } catch (error) {
       console.log(error)
       res.status(400).json({ message: error.message });
@@ -218,9 +213,18 @@ export const markMessagesSeen = async (req, res) => {
 
 export const createConversation = async (req, res) => {
   try {
-    const { participantIds } = req.body;
-    const conversation = await Conversation.create({ participants: participantIds });
+    const { newConv } = req.body;
+    const conversation = await Conversation.create(newConv);
     res.status(201).json(conversation);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.find()      
+    res.json(users);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
