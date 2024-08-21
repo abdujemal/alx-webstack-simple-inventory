@@ -13,6 +13,8 @@ export const postRequest = (path="", payload={}, withToken=true, image)=>{
             
         }
         formData.append('image',image)
+        console.log(image);
+        
     }
 
     if(withToken){
@@ -22,7 +24,7 @@ export const postRequest = (path="", payload={}, withToken=true, image)=>{
         return axios.post(path, image ? formData : payload, {
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
+                'Content-Type': image ? 'multipart/form-data' : 'application/json'
             },
         })
     }else{

@@ -5,12 +5,13 @@ import Messages from './messages.jsx';
 import TextArea from './textArea.jsx';
 import AddConversation from './addConversation.jsx';
 import { useChat } from '../controllers/chatProvider.jsx';
+import EditUser from '../../auth/views/editUser.jsx';
 
 
 const ChatSection = () => {
 
   const { currentUser } = useAuth()  
-  const { showAddConv, setShowAddConv } = useChat()
+  const { showAddConv, setShowAddConv, showUpdateUser, setShowUpdateUser } = useChat()
  
   return (
     <div className="flex flex-col ml-5 w-[450px] max-md:ml-0 max-md:w-full">
@@ -19,6 +20,7 @@ const ChatSection = () => {
               { currentUser !== null ?
               <div className="flex gap-3.5">
                 <img
+                  onClick={()=>setShowUpdateUser(true)}
                   loading="lazy"
                   src={currentUser.pp}
                   alt='User Profile'
@@ -40,6 +42,7 @@ const ChatSection = () => {
             <Messages/> 
             <TextArea/>
             <AddConversation isOpen={showAddConv} onClose={()=>setShowAddConv(false)}/>
+            <EditUser isOpen={showUpdateUser} onClose={()=>setShowUpdateUser(false)}/>
           </div>
         </div>
   );

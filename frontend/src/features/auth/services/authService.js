@@ -41,11 +41,13 @@ export const register = async (name, email, password, role, image) =>{
     }
 }
 
-export const update = async (name, email, password, role, image) =>{
+export const update = async (name, email, password, role, pp, image) =>{
     try{
         const res = await postRequest(
             `${AUTH_URL}/update`, 
-            {name, email, password, role,}, 
+            pp ?
+            {name, email, password, role, pp}:
+            {name, email, password, role}, 
             true, //pass the token on the header
             image
         );
