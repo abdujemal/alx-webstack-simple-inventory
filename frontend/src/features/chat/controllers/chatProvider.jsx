@@ -18,6 +18,7 @@ export const ChatProvider = ({ children }) => {
   const [messages, setmessages] = useState([]);
   const [selectedConv, setSelectedConv] = useState(null)
   const [showAddConv, setShowAddConv] = useState(null)
+  const [showUpdateUser, setShowUpdateUser] = useState(null)
   const { currentUser } = useAuth();
   const bottomRef = useRef(null);
 
@@ -264,7 +265,9 @@ export const ChatProvider = ({ children }) => {
       showAddConv,
       users,
       addLoading,
+      showUpdateUser, 
       // sets
+      setShowUpdateUser,
       setSelectedConv,
       setConversations,
       setShowAddConv,
