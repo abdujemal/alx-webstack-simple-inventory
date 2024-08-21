@@ -14,6 +14,7 @@ import ProductPage from './features/product/views/ProductPage.jsx'
 import EditProductPage from './features/product/views/EditProductPage.jsx'
 import CustomerPage from './features/customers/views/CustomerPage.jsx'
 
+import Dashboard from './shared/components/dashboard.jsx'
 
 function App() {
 
@@ -33,7 +34,7 @@ function App() {
             <SideBarLayout />
           </PrivateRoute>
         }>
-          <Route index element={<h1>dashboard</h1>} />
+          <Route index element={<Dashboard/>} />
           <Route path="products" element={<ProductPage />} />
           <Route path="/edit-product/:id" element={<EditProductPage />} />
           <Route path="customers" element={<CustomerPage/>} />

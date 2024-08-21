@@ -1,0 +1,48 @@
+import React from 'react';
+import { useAuth } from '../../auth/controllers/AuthProvider.jsx';
+import Conversations from './conversation.jsx';
+import Messages from './messages.jsx';
+import TextArea from './textArea.jsx';
+import AddConversation from './addConversation.jsx';
+import { useChat } from '../controllers/chatProvider.jsx';
+
+
+const ChatSection = () => {
+
+  const { currentUser } = useAuth()  
+  const { showAddConv, setShowAddConv } = useChat()
+ 
+  return (
+    <div className="flex flex-col ml-5 w-[450px] max-md:ml-0 max-md:w-full">
+          <div className="flex flex-col px-5 pt-7 pb-px h-screen mx-auto w-full bg-primary max-md:mt-7">
+            <div className="flex gap-5 justify-between self-center w-full text-xl">
+              { currentUser !== null ?
+              <div className="flex gap-3.5">
+                <img
+                  loading="lazy"
+                  src={currentUser.pp}
+                  alt='User Profile'
+                  className="object-contain  w-14 rounded-full"
+                />
+                <div className="flex flex-col self-start">
+                  <div className="self-start text-white">{currentUser.name}</div>
+                  <div className="text-white text-opacity-50">{currentUser.role}</div>
+                </div>
+              </div> : <div/>
+              }
+              <img
+                src='notifications.svg'
+                className="object-contain shrink-0 my-auto aspect-square w-[25px]"
+              />
+            </div>
+
+            <Conversations/>  
+            <Messages/> 
+            <TextArea/>
+            <AddConversation isOpen={showAddConv} onClose={()=>setShowAddConv(false)}/>
+          </div>
+        </div>
+  );
+}
+
+export default ChatSection;
