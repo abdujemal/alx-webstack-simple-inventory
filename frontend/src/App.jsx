@@ -13,7 +13,7 @@ import toast from 'react-hot-toast'
 import ProductPage from './features/product/views/ProductPage.jsx'
 import EditProductPage from './features/product/views/EditProductPage.jsx'
 import CustomerPage from './features/customers/views/CustomerPage.jsx'
-
+import ActivityPage from './features/activity/views/ActivityPage.jsx'
 import Dashboard from './shared/components/dashboard.jsx'
 
 function App() {
