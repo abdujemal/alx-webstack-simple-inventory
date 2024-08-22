@@ -49,12 +49,12 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const update = async (name, email, password, role, image) => {
+  const update = async (name, email, password, role, pp, image) => {
     setLoading(true);
 
     try {
       setError(null);
-      const { user } = await authApi.update(name, email, password, role, image);
+      const { user } = await authApi.update(name, email, password, role, pp, image);
       setCurrentUser(user);
       setLoading(false);
       
@@ -98,7 +98,20 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ currentUser, register, login, update, logout, error, setError, google, loading }}>
+    <AuthContext.Provider value={{ 
+      // gets
+      currentUser, 
+      error, 
+      loading, 
+      // sets
+      setError, 
+      // functions
+      register, 
+      login, 
+      update, 
+      logout, 
+      google, 
+    }}>
       {children}
       <Toaster/>
     </AuthContext.Provider>

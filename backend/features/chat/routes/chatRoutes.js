@@ -5,6 +5,7 @@ const chatRoutes = express.Router();
 
 chatRoutes.post('/conversations/messages', chatController.sendMessage);
 chatRoutes.get('/messages', chatController.getMessages);
+chatRoutes.get('/users', chatController.getUsers);
 chatRoutes.get('/conversations', chatController.getConversations);
 chatRoutes.post('/conversations', chatController.createConversation);
 chatRoutes.post('/conversations/:conversationId/seen', chatController.markMessagesSeen);
