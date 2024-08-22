@@ -75,8 +75,8 @@ const ProductPage = () => {
 
   const handleImageChange = (e) => {
     setNewProduct((prevProduct) => ({ ...prevProduct, image: e.target.files[0] }));
-  };  
-  
+  };
+
   const handleAddProduct = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -170,9 +170,9 @@ const ProductPage = () => {
                             <button onClick={() => handleDeleteProduct(product._id)} className="text-red-400 size-5">
                               <RiDeleteBin5Line />
                             </button>
-                            <button onClick={() => alert("here it is ")} className="text-primary size-5">
-                            <BiCartDownload />
-                            </button>
+                            <Link to={`/activity/${product._id}`} className="text-primary size-5">
+                              <BiCartDownload />
+                            </Link>
                           </div>
                         </td>
                       </tr>

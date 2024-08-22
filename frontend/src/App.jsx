@@ -13,7 +13,7 @@ import toast from 'react-hot-toast'
 import ProductPage from './features/product/views/ProductPage.jsx'
 import EditProductPage from './features/product/views/EditProductPage.jsx'
 import CustomerPage from './features/customers/views/CustomerPage.jsx'
-
+import ActivityPage from './features/activity/views/ActivityPage.jsx'
 
 function App() {
 
@@ -36,7 +36,8 @@ function App() {
           <Route index element={<h1>dashboard</h1>} />
           <Route path="products" element={<ProductPage />} />
           <Route path="/edit-product/:id" element={<EditProductPage />} />
-          <Route path="customers" element={<CustomerPage/>} />
+          <Route path="/activity/:id" element={<ActivityPage />} />
+          <Route path="customers" element={<CustomerPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
         <Route path='/login' element={
