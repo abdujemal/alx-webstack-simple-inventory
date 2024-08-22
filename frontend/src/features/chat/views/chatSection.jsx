@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../../auth/controllers/AuthProvider.jsx';
 import Conversations from './conversation.jsx';
 import Messages from './messages.jsx';
@@ -6,12 +6,14 @@ import TextArea from './textArea.jsx';
 import AddConversation from './addConversation.jsx';
 import { useChat } from '../controllers/chatProvider.jsx';
 import EditUser from '../../auth/views/editUser.jsx';
+import { MdOutlineModeEdit } from "react-icons/md";
 
 
 const ChatSection = () => {
 
   const { currentUser } = useAuth()  
   const { showAddConv, setShowAddConv, showUpdateUser, setShowUpdateUser } = useChat()
+  const [showEditIcon, setShowEditIcon] = useState(false)
  
   return (
     <div className="flex flex-col ml-5 w-[450px] max-md:ml-0 max-md:w-full">
@@ -20,12 +22,12 @@ const ChatSection = () => {
               { currentUser !== null ?
               <div className="flex gap-3.5">
                 <img
-                  onClick={()=>setShowUpdateUser(true)}
+                  onClick={()=>setShowUpdateUser(true)} 
                   loading="lazy"
                   src={currentUser.pp}
                   alt='User Profile'
-                  className="object-contain  w-14 rounded-full"
-                />
+                  className="object-fill w-16 rounded-full cursor-pointer"
+                />                
                 <div className="flex flex-col self-start">
                   <div className="self-start text-white">{currentUser.name}</div>
                   <div className="text-white text-opacity-50">{currentUser.role}</div>
