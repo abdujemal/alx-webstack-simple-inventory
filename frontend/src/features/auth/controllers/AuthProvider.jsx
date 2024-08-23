@@ -4,6 +4,9 @@ import * as authApi from '../services/authService';
 import * as localStorage from '../services/localStorageService';
 import { useAuthState } from '../../../shared/controllers/authStateProvider.jsx'
 import { Toaster, toast } from 'react-hot-toast'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { unsubscribeToTopic } from '../../../shared/utils/firebase.js';
 
 const AuthContext = createContext();
 
@@ -91,6 +94,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    unsubscribeToTopic(currentUser?._id)
     setCurrentUser(null);
     localStorage.clearToken();
     localStorage.clearUser();
@@ -114,6 +118,7 @@ const AuthProvider = ({ children }) => {
     }}>
       {children}
       <Toaster/>
+      <ToastContainer/>
     </AuthContext.Provider>
   );
 };

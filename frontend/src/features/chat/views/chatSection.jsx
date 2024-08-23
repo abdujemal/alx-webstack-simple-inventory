@@ -7,13 +7,16 @@ import AddConversation from './addConversation.jsx';
 import { useChat } from '../controllers/chatProvider.jsx';
 import EditUser from '../../auth/views/editUser.jsx';
 import { MdOutlineModeEdit } from "react-icons/md";
+import NotificationDropdown from '../../notifications/views/notificationDropdown.jsx';
+import { useNotification } from '../../notifications/controllers/notificationProvider.jsx';
+import NotificationDialog from '../../notifications/views/notificationDialog.jsx';
+
 
 
 const ChatSection = () => {
-
   const { currentUser } = useAuth()  
   const { showAddConv, setShowAddConv, showUpdateUser, setShowUpdateUser } = useChat()
-  const [showEditIcon, setShowEditIcon] = useState(false)
+  const {setOpen, open} = useNotification()
  
   return (
     <div className="flex flex-col ml-5 w-[450px] max-md:ml-0 max-md:w-full">
@@ -34,10 +37,7 @@ const ChatSection = () => {
                 </div>
               </div> : <div/>
               }
-              <img
-                src='notifications.svg'
-                className="object-contain shrink-0 my-auto aspect-square w-[25px]"
-              />
+              <NotificationDropdown />
             </div>
 
             <Conversations/>  
@@ -45,6 +45,7 @@ const ChatSection = () => {
             <TextArea/>
             <AddConversation isOpen={showAddConv} onClose={()=>setShowAddConv(false)}/>
             <EditUser isOpen={showUpdateUser} onClose={()=>setShowUpdateUser(false)}/>
+            <NotificationDialog isOpen={open} onClose={()=>setOpen(false)}/>
           </div>
         </div>
   );

@@ -3,19 +3,21 @@ import Notification from "../model/notificationModel.js";
 import messaging from "./firebaseNotification.js";
 
 class NotificationService {
-  static async createNotification(userId, message) {
+  static async createNotification(userId, title, message) {
     try {
-        const notification = new Notification({ userId, message });
+        const notification = new Notification({ userId, title, message });
         await notification.save();
+        console.log(message)
 
         const payload = {
           notification: {
-            title: "New Notification",
-            body: message,
+            title: title,
+            body: message
           },
         };
 
-        await messaging.sendToTopic(userId, payload)
+        await messaging.sendToTopic("All",payload)
+        
         return notification;
     } catch (error) {
         throw new Error(error);
