@@ -1,6 +1,7 @@
 import { createContext, useState, useContext } from 'react';
 import { getProducts, updateProduct } from '../services/ActivityService';
 import { CustomerContext } from '../../customers/context/CustomerContext';
+import { createCustomer } from '../services/ActivityService';
 
 const ActivityContext = createContext();
 
@@ -73,6 +74,16 @@ export const ActivityProvider = ({ children }) => {
     setSearchResults([]);
   };
 
+  const handleCreateCustomer = async (customerData) => {
+    try {
+        await createCustomer(customerData);
+    } catch (error) {
+        console.error('Error creating customer:', error);
+    }
+};
+
+
+
   return (
     <ActivityContext.Provider value={{
       product,
@@ -88,7 +99,8 @@ export const ActivityProvider = ({ children }) => {
       fetchCustomers,
       handleSearch,
       handleUpdate,
-      handleSelectCustomer
+      handleSelectCustomer,
+      handleCreateCustomer
     }}>
       {children}
     </ActivityContext.Provider>

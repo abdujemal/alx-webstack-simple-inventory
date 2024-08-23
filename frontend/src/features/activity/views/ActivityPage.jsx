@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ActivityContext from '../context/ActivityContext';
 import { getProducts, updateProduct } from '../../product/services/productService';
+import { createCustomer } from '../services/ActivityService';
 
 const ActivityPage = () => {
   const [product, setProduct] = useState(null);
@@ -89,7 +90,10 @@ const ActivityPage = () => {
       return; // Prevent submission if the stock is not available
     }
     try {
-      await updateProduct(id, updatedProduct);
+      const customerData = { name: customerName, phone: customerPhone };
+      await createCustomer(customerData);
+
+      await updateProduct(id, updatedProduct, customerName, customerPhone);
       navigate('/products');
     } catch (error) {
       console.error('Error updating product:', error);

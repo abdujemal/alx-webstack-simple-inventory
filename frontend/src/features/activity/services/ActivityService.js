@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { getRequest, deleteRequest, putRequest } from '../../../shared/utils/apiHelpers';
 import { getToken } from '../../auth/services/localStorageService';
+import { postRequest } from '../../../shared/utils/apiHelpers';
 
-// Base URL for API
+
 const API_URL = 'http://localhost:3000/api/v1';
 
 export const getProducts = async () => {
@@ -55,5 +56,14 @@ export const searchProducts = async (query) => {
         return response.data;
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Error searching products');
+    }
+};
+
+export const createCustomer = async (customerData) => {
+    try {
+        const response = await postRequest(`${API_URL}/customers`, customerData);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Error creating customer');
     }
 };

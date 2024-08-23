@@ -1,8 +1,13 @@
 import Customer from '../models/Customer.js';
 
+
 const createCustomer = async (customerData) => {
-  const customer = new Customer(customerData);
-  return await customer.save();
+  const existingCustomer = await Customer.findOne({ phone: customerData.phone });
+  if (existingCustomer) {
+    return existingCustomer; // or update it based on your requirements
+  }
+  const newCustomer = new Customer(customerData);
+  return await newCustomer.save();
 };
 
 const getCustomerById = async (id) => {
@@ -36,6 +41,8 @@ const searchCustomers = async (query) => {
     throw new Error('Error searching Customers: ' + error.message);
   }
 };
+
+
 
 export default {
   createCustomer,
