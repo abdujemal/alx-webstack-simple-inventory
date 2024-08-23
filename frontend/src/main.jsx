@@ -7,6 +7,8 @@ import { AuthProvider } from './features/auth/controllers/AuthProvider.jsx'
 import { ProductProvider } from './features/product/context/ProductContext.jsx'
 import { CustomerProvider } from './features/customers/context/CustomerContext.jsx'
 import { ChatProvider } from './features/chat/controllers/chatProvider.jsx'
+import { ActivityProvider } from './features/activity/context/ActivityContext.jsx'
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,7 +17,9 @@ createRoot(document.getElementById('root')).render(
         <ChatProvider>
           <ProductProvider>
             <CustomerProvider>
-              <App />
+              <ActivityProvider>
+                <App />
+              </ActivityProvider>
             </CustomerProvider>
           </ProductProvider>
         </ChatProvider>

@@ -34,10 +34,10 @@ function App() {
             <SideBarLayout />
           </PrivateRoute>
         }>
-          <Route index element={<Dashboard/>} />
+          <Route index element={<Dashboard />} />
           <Route path="products" element={<ProductPage />} />
           <Route path="/edit-product/:id" element={<EditProductPage />} />
-          <Route path="/activity/:id" element={<ActivityPage />} />
+          <Route path="/buy-product/:id" element={<ActivityPage />} />
           <Route path="customers" element={<CustomerPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />

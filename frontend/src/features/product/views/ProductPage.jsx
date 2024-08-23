@@ -170,7 +170,7 @@ const ProductPage = () => {
                             <button onClick={() => handleDeleteProduct(product._id)} className="text-red-400 size-5">
                               <RiDeleteBin5Line />
                             </button>
-                            <Link to={`/activity/${product._id}`} className="text-primary size-5">
+                            <Link to={`/buy-product/${product._id}`} className="text-primary size-5">
                               <BiCartDownload />
                             </Link>
                           </div>
