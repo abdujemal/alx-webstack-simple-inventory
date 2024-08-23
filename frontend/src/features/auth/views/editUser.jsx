@@ -6,7 +6,7 @@ import {  MdOutlineVerifiedUser , MdOutlineEmail} from "react-icons/md";
 
 
 const EditUser = ({ isOpen, onClose }) => {
-    if (!isOpen) return null;
+    if (!isOpen) return <div/>;
 
     const { error, loading, setError, update, currentUser } = useAuth()
 

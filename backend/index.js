@@ -15,6 +15,8 @@ import { fileURLToPath } from 'url';
 import notificationRouter from './features/Notification/routes/notificationRoute.js';
 import searchRoute from './features/product/routes/productSearchRoute.js';
 import customerSearchRoute from './features/customers/routes/customerSearchRoute.js';
+import admin from 'firebase-admin'
+import NotificationController from './features/Notification/controller/notificationController.js';
 
 env.config();
 
@@ -39,6 +41,12 @@ app.use('/api/v1/chat', authorizeUser, chatRoutes)
 app.use('/api/v1/customers', authorizeUser, customerRoutes);
 app.use('/api/v1/products', authorizeUser, productRoutes);
 app.use('/api/v1/notifications', authorizeUser, notificationRouter);
+
+app.post("/api/v1/subTopic", NotificationController.subToTopic);
+app.post("/api/v1/unsubTopic", NotificationController.unsubToTopic);
+
+
+
 
 app.use((err, req, res, next) => {
   res.status(500).json({ message: "Server Error Occured" })

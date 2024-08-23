@@ -28,9 +28,9 @@ const Conversations = () => {
             <IoIosAddCircleOutline color='white' size={26}/>
           </button>
       </div>
-      <div className='flex-1 overflow-y-auto'>
+      <div className='flex-1 flex flex-col overflow-y-auto'>
         {
-          conversations.length == 0 ? loading ? <LoadingSpinner/> : "":""
+          conversations.length == 0 ? loading ? <LoadingSpinner/> : <h1 className='mx-auto self-center mt-2 text-white '>Start Messaging</h1>:""
         }
         {
             conversations.map((e)=>{
@@ -55,7 +55,7 @@ const Conversations = () => {
                         <img
                           loading="lazy"
                           src={e.participants[participantId].profileImage}
-                          className="object-contain shrink-0 w-12 rounded-full"
+                          className="object-fill shrink-0 w-12 h-12 rounded-full"
                         />
                         <div className={`${e.participants[participantId].online == "offline" ? "bg-gray-400" : "bg-green-500"} border  p-1.5 w-fit rounded-full bottom-0 right-0 absolute`}/>
                       </div>
