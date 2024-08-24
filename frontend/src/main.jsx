@@ -25,7 +25,7 @@ if ('serviceWorker' in navigator && !navigator.serviceWorker.controller) {
         .then((currentToken) => {
           if (currentToken) {
             subscribeToTopic("All", currentToken)
-            console.log("FCM token:", currentToken);
+            localStorage.setItem("deviceToken", currentToken);
           } else {
             console.log("No registration token available. Request permission to generate one.");
           }

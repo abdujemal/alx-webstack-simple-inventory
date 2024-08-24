@@ -5,7 +5,7 @@ import { useNotification } from '../controllers/notificationProvider';
 
 const NotificationDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {notifications, markNotificationAsRead, setOpen} = useNotification()
+  const {notifications, markNotificationAsRead, setOpen, getNotifications} = useNotification()
   const [unread, setUnread] = useState([])
   const dropdownRef = useRef(null);
 
@@ -73,7 +73,7 @@ const NotificationDropdown = () => {
                 </div>    
               ))
             )}
-          <button onClick={()=>{setIsOpen(false);setOpen(true)}} className='bg-gray-300 rounded-md px-2 py-1 self-end m-2 text-sm'>Show More</button>
+          <button onClick={()=>{getNotifications(null,10);setIsOpen(false);setOpen(true)}} className='bg-gray-300 rounded-md px-2 py-1 self-end m-2 text-sm'>Show More</button>
           </div>
         </div>
       )}

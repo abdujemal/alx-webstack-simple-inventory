@@ -20,9 +20,9 @@ try {
     try {
       console.log("Received background message ", payload);
 
-      const notificationTitle = payload.notification.title;
+      const notificationTitle = payload.data.title;
       const notificationOptions = {
-        body: payload.notification.body,
+        body: payload.data.body,
         icon: "Google.png"//payload.notification.icon || '/default-icon.png',
       };
 

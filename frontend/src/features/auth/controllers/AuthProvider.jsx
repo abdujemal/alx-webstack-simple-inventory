@@ -6,7 +6,7 @@ import { useAuthState } from '../../../shared/controllers/authStateProvider.jsx'
 import { Toaster, toast } from 'react-hot-toast'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { unsubscribeToTopic } from '../../../shared/utils/firebase.js';
+import { subscribeToTopic, unsubscribeToTopic } from '../../../shared/utils/firebase.js';
 
 const AuthContext = createContext();
 
@@ -25,12 +25,13 @@ const AuthProvider = ({ children }) => {
     authApi.getUser().then(({user})=>{
         setCurrentUser(user);  
         localStorage.saveUser(user)  
-        console.log(user);   
+        console.log(user); 
+        subscribeToTopic(user._id)  
     }).catch((e)=>{
         console.log(e);
         
         if(e.message == "Failed to authenticate token" || e.message == 'No token provided'){
-            
+    
             logout();
         }
     })
