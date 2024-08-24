@@ -15,6 +15,8 @@ const ActivityPage = () => {
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [canSubmit, setCanSubmit] = useState(true);
+  const [alert, setAlert] = useState(null);
+
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -92,7 +94,7 @@ const ActivityPage = () => {
     }
     try {
 
-     
+
 
       const activityData = {
         customerName: customerName,
@@ -108,7 +110,7 @@ const ActivityPage = () => {
       };
       const customerData = { name: customerName, phone: customerPhone };
       await createCustomer(customerData);
-      
+
       console.log('Sending activity data:', activityData);
       await createActivity(activityData);
 
@@ -116,7 +118,7 @@ const ActivityPage = () => {
       navigate('/products');
     } catch (error) {
       console.error('Error updating product:', error);
-      alert(error.message);
+      setAlert({ type: 'error', message: error.message });
     }
   };
 
@@ -126,10 +128,25 @@ const ActivityPage = () => {
     handleSelectCustomer(customer);
   };
 
+  const handleCloseAlert = () => {
+    setAlert(null); // Clear alert
+  };
+
   if (!product) return <div className="p-6">Loading...</div>;
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md border border-primary">
+     {alert && (
+        <div
+          className={`p-4 mb-4 border rounded-lg ${alert.type === 'error' ? 'bg-red-100 text-red-700 border-red-300' : 'bg-green-100 text-green-700 border-green-300'}`}
+        >
+          {alert.message}
+          <button onClick={handleCloseAlert} className="ml-4 text-gray-500 hover:text-gray-700">
+            ×
+          </button>
+        </div>
+      )}
+
       <h1 className="text-3xl font-bold mb-9 text-center">Buy Product</h1>
 
       <div className="flex justify-center mb-4">
