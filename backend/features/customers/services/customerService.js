@@ -4,7 +4,7 @@ import Customer from '../models/Customer.js';
 const createCustomer = async (customerData) => {
   const existingCustomer = await Customer.findOne({ phone: customerData.phone });
   if (existingCustomer) {
-    return existingCustomer; // or update it based on your requirements
+    throw new Error('Customer with this phone number already exists');
   }
   const newCustomer = new Customer(customerData);
   return await newCustomer.save();

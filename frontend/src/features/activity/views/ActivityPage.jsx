@@ -116,6 +116,7 @@ const ActivityPage = () => {
       navigate('/products');
     } catch (error) {
       console.error('Error updating product:', error);
+      alert(error.message);
     }
   };
 
