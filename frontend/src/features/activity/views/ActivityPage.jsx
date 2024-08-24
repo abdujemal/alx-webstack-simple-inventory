@@ -13,6 +13,7 @@ const ActivityPage = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [isStockTouched, setIsStockTouched] = useState(false);
   const [customerName, setCustomerName] = useState('');
+  const [gender, setGender] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [canSubmit, setCanSubmit] = useState(true);
   const [alert, setAlert] = useState(null);
@@ -26,7 +27,9 @@ const ActivityPage = () => {
     searchResults,
     noResults,
     handleSearch,
-    handleSelectCustomer
+    handleSelectCustomer,
+    isSelected,
+    selectedCustomer,
   } = useContext(ActivityContext);
 
   useEffect(() => {
@@ -93,12 +96,18 @@ const ActivityPage = () => {
       return; // Prevent submission if the stock is not available
     }
     try {
+      let result;
+
+      if (!isSelected) {
+        const customerData = { name: customerName, phone: customerPhone, gender };
+        result = await createCustomer(customerData);
+      }
 
 
 
       const activityData = {
         customerName: customerName,
-        // customerId: selectedCustomer._id,
+        customerId: selectedCustomer ? selectedCustomer._id : result._id,
         status: 'Not Payed', // Adjust as needed
         pid: product?._id,
         pName: product?.productName,
@@ -108,8 +117,6 @@ const ActivityPage = () => {
         pPrice: product?.price,
         pStock: updatedProduct.stock
       };
-      const customerData = { name: customerName, phone: customerPhone };
-      await createCustomer(customerData);
 
       console.log('Sending activity data:', activityData);
       await createActivity(activityData);
@@ -135,8 +142,8 @@ const ActivityPage = () => {
   if (!product) return <div className="p-6">Loading...</div>;
 
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md border border-primary">
-     {alert && (
+    <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md border border-gray-300">
+      {alert && (
         <div
           className={`p-4 mb-4 border rounded-lg ${alert.type === 'error' ? 'bg-red-100 text-red-700 border-red-300' : 'bg-green-100 text-green-700 border-green-300'}`}
         >
@@ -204,6 +211,27 @@ const ActivityPage = () => {
             placeholder="Customer Name"
             required
           />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="gender" className="block text-sm font-medium text-gray-700">
+            Gender
+          </label>
+          <select
+
+            id="gender"
+            name="gender"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            className="mt-1 block w-full px-4 py-2.5 bg-white rounded-lg shadow-md focus:outline-none"
+            required>
+
+            <option value="" disabled>Select your Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+
+
+          </select>
+
         </div>
         <div className="mb-4">
           <label htmlFor="customerPhone" className="block text-sm font-medium text-gray-700">
