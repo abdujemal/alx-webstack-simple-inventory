@@ -157,7 +157,7 @@ const ProductPage = () => {
                         </td>
                         <td className="px-4 py-2 text-center">{product.SKU}</td>
                         <td className="px-4 py-2 text-center">{product.location}</td>
-                        <td className="px-4 py-2 text-center">${product.price}</td>
+                        <td className="px-4 py-2 text-center">ETB {product.price}</td>
                         <td className="px-4 py-2 text-center">{product.stock}</td>
                         <td className="px-4 py-2 text-center">
                           <div className='flex items-center justify-center space-x-2'>
