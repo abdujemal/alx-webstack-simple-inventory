@@ -187,7 +187,7 @@ const ProductPage = () => {
             <div className="flex flex-col lg:w-1/4 bg-primary text-white p-6">
               <div className="text-2xl font-bold mb-4">Product Details</div>
               <div className="mb-4">
-                <img src={preview.image} alt={preview.productName} className="w-full h-48 object-cover mb-4" />
+                <img src={preview.image} alt={preview.productName} className="w-full h-30 rounded-lg object-contain  mb-4" />
                 <h2 className="text-xl font-semibold mb-2">{preview.productName}</h2>
                 <p><strong>SKU:</strong> {preview.SKU}</p>
                 <p><strong>Location:</strong> {preview.location}</p>
