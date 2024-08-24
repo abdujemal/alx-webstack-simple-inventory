@@ -101,7 +101,8 @@ const CustomerPage = () => {
                                 <h2 className="text-2xl font-bold mb-4">Preview Customer</h2>
                                 <img
                                     loading="lazy"
-                                    src={selectedCustomer.gender === "Male" ? "../../../../public/icons8-male.svg" : "../../../../public/icons8-female.svg"} // Replace with actual image URL
+                                    src={selectedCustomer.gender === "Male" ? "../../../../public/icons8-male.svg" : ( selectedCustomer.gender === "Female" ? "../../../../public/icons8-female.svg":"")}
+                                    
                                     className="object-contain w-40 h-40 mx-auto mb-4 rounded-full border-4 border-white"
                                 />
                                 <div className="text-xl font-semibold">{selectedCustomer.name}</div>
