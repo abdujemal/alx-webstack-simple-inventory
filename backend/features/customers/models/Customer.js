@@ -5,6 +5,11 @@ const customerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  gender: {
+    type: String,
+    required: true,
+    enum: ["Male", "Female"]
+  },
   email: {
     type: String,
     required: false,
@@ -12,7 +17,7 @@ const customerSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: true,
-    unique:true
+    unique: true
   },
   address: {
     type: String,
