@@ -1,5 +1,6 @@
 import { getRequest } from '../../../shared/utils/apiHelpers'; // Adjust path as necessary
-import { CUSTOMER_URL } from '../../../shared/utils/constants'; // Adjust path as necessary
+import { ACTIVITY_URL, CUSTOMER_URL } from '../../../shared/utils/constants'; // Adjust path as necessary
+
 
 const API_URL = 'http://localhost:3000/api/v1';
 export const fetchCustomers = async () => {
@@ -21,6 +22,19 @@ export const fetchCustomerById = async (customerId) => {
         throw error;
     }
 };
+
+export const fetchActivitiesByCustomerId = async (customerId) => {
+    try {
+        const response = await getRequest(`${ACTIVITY_URL}/cid/${customerId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching activity by Cid:', error);
+        throw error;
+    }
+};
+
+
+
 
 export const searchCustomers = async (query) => {
     try {
