@@ -67,3 +67,13 @@ export const createCustomer = async (customerData) => {
         throw new Error(error.response?.data?.message || 'Error creating customer');
     }
 };
+
+export const createActivity = async (data) => {
+    try {
+        const response = await postRequest(`${API_URL}/activity`, data);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating activity:', error);
+        throw error;
+    }
+};

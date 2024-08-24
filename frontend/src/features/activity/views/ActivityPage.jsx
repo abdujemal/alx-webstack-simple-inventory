@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ActivityContext from '../context/ActivityContext';
 import { getProducts, updateProduct } from '../../product/services/productService';
 import { createCustomer } from '../services/ActivityService';
+import { createActivity } from '../services/ActivityService';
 
 const ActivityPage = () => {
   const [product, setProduct] = useState(null);
@@ -90,8 +91,26 @@ const ActivityPage = () => {
       return; // Prevent submission if the stock is not available
     }
     try {
+
+     
+
+      const activityData = {
+        customerName: customerName,
+        // customerId: selectedCustomer._id,
+        status: 'Not Payed', // Adjust as needed
+        pid: product?._id,
+        pName: product?.productName,
+        pSku: product?.SKU,
+        pImage: product?.image,
+        pLocation: product?.location,
+        pPrice: product?.price,
+        pStock: updatedProduct.stock
+      };
       const customerData = { name: customerName, phone: customerPhone };
       await createCustomer(customerData);
+      
+      console.log('Sending activity data:', activityData);
+      await createActivity(activityData);
 
       await updateProduct(id, updatedProduct, customerName, customerPhone);
       navigate('/products');

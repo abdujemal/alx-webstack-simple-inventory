@@ -11,7 +11,7 @@ const activitySchema = new mongoose.Schema({
   },
   customerId: {
     type: String, 
-    required: true 
+    required: false
   },
   status: { 
     type: String, 
