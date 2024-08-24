@@ -12,10 +12,12 @@ export const ActivityProvider = ({ children }) => {
     customerPhone: '',
     stock: ''
   });
+  const [isSelected, setIsSelected] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [noResults, setNoResults] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+
 
   const { searchCustomers, getAllCustomers } = useContext(CustomerContext);
 
@@ -63,7 +65,9 @@ export const ActivityProvider = ({ children }) => {
     }
   };
 
+
   const handleSelectCustomer = (customer) => {
+    setIsSelected(true)
     setSelectedCustomer(customer);
     setUpdatedProduct(prevProduct => ({
       ...prevProduct,
@@ -76,11 +80,11 @@ export const ActivityProvider = ({ children }) => {
 
   const handleCreateCustomer = async (customerData) => {
     try {
-        await createCustomer(customerData);
+      await createCustomer(customerData);
     } catch (error) {
-        console.error('Error creating customer:', error);
+      console.error('Error creating customer:', error);
     }
-};
+  };
 
 
 
@@ -100,7 +104,8 @@ export const ActivityProvider = ({ children }) => {
       handleSearch,
       handleUpdate,
       handleSelectCustomer,
-      handleCreateCustomer
+      handleCreateCustomer,
+      isSelected,
     }}>
       {children}
     </ActivityContext.Provider>
