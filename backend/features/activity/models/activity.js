@@ -5,37 +5,37 @@ const activitySchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  customerName: { 
-    type: String, 
-    required: true 
+  customerName: {
+    type: String,
+    required: true
   },
   customerId: {
-    type: String, 
-    required: false
+    type: String,
+    required: true
   },
-  status: { 
-    type: String, 
-    required: true, 
+  status: {
+    type: String,
+    required: true,
     enum: ['Payed', 'Not Payed',]
   },
   pid: {
-    type: String, 
+    type: String,
     required: true
   },
   pName: {
-    type: String, 
+    type: String,
     required: true
   },
   pSku: {
-    type: String, 
-    required: true 
+    type: String,
+    required: true
   },
   pImage: {
-    type: String, 
+    type: String,
     required: true
   },
   pLocation: {
-    type: String, 
+    type: String,
     required: true
   },
   pPrice: {
@@ -45,7 +45,7 @@ const activitySchema = new mongoose.Schema({
   pStock: {
     type: Number,
     required: true
- }
+  }
 }, {
   timestamps: true
 });
