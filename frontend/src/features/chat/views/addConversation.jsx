@@ -18,6 +18,8 @@ const AddConversation = ({ isOpen, onClose }) => {
         createNewConversation(selectedUser);
     }   
 
+     
+
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white rounded-lg flex flex-col shadow-lg max-h-[70%] w-96">

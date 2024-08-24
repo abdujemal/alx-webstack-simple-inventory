@@ -94,14 +94,23 @@ const EditUser = ({ isOpen, onClose }) => {
                         </select>
                         </div>
                     </div>
-                    <div className="flex gap-5 px-4 py-3 mt-5 text-xl whitespace-nowrap bg-white rounded-lg border border-solid border-gray-500 border-opacity-50 shadow-[0px_4px_4px_rgba(0,0,0,0.1)] text-lack text-pacity-50">
-                        <img src="password.svg"/>
-                        <div className="flex-1 my-auto "><input onChange={(e)=>setPassword(e.target.value)} className="w-full"  placeholder="Password" type="password" name="password"></input></div>
-                    </div>
-                    <div className="flex gap-5 px-4 py-3 mt-5 text-xl whitespace-nowrap bg-white rounded-lg border border-solid border-gray-500 border-opacity-50 shadow-[0px_4px_4px_rgba(0,0,0,0.1)] text-lack text-pacity-50">
-                        <img src="password.svg"/>
-                        <div className="flex-1 my-auto "><input onChange={(e)=>setConfirmPassword(e.target.value)} className="w-full"  placeholder="Confirm Password" type="password" name="confirmPassword"></input></div>
-                    </div>
+                    {
+                        currentUser.isGoogle ?
+                        <div/>:
+                        <div className="flex gap-5 px-4 py-3 mt-5 text-xl whitespace-nowrap bg-white rounded-lg border border-solid border-gray-500 border-opacity-50 shadow-[0px_4px_4px_rgba(0,0,0,0.1)] text-lack text-pacity-50">
+                            <img src="password.svg"/>
+                            <div className="flex-1 my-auto "><input onChange={(e)=>setPassword(e.target.value)} className="w-full"  placeholder="Password" type="password" name="password"></input></div>
+                        </div>
+                    }
+                    {
+                        currentUser.isGoogle ?
+                        <div/>:
+                        <div className="flex gap-5 px-4 py-3 mt-5 text-xl whitespace-nowrap bg-white rounded-lg border border-solid border-gray-500 border-opacity-50 shadow-[0px_4px_4px_rgba(0,0,0,0.1)] text-lack text-pacity-50">
+                            <img src="password.svg"/>
+                            <div className="flex-1 my-auto "><input onChange={(e)=>setConfirmPassword(e.target.value)} className="w-full"  placeholder="Confirm Password" type="password" name="confirmPassword"></input></div>
+                        </div>
+                    }
+                    
                     <p className="text-red-700 mt-2">{error}</p>
                 </div>
 

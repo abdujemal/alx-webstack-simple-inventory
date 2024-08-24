@@ -41,7 +41,7 @@ class NotificationController {
     const {token, topic} = req.body;
     try {
       const response = await admin.messaging().unsubscribeFromTopic(token, topic);
-      res.status(200).json({msg: `Successfully subscribed to topic: ${topic} ${response.successCount}`});
+      res.status(200).json({msg: `Successfully unsubscribed to topic: ${topic} ${response.successCount}`});
     } catch (error) {
       console.error("Error subscribing to topic:", error);
       res.status(401).json({msg: `Error subscribing to topic: ${error}`});

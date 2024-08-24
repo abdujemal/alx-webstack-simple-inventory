@@ -53,9 +53,9 @@ const NotificationDialog = ({ isOpen, onClose }) => {
                     )}
                     {
                     loading ?
-                    <p className='self-center bg-white p-1 rounded mt-1'>Loading..</p>:
-                    <p onClick={(e)=>loadMoreNotification()} className='self-center bg-white p-2 rounded my-1 w-fit flex cursor-pointer border border-black border-opacity-15'><BsArrowDown/>Load More</p>                
-                }
+                        <p className='self-center bg-white p-1 rounded mt-1'>Loading..</p>:
+                        <p onClick={(e)=>loadMoreNotification()} className='self-center bg-white p-2 rounded my-1 w-fit flex cursor-pointer border border-black border-opacity-15'><BsArrowDown/>Load More</p>                
+                    }
                 </div>
 
                 <div className="px-6 py-4 border-t border-gray-200 flex justify-end space-x-2">

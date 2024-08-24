@@ -10,13 +10,13 @@ class NotificationService {
         console.log(message)
 
         const payload = {
-          notification: {
-            title: title,
-            body: message
-          },
+            data: {
+              title: title,
+              body: message
+            },
         };
 
-        await messaging.sendToTopic("All",payload)
+        await messaging.sendToTopic(userId, payload)
         
         return notification;
     } catch (error) {
