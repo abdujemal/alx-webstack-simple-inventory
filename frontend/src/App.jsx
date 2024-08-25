@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import ProductPage from './features/product/views/ProductPage.jsx'
 import EditProductPage from './features/product/views/EditProductPage.jsx'
 import CustomerPage from './features/customers/views/CustomerPage.jsx'
-
+import ActivityPage from './features/activity/views/ActivityPage.jsx'
 import Dashboard from './shared/components/dashboard.jsx'
 import { getFcmToken, messaging, subscribeToTopic } from "./shared/utils/firebase.js";
 import { onMessage } from 'firebase/messaging'
@@ -69,10 +69,11 @@ function App() {
             <SideBarLayout />
           </PrivateRoute>
         }>
-          <Route index element={<Dashboard/>} />
+          <Route index element={<Dashboard />} />
           <Route path="products" element={<ProductPage />} />
           <Route path="/edit-product/:id" element={<EditProductPage />} />
-          <Route path="customers" element={<CustomerPage/>} />
+          <Route path="/buy-product/:id" element={<ActivityPage />} />
+          <Route path="customers" element={<CustomerPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
         <Route path='/login' element={

@@ -1,5 +1,6 @@
-import { getRequest } from '../../../shared/utils/apiHelpers'; // Adjust path as necessary
-import { CUSTOMER_URL } from '../../../shared/utils/constants'; // Adjust path as necessary
+import { getRequest,deleteRequest } from '../../../shared/utils/apiHelpers'; // Adjust path as necessary
+import { ACTIVITY_URL, CUSTOMER_URL } from '../../../shared/utils/constants'; // Adjust path as necessary
+
 
 const API_URL = 'http://localhost:3000/api/v1';
 export const fetchCustomers = async () => {
@@ -22,6 +23,19 @@ export const fetchCustomerById = async (customerId) => {
     }
 };
 
+export const fetchActivitiesByCustomerId = async (customerId) => {
+    try {
+        const response = await getRequest(`${ACTIVITY_URL}/cid/${customerId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching activity by Cid:', error);
+        throw error;
+    }
+};
+
+
+
+
 export const searchCustomers = async (query) => {
     try {
         const response = await getRequest(`${API_URL}/search-customers`, { query });
@@ -30,3 +44,12 @@ export const searchCustomers = async (query) => {
         throw new Error(error.response?.data?.message || 'Error searching customers');
     }
 };
+
+export const deleteCustomer = async (id) => {
+    try {
+      const response = await deleteRequest(`${API_URL}/customers/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error deleting customer');
+    }
+  };

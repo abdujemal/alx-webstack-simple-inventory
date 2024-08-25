@@ -2,12 +2,27 @@ import { useState, useContext, useEffect, useRef } from 'react';
 import { BiSolidUserDetail } from "react-icons/bi";
 import { IoIosCloseCircle } from "react-icons/io";
 import { CustomerContext } from '../context/CustomerContext'; // Adjust path as necessary
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { deleteCustomer } from '../services/customerService';
+import { fetchCustomers } from '../services/customerService';
 
 const CustomerPage = () => {
-    const { customers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers } = useContext(CustomerContext);
+    const { customers, setCustomers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites, filteredCustomers, setFilteredCustomers } = useContext(CustomerContext);
     const [searchQuery, setSearchQuery] = useState('');
-    const [filteredCustomers, setFilteredCustomers] = useState(customers);
     const debounceTimeout = useRef(null);
+
+    useEffect(() => {
+        const getCustomers = async () => {
+            try {
+                const data = await fetchCustomers();
+                setCustomers(data);
+                setFilteredCustomers(data);
+            } catch (error) {
+                console.error('Error fetching customers:', error);
+            }
+        };
+        getCustomers();
+    }, [setCustomers, setFilteredCustomers]);
 
     useEffect(() => {
         // Clear the previous timeout
@@ -37,8 +52,19 @@ const CustomerPage = () => {
         };
     }, [searchQuery, customers, searchCustomers]);
 
+    const handleDeleteCustomer = async (customerId) => {
+        try {
+            await deleteCustomer(customerId); // Assuming this function deletes from the backend
+            setCustomers(customers.filter(customer => customer._id !== customerId));
+            setFilteredCustomers(filteredCustomers.filter(customer => customer._id !== customerId));
+        } catch (error) {
+            console.error('Error deleting customer:', error);
+        }
+    };
+
+
     return (
-        <div className="flex flex-col md:flex-row gap-4 p-4 bg-white w-full h-screen overflow-auto relative">
+        <div className="flex flex-col md:flex-row gap-4 p-16 bg-white w-full h-screen overflow-auto relative">
             {/* Main Content */}
             <div className="flex-1">
                 <div className="flex flex-col gap-4">
@@ -71,12 +97,15 @@ const CustomerPage = () => {
                             <div className="text-center md:text-left">{customer.name}</div>
                             <div className="text-center md:text-left">{customer.phone}</div>
                             <div className="text-center">
+                                <button onClick={() => handleDeleteCustomer(customer._id)} className="text-red-400 size-5">
+                                    <RiDeleteBin5Line />
+                                </button>
                                 <button
-                                    onClick={() => handlePreview(customer._id)}
-                                    className="text-blue-500 hover:text-blue-700 transition"
-                                >
+                                    onClick={() => handlePreview(customer._id)} className="text-blue-500 hover:text-blue-700 transition size-5 ml-10" >
                                     <BiSolidUserDetail className="inline-block w-6 h-6" />
                                 </button>
+
+
                             </div>
                         </div>
                     ))}
@@ -85,15 +114,14 @@ const CustomerPage = () => {
 
             {/* Preview Pane */}
             <div
-                className={`fixed inset-y-0 right-0 bg-primary text-white p-6 transform transition-transform duration-500 ease-in-out w-full max-w-md ${
-                    preview ? 'translate-x-0' : 'translate-x-full'
-                } ${preview ? 'hide-scrollbar' : ''}`}
+                className={`fixed inset-y-0 right-0 bg-primary text-white p-6 transform transition-transform duration-500 ease-in-out w-full max-w-md ${preview ? 'translate-x-0' : 'translate-x-full'
+                    } ${preview ? 'hide-scrollbar' : ''}`}
             >
                 <button
                     onClick={() => setPreview(false)}
                     className="absolute top-4 right-4 text-white hover:text-gray-300 transition"
                 >
-                    <IoIosCloseCircle className="size-10"/>
+                    <IoIosCloseCircle className="size-10" />
                 </button>
                 <div className="flex flex-col h-full">
                     {selectedCustomer && (
@@ -102,10 +130,12 @@ const CustomerPage = () => {
                                 <h2 className="text-2xl font-bold mb-4">Preview Customer</h2>
                                 <img
                                     loading="lazy"
-                                    src={selectedCustomer.imageUrl || "default-image-url"} // Replace with actual image URL
+                                    src={selectedCustomer.gender === "Male" ? "../../../../public/icons8-male.svg" : (selectedCustomer.gender === "Female" ? "../../../../public/icons8-female.svg" : "")}
+
                                     className="object-contain w-40 h-40 mx-auto mb-4 rounded-full border-4 border-white"
                                 />
                                 <div className="text-xl font-semibold">{selectedCustomer.name}</div>
+                                <div className="text-xl font-semibold">{selectedCustomer.gender}</div>
                                 <div className="text-lg mt-2">{selectedCustomer.phone}</div>
                             </div>
 
@@ -113,16 +143,16 @@ const CustomerPage = () => {
                             <div className="text-xl font-bold mb-4">Products</div>
                             <div className="flex-1 overflow-y-auto hide-scrollbar">
                                 <div className="space-y-4">
-                                    {selectedCustomer.products && selectedCustomer.products.map((product, index) => (
+                                    {activites && activites.map((product, index) => (
                                         <div key={index} className="flex items-center space-x-4 border-b pb-2">
                                             <img
                                                 loading="lazy"
-                                                src={product.imageUrl || "default-product-image-url"} // Replace with actual image URL
+                                                src={product.pImage || "default-product-image-url"} // Replace with actual image URL
                                                 alt="Product"
                                                 className="w-16 h-16 object-cover rounded-md"
                                             />
-                                            <div className="flex-1">{product.name}</div>
-                                            <div className="text-gray-300">{product.warehouse}</div>
+                                            <div className="flex-1">{product.pName}</div>
+                                            <div className="text-gray-300">ETB {product.pPrice}</div>
                                         </div>
                                     ))}
                                 </div>

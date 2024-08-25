@@ -13,6 +13,7 @@ customerRoutes.get('/:id', customerController.getCustomerById);
 customerRoutes.get('/', customerController.getAllCustomers);
 customerRoutes.put('/:id', customerController.updateCustomer);
 customerRoutes.delete('/:id', customerController.deleteCustomer);
+customerRoutes.post('/customers', customerController.createCustomer);
 
 // Search route
 customerRoutes.get('/search-customers', customerController.searchCustomers);

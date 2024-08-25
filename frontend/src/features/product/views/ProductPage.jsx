@@ -75,8 +75,8 @@ const ProductPage = () => {
 
   const handleImageChange = (e) => {
     setNewProduct((prevProduct) => ({ ...prevProduct, image: e.target.files[0] }));
-  };  
-  
+  };
+
   const handleAddProduct = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -157,7 +157,7 @@ const ProductPage = () => {
                         </td>
                         <td className="px-4 py-2 text-center">{product.SKU}</td>
                         <td className="px-4 py-2 text-center">{product.location}</td>
-                        <td className="px-4 py-2 text-center">${product.price}</td>
+                        <td className="px-4 py-2 text-center">ETB {product.price}</td>
                         <td className="px-4 py-2 text-center">{product.stock}</td>
                         <td className="px-4 py-2 text-center">
                           <div className='flex items-center justify-center space-x-2'>
@@ -170,9 +170,9 @@ const ProductPage = () => {
                             <button onClick={() => handleDeleteProduct(product._id)} className="text-red-400 size-5">
                               <RiDeleteBin5Line />
                             </button>
-                            <button onClick={() => alert("here it is ")} className="text-primary size-5">
-                            <BiCartDownload />
-                            </button>
+                            <Link to={`/buy-product/${product._id}`} className="text-primary size-5">
+                              <BiCartDownload />
+                            </Link>
                           </div>
                         </td>
                       </tr>
@@ -187,7 +187,7 @@ const ProductPage = () => {
             <div className="flex flex-col lg:w-1/4 bg-primary text-white p-6">
               <div className="text-2xl font-bold mb-4">Product Details</div>
               <div className="mb-4">
-                <img src={preview.image} alt={preview.productName} className="w-full h-48 object-cover mb-4" />
+                <img src={preview.image} alt={preview.productName} className="w-full h-30 rounded-lg object-contain  mb-4" />
                 <h2 className="text-xl font-semibold mb-2">{preview.productName}</h2>
                 <p><strong>SKU:</strong> {preview.SKU}</p>
                 <p><strong>Location:</strong> {preview.location}</p>

@@ -7,6 +7,9 @@ import { AuthProvider } from './features/auth/controllers/AuthProvider.jsx'
 import { ProductProvider } from './features/product/context/ProductContext.jsx'
 import { CustomerProvider } from './features/customers/context/CustomerContext.jsx'
 import { ChatProvider } from './features/chat/controllers/chatProvider.jsx'
+
+import { ActivityProvider } from './features/activity/context/ActivityContext.jsx'
+
 import { getToken } from 'firebase/messaging'
 import { messaging, subscribeToTopic } from './shared/utils/firebase.js'
 import { NotificationProvider } from './features/notifications/controllers/notificationProvider.jsx'
@@ -41,7 +44,6 @@ if ('serviceWorker' in navigator && !navigator.serviceWorker.controller) {
   console.log('Service Worker already registered or controlling the page');
 }
 
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthStateProvider>
@@ -50,7 +52,9 @@ createRoot(document.getElementById('root')).render(
           <ChatProvider>
             <ProductProvider>
               <CustomerProvider>
-                <App />
+                <ActivityProvider>
+                  <App />
+                <ActivityProvider>
               </CustomerProvider>
             </ProductProvider>
           </ChatProvider>
