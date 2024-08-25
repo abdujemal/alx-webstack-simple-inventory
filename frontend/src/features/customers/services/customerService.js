@@ -1,4 +1,4 @@
-import { getRequest } from '../../../shared/utils/apiHelpers'; // Adjust path as necessary
+import { getRequest,deleteRequest } from '../../../shared/utils/apiHelpers'; // Adjust path as necessary
 import { ACTIVITY_URL, CUSTOMER_URL } from '../../../shared/utils/constants'; // Adjust path as necessary
 
 
@@ -44,3 +44,12 @@ export const searchCustomers = async (query) => {
         throw new Error(error.response?.data?.message || 'Error searching customers');
     }
 };
+
+export const deleteCustomer = async (id) => {
+    try {
+      const response = await deleteRequest(`${API_URL}/customers/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error deleting customer');
+    }
+  };

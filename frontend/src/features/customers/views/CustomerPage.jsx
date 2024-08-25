@@ -2,12 +2,27 @@ import { useState, useContext, useEffect, useRef } from 'react';
 import { BiSolidUserDetail } from "react-icons/bi";
 import { IoIosCloseCircle } from "react-icons/io";
 import { CustomerContext } from '../context/CustomerContext'; // Adjust path as necessary
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { deleteCustomer } from '../services/customerService';
+import { fetchCustomers } from '../services/customerService';
 
 const CustomerPage = () => {
-    const { customers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites } = useContext(CustomerContext);
+    const { customers, setCustomers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites, filteredCustomers, setFilteredCustomers } = useContext(CustomerContext);
     const [searchQuery, setSearchQuery] = useState('');
-    const [filteredCustomers, setFilteredCustomers] = useState(customers);
     const debounceTimeout = useRef(null);
+
+    useEffect(() => {
+        const getCustomers = async () => {
+            try {
+                const data = await fetchCustomers();
+                setCustomers(data);
+                setFilteredCustomers(data);
+            } catch (error) {
+                console.error('Error fetching customers:', error);
+            }
+        };
+        getCustomers();
+    }, [setCustomers, setFilteredCustomers]);
 
     useEffect(() => {
         // Clear the previous timeout
@@ -36,6 +51,17 @@ const CustomerPage = () => {
             }
         };
     }, [searchQuery, customers, searchCustomers]);
+
+    const handleDeleteCustomer = async (customerId) => {
+        try {
+            await deleteCustomer(customerId); // Assuming this function deletes from the backend
+            setCustomers(customers.filter(customer => customer._id !== customerId));
+            setFilteredCustomers(filteredCustomers.filter(customer => customer._id !== customerId));
+        } catch (error) {
+            console.error('Error deleting customer:', error);
+        }
+    };
+
 
     return (
         <div className="flex flex-col md:flex-row gap-4 p-16 bg-white w-full h-screen overflow-auto relative">
@@ -71,12 +97,15 @@ const CustomerPage = () => {
                             <div className="text-center md:text-left">{customer.name}</div>
                             <div className="text-center md:text-left">{customer.phone}</div>
                             <div className="text-center">
+                                <button onClick={() => handleDeleteCustomer(customer._id)} className="text-red-400 size-5">
+                                    <RiDeleteBin5Line />
+                                </button>
                                 <button
-                                    onClick={() => handlePreview(customer._id)}
-                                    className="text-blue-500 hover:text-blue-700 transition"
-                                >
+                                    onClick={() => handlePreview(customer._id)} className="text-blue-500 hover:text-blue-700 transition size-5 ml-10" >
                                     <BiSolidUserDetail className="inline-block w-6 h-6" />
                                 </button>
+
+
                             </div>
                         </div>
                     ))}
@@ -101,8 +130,8 @@ const CustomerPage = () => {
                                 <h2 className="text-2xl font-bold mb-4">Preview Customer</h2>
                                 <img
                                     loading="lazy"
-                                    src={selectedCustomer.gender === "Male" ? "../../../../public/icons8-male.svg" : ( selectedCustomer.gender === "Female" ? "../../../../public/icons8-female.svg":"")}
-                                    
+                                    src={selectedCustomer.gender === "Male" ? "../../../../public/icons8-male.svg" : (selectedCustomer.gender === "Female" ? "../../../../public/icons8-female.svg" : "")}
+
                                     className="object-contain w-40 h-40 mx-auto mb-4 rounded-full border-4 border-white"
                                 />
                                 <div className="text-xl font-semibold">{selectedCustomer.name}</div>

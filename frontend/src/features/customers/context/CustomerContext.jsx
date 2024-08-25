@@ -7,6 +7,7 @@ export const CustomerContext = createContext();
 
 export const CustomerProvider = ({ children }) => {
     const [customers, setCustomers] = useState([]);
+    const [filteredCustomers, setFilteredCustomers] = useState([]);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [preview, setPreview] = useState(false);
     const [activites, setActivites] = useState(null)
@@ -16,6 +17,7 @@ export const CustomerProvider = ({ children }) => {
             try {
                 const data = await fetchCustomers();
                 setCustomers(data);
+                setFilteredCustomers(data);
             } catch (error) {
                 console.error('Error fetching customer data:', error);
             }
@@ -55,7 +57,7 @@ export const CustomerProvider = ({ children }) => {
     };
 
     return (
-        <CustomerContext.Provider value={{ customers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers,activites }}>
+        <CustomerContext.Provider value={{ customers, setCustomers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites, filteredCustomers, setFilteredCustomers }}>
             {children}
         </CustomerContext.Provider>
     );
