@@ -102,13 +102,10 @@ const ActivityPage = () => {
         const customerData = { name: customerName, phone: customerPhone, gender };
         result = await createCustomer(customerData);
       }
-
-
-
       const activityData = {
         customerName: customerName,
         customerId: selectedCustomer ? selectedCustomer._id : result._id,
-        status: 'Not Payed', // Adjust as needed
+        status: 'Payed', // Adjust as needed
         pid: product?._id,
         pName: product?.productName,
         pSku: product?.SKU,
