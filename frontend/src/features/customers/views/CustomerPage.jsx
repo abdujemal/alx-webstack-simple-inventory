@@ -80,7 +80,7 @@ const CustomerPage = () => {
                     </div>
 
                     {/* Customer Table Header */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 text-lg font-bold border-b pb-2 mb-4 gap-4">
+                    <div className="hidden md:grid grid-cols-1 md:grid-cols-4 text-lg font-bold border-b pb-2 mb-4 gap-4">
                         <div className="text-center md:text-left">Customer ID</div>
                         <div className="text-center md:text-left">Name</div>
                         <div className="text-center md:text-left">Phone No.</div>
