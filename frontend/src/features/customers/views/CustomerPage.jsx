@@ -64,7 +64,7 @@ const CustomerPage = () => {
 
 
     return (
-        <div className="flex flex-col md:flex-row gap-4 p-16 bg-white w-full h-screen overflow-auto relative">
+        <div className="flex flex-col md:flex-row gap-4 p-16 bg-white w-full h-screen ">
             {/* Main Content */}
             <div className="flex-1">
                 <div className="flex flex-col gap-4">

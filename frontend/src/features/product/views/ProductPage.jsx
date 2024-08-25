@@ -111,22 +111,27 @@ const ProductPage = () => {
         <div className="flex flex-col lg:flex-row lg:gap-5 ">
           <div className={`flex flex-col ${preview ? 'lg:w-3/4 h-screen' : 'w-full'} transition-all duration-500`}>
             <div className="flex flex-col mt-7">
-              <div className="flex flex-wrap gap-6 justify-between mb-4 text-lg px-40">
-                <div className="flex items-center px-3 rounded-md border border-gray-200 text-black flex-grow max-w-full md:max-w-md lg:max-w-lg shadow-md">
-                  <CiSearch className="text-black mr-2" />
-                  <input
-                    className="w-full px-2 rounded-md outline-none"
-                    type="search"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    placeholder="Search..."
-                  />
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <button onClick={() => setShowAddForm(true)} className="flex items-center gap-1 px-4 py-2 bg-primary text-white rounded-lg shadow-md">
-                    <IoIosAdd className="w-5 h-5" />
-                    <span>Add Item</span>
-                  </button>
+              <div className="flex flex-col lg:flex-row lg:gap-5">
+                <div className="flex flex-col lg:w-3/4">
+                  <div className="flex flex-col md:flex-row md:gap-4 lg:gap-6 mb-4 px-4 mt-4 ml-4">
+                    <div className="flex items-center border border-gray-200 rounded-md shadow-sm bg-white mb-4 md:mb-0 flex-grow">
+                      <CiSearch className="text-black ml-2 md:ml-4" />
+                      <input
+                        className="w-full px-2 py-1 md:py-2 rounded-md outline-none"
+                        type="search"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        placeholder="Search..."
+                      />
+                    </div>
+                    <button
+                      onClick={() => setShowAddForm(true)}
+                      className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg shadow-md"
+                    >
+                      <IoIosAdd className="w-5 h-5 ml-auto mr-auto size-10" />
+                      <span className="hidden md:inline">Add Item</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -151,8 +156,8 @@ const ProductPage = () => {
                         <td className="px-4 py-2 text-center">{product._id}</td>
                         <td className="px-4 py-2 text-center">
                           <div className="flex items-center">
-                            <img loading="lazy" src={product.image} className="object-contain w-20 h-20 rounded border border-primary" />
-                            <span className="ml-2">{product.productName}</span>
+                            <img loading="lazy" src={product.image} className="object-contain w-20 h-20 rounded-lg border border-primary shadow-sm shadow-primary" />
+                            <span className="ml-4">{product.productName}</span>
                           </div>
                         </td>
                         <td className="px-4 py-2 text-center">{product.SKU}</td>
@@ -162,7 +167,7 @@ const ProductPage = () => {
                         <td className="px-4 py-2 text-center">
                           <div className='flex items-center justify-center space-x-2'>
                             <button onClick={() => setPreview(product)}>
-                              <TbInfoSquareRounded className="text-blue-400 size-5" />
+                              <TbInfoSquareRounded className="text-blue-400 size-5 " />
                             </button>
                             <Link to={`/edit-product/${product._id}`} className="text-yellow-400 size-5">
                               <MdOutlineEdit />
@@ -184,19 +189,20 @@ const ProductPage = () => {
           </div>
 
           {preview && (
-            <div className="flex flex-col lg:w-1/4 bg-primary text-white p-6">
-              <div className="text-2xl font-bold mb-4">Product Details</div>
-              <div className="mb-4">
-                <img src={preview.image} alt={preview.productName} className="w-full h-30 rounded-lg object-contain  mb-4" />
+            <div className={`fixed inset-y-0 right-0 bg-primary text-white p-6 transform transition-transform duration-500 ease-in-out w-full max-w-md ${preview ? 'translate-x-0' : 'translate-x-full'}`}>
+              <div className="text-2xl font-bold mb-4 text-center">Product Details</div>
+              <div className="mb-4 text-center flex flex-col gap-1 ">
+                <img src={preview.image} alt={preview.productName} className="w-full h-96 rounded-lg object-contain mb-4" />
                 <h2 className="text-xl font-semibold mb-2">{preview.productName}</h2>
                 <p><strong>SKU:</strong> {preview.SKU}</p>
                 <p><strong>Location:</strong> {preview.location}</p>
                 <p><strong>Price:</strong> ${preview.price}</p>
                 <p><strong>Stock:</strong> {preview.stock}</p>
               </div>
-              <button onClick={() => setPreview(null)} className="mt-auto py-2 px-4 bg-secondary text-white rounded-lg">Close</button>
+              <button onClick={() => setPreview(null)} className="mt-auto py-2 px-4 bg-secondary text-white rounded-lg w-full">Close</button>
             </div>
           )}
+
         </div>
       </div>
 
