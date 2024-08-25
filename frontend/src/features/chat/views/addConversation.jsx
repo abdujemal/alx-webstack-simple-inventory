@@ -5,7 +5,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 
 const AddConversation = ({ isOpen, onClose }) => {
-    if (!isOpen) return null;
+    if (!isOpen) return <div/>;
 
     const { users, addLoading, createNewConversation } = useChat()
     const [selectedUser, setSeletedUser] = useState(null)
@@ -17,6 +17,8 @@ const AddConversation = ({ isOpen, onClose }) => {
         }
         createNewConversation(selectedUser);
     }   
+
+     
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">

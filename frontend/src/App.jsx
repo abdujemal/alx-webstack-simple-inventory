@@ -7,14 +7,15 @@ import PrivateRoute from './shared/components/privateRoute.jsx'
 import Login from './features/auth/views/login.jsx'
 import SideBarLayout from './shared/components/sidebar.jsx'
 import Register from './features/auth/views/register.jsx'
-import { useAuth } from './features/auth/controllers/AuthProvider.jsx'
 import { useEffect } from 'react'
-import toast from 'react-hot-toast'
 import ProductPage from './features/product/views/ProductPage.jsx'
 import EditProductPage from './features/product/views/EditProductPage.jsx'
 import CustomerPage from './features/customers/views/CustomerPage.jsx'
 import ActivityPage from './features/activity/views/ActivityPage.jsx'
 import Dashboard from './shared/components/dashboard.jsx'
+import { getFcmToken, messaging, subscribeToTopic } from "./shared/utils/firebase.js";
+import { onMessage } from 'firebase/messaging'
+import { toast } from 'react-toastify'
 
 function App() {
 
@@ -25,6 +26,40 @@ function App() {
   //   toast.success("Works")
   // })
 
+  async function requestPermission() {
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      // Generate Device Token for notification
+      // const token = await getToken(messaging, {
+      //   vapidKey:  process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+      // });
+      
+      console.log("Notification works");
+    } else if (permission === "denied") {
+      console.log("Denied for the notification");
+    }
+  }
+  useEffect(() => {
+    // getFcmToken()
+    requestPermission()
+    
+  }, []);
+
+  useEffect(() => {
+    // Listen for foreground messages
+    const unsubscribe = onMessage(messaging, (payload) => {
+      console.log("Message received in foreground: ", payload);
+      toast(
+      <div>
+        <h4 className="font-bold">{payload.data.title}</h4>
+        <p >{payload.data.body}</p>
+      </div>
+      )
+      // setNotification(payloa.notification.titleion);
+    });
+
+    return () => unsubscribe(); // Clean up the listener on unmount
+  }, []);
 
   return (
     <Router>

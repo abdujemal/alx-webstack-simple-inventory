@@ -24,8 +24,7 @@ export const ChatProvider = ({ children }) => {
 
   useEffect(()=>{
     if(currentUser){
-      joinMyConversation(currentUser._id)
-      
+      joinMyConversation(currentUser._id) 
     }
     
   },[currentUser])
@@ -78,23 +77,26 @@ export const ChatProvider = ({ children }) => {
     
   const getAllUsers = async() => {
     try{
-      const usrs = await getUsers();
+      const usrs = await getUsers();      
       
       if(conversations.length > 0){
         var newUsers = [];
-        for(var conv in conversations){
-          
-          for(var usr in usrs){
-            if(!conversations[conv].participants.find((e)=>e._id.toString() === usrs[usr]._id.toString())){
-              newUsers.push(usrs[usr])
-            }
+        console.log({convLen: conversations.length});
+        
+        
+        for(var usr in usrs){
+          if(conversations.find((conv)=> conv.participants.find((participant)=>participant._id == usrs[usr]._id)) == undefined){
+            console.log(usrs[usr].name);
+            newUsers.push(usrs[usr])            
           }
         }
-        setUsers(newUsers)
+        setUsers(newUsers);
+              
       }else{
         setUsers(usrs);
       }
       
+      console.log({usrLen: users.length});
       
     }catch(e){
       console.log(e);
@@ -108,15 +110,6 @@ export const ChatProvider = ({ children }) => {
     try{
       const conversations = await getConversations();
       setConversations(conversations);
-      var newUsers = [];
-      for(var conv in conversations){
-        for(var usr in users){
-          if(!conversations[conv].participants.find((e)=>e._id.toString() === users[usr]._id.toString())){
-            newUsers.push(users[usr])
-          }
-        }
-      }
-      setUsers(newUsers)
       setLoading(false);
 
     }catch(e){

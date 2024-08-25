@@ -7,6 +7,7 @@ import User from '../models/user.js';
 import request from 'request'
 import env from 'dotenv'
 import { getUserData } from '../services/authService.js';
+import Conversation from '../../chat/models/conversation.js';
 
 env.config();
 
@@ -72,6 +73,22 @@ export const update = async (req, res) => {
             runValidators: true // Validate the update against the schema
           }
         );
+
+        const myConvs = await Conversation.find({
+          participants: { $elemMatch: { _id: id } }
+        })
+
+        for(var i in myConvs){
+          var conv = myConvs[i]
+          var participantId = 0;
+          if(conv.participants[0]._id == id){
+            participantId = 0;
+          }else{
+            participantId = 1;
+          }
+          conv.participants[participantId].username = name;
+          await Conversation.findByIdAndUpdate(conv._id, conv, { new: true })
+        }
         
         // Generate a JWT token
         const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
@@ -98,6 +115,22 @@ export const update = async (req, res) => {
           }
         );
         
+        const myConvs = await Conversation.find({
+          participants: { $elemMatch: { _id: id } }
+        })
+
+        for(var i in myConvs){
+          var conv = myConvs[i]
+          var participantId = 0;
+          if(conv.participants[0]._id == id){
+            participantId = 0;
+          }else{
+            participantId = 1;
+          }
+          conv.participants[participantId].username = name;
+          conv.participants[participantId].profileImage = imageUrl;
+          await Conversation.findByIdAndUpdate(conv._id, conv, { new: true })
+        }
 
         // Generate a JWT token
         const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
