@@ -132,6 +132,7 @@ const ActivityPage = () => {
   const handleCustomerSelection = (customer) => {
     setCustomerName(customer.name);
     setCustomerPhone(customer.phone);
+    setGender(customer.gender);
     handleSelectCustomer(customer);
   };
 
