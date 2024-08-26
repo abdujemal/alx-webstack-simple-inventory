@@ -5,7 +5,7 @@ import { postRequest } from '../../../shared/utils/apiHelpers';
 import { ACTIVITY_URL } from '../../../shared/utils/constants';
 
 
-const API_URL = 'http://localhost:3000/api/v1';
+const API_URL = 'https://alx-webstack-simple-inventory.onrender.com/api/v1';
 
 export const getProducts = async () => {
     try {

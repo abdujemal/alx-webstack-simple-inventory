@@ -1,5 +1,5 @@
 // main url
-export const BASE_URL = 'http://localhost:3000/api/v1'
+export const BASE_URL = 'https://alx-webstack-simple-inventory.onrender.com/api/v1'
 
 // sub urls
 export const AUTH_URL = `${BASE_URL}/auth`;

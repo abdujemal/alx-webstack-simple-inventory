@@ -2,7 +2,7 @@ import { getRequest, deleteRequest } from '../../../shared/utils/apiHelpers'; //
 import { ACTIVITY_URL, CUSTOMER_URL } from '../../../shared/utils/constants'; // Adjust path as necessary
 
 
-const API_URL = 'http://localhost:3000/api/v1';
+const API_URL = 'https://alx-webstack-simple-inventory.onrender.com/api/v1';
 export const fetchCustomers = async (page, limit) => {
     try {
         const response = await getRequest(CUSTOMER_URL, { page, limit });
