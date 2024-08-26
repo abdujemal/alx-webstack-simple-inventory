@@ -2,7 +2,6 @@ import { createContext, useState, useContext, useEffect } from 'react';
 import { getActivities, getProducts, updateProduct } from '../services/ActivityService';
 import { CustomerContext } from '../../customers/context/CustomerContext';
 import { createCustomer } from '../services/ActivityService';
-import activity from '../../../../../backend/features/activity/models/activity';
 import toast from 'react-hot-toast';
 
 const ActivityContext = createContext();
