@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-export const socket = io('http://localhost:3000');
+export const socket = io('https://alx-webstack-simple-inventory.onrender.com');
 
 export const joinMyConversation = (userId) => {
     socket.emit('join my conversations', userId);

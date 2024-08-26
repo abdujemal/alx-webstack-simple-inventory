@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getToken } from '../../auth/services/localStorageService';
 
 // Base URL for API
-const API_URL = 'http://localhost:3000/api/v1';
+const API_URL = 'https://alx-webstack-simple-inventory.onrender.com/api/v1';
 export const getProducts = async (page, limit) => {
   try {
     const response = await getRequest(`${API_URL}/products`, { page, limit });
