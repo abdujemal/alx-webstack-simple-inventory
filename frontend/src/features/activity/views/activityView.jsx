@@ -25,7 +25,7 @@ const ActivityView = () => {
       <div>
         <h1 className='text-4xl ' >Welcome, {currentUser?.name}</h1>
         <h1 className='text-xl text-gray-500 mt-4' >{formatDated()}</h1>
-      </div>
+      </div>float
       <div className='flex gap-4 relative'>
         <div className='flex-1  shadow-xl px-2 pt-6 rounded-3xl bg-white border border-gray-300'>
           <LineChart activities={activityChart}/>
@@ -46,7 +46,7 @@ const ActivityView = () => {
           <thead className="bg-gray-100">
             <tr>
               {
-                titles.map((key)=><th className="px-4 py-2 text-center" key={key}>{key}</th>)
+                titles.map((key)=><th className="px-4 py-5 text-center" key={key}>{key}</th>)
               }
             </tr>
           </thead>
@@ -55,7 +55,7 @@ const ActivityView = () => {
             activites.map((activity)=>
               <tr key={activity._id}>
                 {keys.map((key)=>
-                  <td className="px-4 py-2 text-center text-ellipsis" >
+                  <td className="px-4 py-5 text-center text-ellipsis" >
                     {`${key == "pPrice" ? "ETB " : ""}${activity[key]}`}
                   </td>
                 )}

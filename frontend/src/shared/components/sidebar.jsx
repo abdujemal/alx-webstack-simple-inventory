@@ -52,8 +52,8 @@ const SideBarLayout = () => {
                     </menu>
                 </div>
             </aside>
-            <main className={`flex-1 overflow-y-auto ${isSidebarOpen ? 'ml-[250px]' : 'ml-0'} transition-all`}>
-                <button className={`md:hidden absolute top-2 ${isSidebarOpen ? ' left-52' : 'left-4'} text-black`} onClick={toggleSidebar}>
+            <main className={`flex-1 overflow-y-auto ${isSidebarOpen ? 'ml-[250px] md:ml-0' : 'ml-0'} transition-all`}>
+                <button style={{ zIndex: 1000 }} className={`md:hidden absolute top-2 ${isSidebarOpen ? ' left-52' : 'left-4'} text-black`} onClick={toggleSidebar}>
                     {isSidebarOpen ? <IoArrowBackCircleOutline className='text-white size-8 ' /> : <GiHamburgerMenu className='size-6' />}
                 </button>
                 <Outlet />
