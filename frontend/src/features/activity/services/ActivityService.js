@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getRequest, deleteRequest, putRequest } from '../../../shared/utils/apiHelpers';
 import { getToken } from '../../auth/services/localStorageService';
 import { postRequest } from '../../../shared/utils/apiHelpers';
+import { ACTIVITY_URL } from '../../../shared/utils/constants';
 
 
 const API_URL = 'http://localhost:3000/api/v1';
@@ -12,6 +13,15 @@ export const getProducts = async () => {
         return response.data;
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Error fetching products');
+    }
+};
+
+export const getActivities = async (page, limit) => {
+    try {
+        const response = await getRequest(`${ACTIVITY_URL}/`, {page,limit});
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Error fetching activity');
     }
 };
 

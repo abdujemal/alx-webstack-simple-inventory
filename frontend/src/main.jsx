@@ -54,7 +54,7 @@ createRoot(document.getElementById('root')).render(
               <CustomerProvider>
                 <ActivityProvider>
                   <App />
-                <ActivityProvider>
+                </ActivityProvider>
               </CustomerProvider>
             </ProductProvider>
           </ChatProvider>
