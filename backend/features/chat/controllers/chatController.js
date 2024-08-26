@@ -1,4 +1,5 @@
 import User from '../../auth/models/user.js';
+import NotificationService from '../../Notification/service/notificationService.js';
 import Conversation from '../models/conversation.js';
 import Message from  '../models/message.js';
 
@@ -77,7 +78,18 @@ export const sendMessage = async (req, res) => {
       sender: userId,
     });
 
+    var participantId = 0;
+    if(conversation.participants[0]._id != req.user.id){
+      participantId = 0;
+    }else{
+      participantId = 1;
+    }    
+    console.log(conversation.participants[participantId]._id.toString())
+    NotificationService.createNotification(conversation.participants[participantId]._id.toString(), "Unread Message", `${req.user.username}: ${text}`, false);
+
     await message.save();
+
+
 
     res.status(201).json({ message, conversation });
   } catch (error) {

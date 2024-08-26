@@ -1,9 +1,11 @@
+import NotificationService from '../../Notification/service/notificationService.js';
 import Activity from '../models/activity.js';
 
 export const createActivity = async (req, res) => {
   try {
     const activity = new Activity(req.body);
     await activity.save();
+    NotificationService.sendToAll("New Sale happened", `${activity.customerName} has bought ${activity.pName}`)
     res.status(201).json(activity);
   } catch (err) {
     res.status(400).json({ message: err.message });
