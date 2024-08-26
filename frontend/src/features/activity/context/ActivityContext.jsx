@@ -1,7 +1,9 @@
-import { createContext, useState, useContext } from 'react';
-import { getProducts, updateProduct } from '../services/ActivityService';
+import { createContext, useState, useContext, useEffect } from 'react';
+import { getActivities, getProducts, updateProduct } from '../services/ActivityService';
 import { CustomerContext } from '../../customers/context/CustomerContext';
 import { createCustomer } from '../services/ActivityService';
+import activity from '../../../../../backend/features/activity/models/activity';
+import toast from 'react-hot-toast';
 
 const ActivityContext = createContext();
 
@@ -17,9 +19,46 @@ export const ActivityProvider = ({ children }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [noResults, setNoResults] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [activites, setActivites] = useState([])
+  const [activityChart, setActivityChart] = useState([])
+  const [activityPage, setActivityPage] = useState(2)
+  const [loading, setLoading] = useState(false)
 
 
   const { searchCustomers, getAllCustomers } = useContext(CustomerContext);
+
+  useEffect(()=>{
+    fetchActivities()
+    fetchActivities(1)
+  },[])
+
+  const loadMoreActivities = ()=>{
+    setActivityPage((e)=>e+1)
+    fetchActivities(activityPage)
+    console.log({activityPage})
+    console.log({activites})
+  }
+
+  const fetchActivities = async (page, limit) => {
+    setLoading(true)
+    try {
+      const data = await getActivities(page, limit);
+      if(page && page == 1){
+        setActivites(data);
+        
+      }else if(page > 1){
+        setActivites(e=>[...e,...data]);
+        
+      }else{
+        setActivityChart(data);
+      }
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      toast.error(error)
+      console.error('Error fetching activity:', error);
+    }
+  };
 
   const fetchProduct = async (id) => {
     try {
@@ -105,7 +144,12 @@ export const ActivityProvider = ({ children }) => {
       handleUpdate,
       handleSelectCustomer,
       handleCreateCustomer,
+      fetchActivities,
       isSelected,
+      activites,
+      activityChart,
+      loading,
+      loadMoreActivities,
     }}>
       {children}
     </ActivityContext.Provider>
@@ -113,3 +157,5 @@ export const ActivityProvider = ({ children }) => {
 };
 
 export default ActivityContext;
+
+export const useActivity = () => useContext(ActivityContext);

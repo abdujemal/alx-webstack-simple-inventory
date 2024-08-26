@@ -1,9 +1,11 @@
+import NotificationService from '../../Notification/service/notificationService.js';
 import Activity from '../models/activity.js';
 
 export const createActivity = async (req, res) => {
   try {
     const activity = new Activity(req.body);
     await activity.save();
+    NotificationService.sendToAll("New Sale happened", `${activity.customerName} has bought ${activity.pName}`)
     res.status(201).json(activity);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -12,14 +14,22 @@ export const createActivity = async (req, res) => {
 
 export const getActivities = async (req, res) => {
   try {
-    const { page = 1, limit = 10 } = req.query;
+    const { page , limit = 10 } = req.query;
 
-    const skip = (page - 1) * limit;
-
-    const activities = await Activity.find()
-      .sort({ updatedAt: -1 })
-      .skip(skip)
-      .limit(limit);
+    let activities;
+    if(!page){
+      activities = await Activity
+        .find({}, { pPrice: 1, date: 1, _id: 0 })
+        .sort({ date: 1 });
+       
+    }else{
+      const skip = (page - 1) * limit;
+  
+      activities = await Activity.find()
+        .sort({ updatedAt: -1 })
+        .skip(skip)
+        .limit(limit);
+    }
 
     res.json(activities);
   } catch (err) {

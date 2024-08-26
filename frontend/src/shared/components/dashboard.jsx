@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import ChatSection from '../../features/chat/views/chatSection.jsx';
+
+import ActivityView from '../../features/activity/views/activityView.jsx';
+
+
 import { BsChatFill } from "react-icons/bs";
 import { IoIosCloseCircle } from "react-icons/io";
 import AddConversation from '../../features/chat/views/addConversation.jsx';
@@ -16,6 +20,12 @@ const Dashboard = () => {
   const toggleChat = () => setIsChatOpen(!isChatOpen);
 
   return (
+
+   
+    <section className='flex'>
+       <ActivityView/>
+       <ChatSection/>
+
     <section className='relative flex flex-col md:flex-row'>
       <div style={{ zIndex: 300 }}>
         <AddConversation isOpen={showAddConv} onClose={() => setShowAddConv(false)} />

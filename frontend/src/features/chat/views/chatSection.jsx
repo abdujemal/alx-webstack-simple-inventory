@@ -6,7 +6,6 @@ import TextArea from './textArea.jsx';
 import AddConversation from './addConversation.jsx';
 import { useChat } from '../controllers/chatProvider.jsx';
 import EditUser from '../../auth/views/editUser.jsx';
-import { MdOutlineModeEdit } from "react-icons/md";
 import NotificationDropdown from '../../notifications/views/notificationDropdown.jsx';
 import { useNotification } from '../../notifications/controllers/notificationProvider.jsx';
 import NotificationDialog from '../../notifications/views/notificationDialog.jsx';
@@ -19,6 +18,7 @@ const ChatSection = () => {
   const {setOpen, open} = useNotification()
  
   return (
+
     <div className="flex flex-col ml-5 w-[450px] max-md:ml-0 max-md:w-full">
           <div className="flex flex-col px-5 pt-7 pb-px h-screen mx-auto w-full bg-primary max-md:mt-0">
             <div className="flex gap-5 justify-between self-center w-full text-xl">
