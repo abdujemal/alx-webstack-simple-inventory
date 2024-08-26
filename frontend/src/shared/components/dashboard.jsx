@@ -21,25 +21,24 @@ const Dashboard = () => {
 
   return (
 
-   
-    <section className='flex'>
-       <ActivityView/>
-       <ChatSection/>
-
     <section className='relative flex flex-col md:flex-row'>
       <div style={{ zIndex: 300 }}>
         <AddConversation isOpen={showAddConv} onClose={() => setShowAddConv(false)} />
         <EditUser isOpen={showUpdateUser} onClose={() => setShowUpdateUser(false)} />
         <NotificationDialog isOpen={open} onClose={() => setOpen(false)} />
       </div>
+      {/* <div className='flex'> */}
+        <ActivityView/>
+        {/* <div className='w-0 md:w-[450px]'></div>        
+      </div> */}
       
       {/* Chat Section */}
       <div
-        className={`fixed top-0 right-0 bottom-0 w-full md:w-[450px] transition-transform duration-300 ease-in-out ${isChatOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0`}
+        className={`fixed md:relative top-0 right-0 bottom-0 w-full md:w-fit transition-transform duration-300 ease-in-out ${isChatOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0`}
         style={{ zIndex: 100 }}
       >
         <button
-          className='absolute -top-1 right-0 p-2 text-2xl text-white md:hidden'
+          className='absolute top-1 right-0 p-2 text-2xl text-white md:hidden'
           onClick={toggleChat}
         >
           <IoIosCloseCircle className='size-7' />
