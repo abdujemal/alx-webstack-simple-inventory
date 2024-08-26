@@ -2,8 +2,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { LuHome } from "react-icons/lu";
 import { AiOutlineProduct } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoIosArrowBack } from "react-icons/io";
-
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { BsPersonGear } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 import Logo from './logo';
@@ -55,7 +54,7 @@ const SideBarLayout = () => {
             </aside>
             <main className={`flex-1 overflow-y-auto ${isSidebarOpen ? 'ml-[250px]' : 'ml-0'} transition-all`}>
                 <button className={`md:hidden absolute top-2 ${isSidebarOpen ? ' left-52' : 'left-4'} text-black`} onClick={toggleSidebar}>
-                    {isSidebarOpen ? <IoIosArrowBack className='text-white size-8' /> : <GiHamburgerMenu className='size-6' />}
+                    {isSidebarOpen ? <IoArrowBackCircleOutline className='text-white size-8 ' /> : <GiHamburgerMenu className='size-6' />}
                 </button>
                 <Outlet />
             </main>
