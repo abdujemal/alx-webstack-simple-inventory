@@ -25,7 +25,7 @@ const ActivityView = () => {
       <div>
         <h1 className='text-4xl ' >Welcome, {currentUser?.name}</h1>
         <h1 className='text-xl text-gray-500 mt-4' >{formatDated()}</h1>
-      </div>
+      </div>float
       <div className='flex gap-4 relative'>
         <div className='flex-1  shadow-xl px-2 pt-6 rounded-3xl bg-white border border-gray-300'>
           <LineChart activities={activityChart}/>
