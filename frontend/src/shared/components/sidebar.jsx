@@ -1,14 +1,20 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { LuHome } from "react-icons/lu";
 import { AiOutlineProduct } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { BsPersonGear } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 import Logo from './logo';
 import { useAuth } from '../../features/auth/controllers/AuthProvider';
+import { useState } from 'react';
 
 const SideBarLayout = () => {
-    const { pathname } = useLocation();  
+    const { pathname } = useLocation();
     const { logout } = useAuth();
+    const [isSidebarOpen, setSidebarOpen] = useState(true);
+
+    const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
     const menus = [
         { path: '/', name: "Dashboard", icon: <LuHome size={'1.3em'} /> },
@@ -19,7 +25,7 @@ const SideBarLayout = () => {
 
     return (
         <div className='flex h-screen overflow-hidden'>
-            <aside className="w-[250px] bg-primary overflow-y-auto">
+            <aside className={`w-[250px] bg-primary overflow-y-auto transition-transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed top-0 bottom-0 left-0 md:relative md:translate-x-0`}>
                 <div className="pt-10 pr-8 mx-auto w-full text-lg text-white pb-[636px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                     <Logo />
                     <menu className='mt-20'>
@@ -46,7 +52,10 @@ const SideBarLayout = () => {
                     </menu>
                 </div>
             </aside>
-            <main className="flex-1 overflow-y-auto">
+            <main className={`flex-1 overflow-y-auto ${isSidebarOpen ? 'ml-[250px]' : 'ml-0'} transition-all`}>
+                <button className={`md:hidden absolute top-2 ${isSidebarOpen ? ' left-52' : 'left-4'} text-black`} onClick={toggleSidebar}>
+                    {isSidebarOpen ? <IoArrowBackCircleOutline className='text-white size-8 ' /> : <GiHamburgerMenu className='size-6' />}
+                </button>
                 <Outlet />
             </main>
         </div>

@@ -41,7 +41,7 @@ const EditProductPage = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md border border-primary">
-      <h1 className="text-3xl font-bold mb-6">Edit Product</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Edit Product</h1>
       <form onSubmit={handleUpdate} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>

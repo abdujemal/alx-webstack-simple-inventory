@@ -22,7 +22,7 @@ if ('serviceWorker' in navigator && !navigator.serviceWorker.controller) {
     .register("/firebase-messaging-sw.js")
     .then((registration) => {
       console.log("Service Worker registered with scope:", registration.scope);
-  
+
       // Get FCM token
       getToken(messaging, { vapidKey: "BLpIexuWCOhIqk9hcPlh9_N5ANdyj9Oeinfygzq3DZY2n0H_z6pPNWAXKRykDRYacmKN_F4s0nmAEWJrM2cDJiU", serviceWorkerRegistration: registration })
         .then((currentToken) => {

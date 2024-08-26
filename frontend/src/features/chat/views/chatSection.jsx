@@ -18,8 +18,9 @@ const ChatSection = () => {
   const {setOpen, open} = useNotification()
  
   return (
-    <div className="flex flex-col w-[450px] max-md:ml-0 max-md:w-full">
-          <div className="flex flex-col px-5 pt-7 pb-px h-screen mx-auto w-full bg-primary max-md:mt-7">
+
+    <div className="flex flex-col ml-5 w-[450px] max-md:ml-0 max-md:w-full">
+          <div className="flex flex-col px-5 pt-7 pb-px h-screen mx-auto w-full bg-primary max-md:mt-0">
             <div className="flex gap-5 justify-between self-center w-full text-xl">
               { currentUser !== null ?
               <div className="flex gap-3.5">
@@ -42,9 +43,7 @@ const ChatSection = () => {
             <Conversations/>  
             <Messages/> 
             <TextArea/>
-            <AddConversation isOpen={showAddConv} onClose={()=>setShowAddConv(false)}/>
-            <EditUser isOpen={showUpdateUser} onClose={()=>setShowUpdateUser(false)}/>
-            <NotificationDialog isOpen={open} onClose={()=>setOpen(false)}/>
+           
           </div>
         </div>
   );
