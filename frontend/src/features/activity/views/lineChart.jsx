@@ -6,123 +6,6 @@ import { BsArrowDown, BsArrowUp } from "react-icons/bs";
 
 const LineChart = ({activities}) => {
     const [timeRange, setTimeRange] = useState('Year');
-
-    // const data = {
-    //     year: [
-    //         {
-    //             id: 'Running Year',
-    //             color: '#56448a',
-    //             data: [
-    //                 { x: 'Jan', y: 500123.456 },
-    //                 { x: 'Feb', y: 800789.012 },
-    //                 { x: 'Mar', y: 70345.678 },
-    //                 { x: 'Apr', y: 90456.789 },
-    //                 { x: 'May', y: 85234.567 },
-    //                 { x: 'Jun', y: 70567.890 },
-    //                 { x: 'Jul', y: 1006789.012 },
-    //                 { x: 'Aug', y: 80345.678 },
-    //                 { x: 'Sep', y: 70456.789 },
-    //                 { x: 'Oct', y: 85123.456 },
-    //                 { x: 'Nov', y: 95234.567 },
-    //                 { x: 'Dec', y: 75456.789 },
-    //             ],
-    //         },
-    //         {
-    //             id: 'Last Year',
-    //             color: '#0a9b21',
-    //             data: [
-    //                 { x: 'Jan', y: 40234.567 },
-    //                 { x: 'Feb', y: 60345.678 },
-    //                 { x: 'Mar', y: 50456.789 },
-    //                 { x: 'Apr', y: 70567.890 },
-    //                 { x: 'May', y: 65678.901 },
-    //                 { x: 'Jun', y: 60789.012 },
-    //                 { x: 'Jul', y: 80890.123 },
-    //                 { x: 'Aug', y: 75234.567 },
-    //                 { x: 'Sep', y: 60345.678 },
-    //                 { x: 'Oct', y: 65456.789 },
-    //                 { x: 'Nov', y: 75567.890 },
-    //                 { x: 'Dec', y: 65678.901 },
-    //             ],
-    //         },
-    //     ],
-    //     sixMonths: [
-    //         {
-    //             id: 'Running Semester',
-    //             color: '#56448a',
-    //             data: [
-    //                 { x: 'Jul', y: 140 },
-    //                 { x: 'Aug', y: 130 },
-    //                 { x: 'Sep', y: 150 },
-    //                 { x: 'Oct', y: 160 },
-    //                 { x: 'Nov', y: 170 },
-    //                 { x: 'Dec', y: 180 },
-    //             ],
-    //         },
-    //         {
-    //             id: 'Last Semester',
-    //             color: '#0a9b21',
-    //             data: [
-    //                 { x: 'Jan', y: 60 },
-    //                 { x: 'Feb', y: 70 },
-    //                 { x: 'Mar', y: 90 },
-    //                 { x: 'Apr', y: 110 },
-    //                 { x: 'May', y: 130 },
-    //                 { x: 'Jun', y: 120 },
-    //             ],
-    //         },
-    //     ],
-    //     oneMonth: [
-    //         {
-    //             id: 'Running Month',
-    //             color: '#56448a',
-    //             data: [
-    //                 { x: 'Week 1', y: 140 },
-    //                 { x: 'Week 2', y: 160 },
-    //                 { x: 'Week 3', y: 150 },
-    //                 { x: 'Week 4', y: 170 },
-    //             ],
-    //         },
-    //         {
-    //             id: 'Last Month',
-    //             color: '#0a9b21',
-    //             data: [
-    //                 { x: 'Week 1', y: 130 },
-    //                 { x: 'Week 2', y: 140 },
-    //                 { x: 'Week 3', y: 120 },
-    //                 { x: 'Week 4', y: 150 },
-    //             ],
-    //         },
-    //     ],
-    //     week: [
-    //         {
-    //             id: 'Running Week',
-    //             color: '#56448a',
-    //             data: [
-    //                 { x: 'Mon', y: 140 },
-    //                 { x: 'Tue', y: 150 },
-    //                 { x: 'Wed', y: 130 },
-    //                 { x: 'Thu', y: 160 },
-    //                 { x: 'Fri', y: 170 },
-    //                 { x: 'Sat', y: 160 },
-    //                 { x: 'Sun', y: 180 },
-    //             ],
-    //         },
-    //         {
-    //             id: 'Last Week',
-    //             color: '#0a9b21',
-    //             data: [
-    //                 { x: 'Mon', y: 130 },
-    //                 { x: 'Tue', y: 120 },
-    //                 { x: 'Wed', y: 140 },
-    //                 { x: 'Thu', y: 150 },
-    //                 { x: 'Fri', y: 130 },
-    //                 { x: 'Sat', y: 140 },
-    //                 { x: 'Sun', y: 150 },
-    //             ],
-    //         },
-    //     ],
-    // };
     const [data, setData] = useState({});
     const [percent, setPercent] = useState(0)
 
@@ -343,7 +226,7 @@ const LineChart = ({activities}) => {
 
     return ( selectedData ?
         <div className='flex flex-col px-4 relative z-40' >
-            <div className='flex flex-col-reverse md:flex-row mb-14'>
+            <div className='flex flex-col-reverse md:flex-row mb-5 md:mb-14'>
                 <div className="flex-1 flex flex-col md:flex-row gap-2">
                     <h1 className='text-2xl'>Overall Sales</h1>
                     {
