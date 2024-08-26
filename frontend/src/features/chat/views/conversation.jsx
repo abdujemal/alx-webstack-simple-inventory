@@ -62,9 +62,9 @@ const Conversations = () => {
                     </div>
                     <div>
                       <h1 className="text-white grow text-lg font-extrabold text-ellipsis">
-                              {e.participants[participantId].username}
+                              {truncateText(e.participants[participantId].username, 10)}
                       </h1>
-                      <p className={`${isTyping ? 'text-green-500' : ''}`}>{isTyping ? "typing..." : truncateText(e.lastMessage.text, 20)}</p> 
+                      <p className={`${isTyping ? 'text-green-500' : ''}`}>{isTyping ? "typing..." : truncateText(e.lastMessage.text, 15)}</p> 
                     </div>
                     <div className='flex-1'/>
                     <div className='flex flex-col gap-1 justify-start items-start'>                        

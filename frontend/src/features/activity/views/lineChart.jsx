@@ -335,13 +335,16 @@ const LineChart = ({activities}) => {
         if(timeRange == "Month"){
             return value % 4 == 0 ? value : ""
         }
+        if(timeRange == "Year"){
+            return value.toString()[0]
+        }
         return value
     }
 
     return ( selectedData ?
         <div className='flex flex-col px-4 relative z-40' >
-            <div className='flex mb-14'>
-                <div className="flex-1 flex gap-2">
+            <div className='flex flex-col-reverse md:flex-row mb-14'>
+                <div className="flex-1 flex flex-col md:flex-row gap-2">
                     <h1 className='text-2xl'>Overall Sales</h1>
                     {
                         percent > 0 ?
@@ -356,7 +359,7 @@ const LineChart = ({activities}) => {
                     }
                     <p className="text-2xl">vs last {timeRange}</p>
                 </div>
-                <div className="flex absolute top-0 right-0 self-end justify-center mb-4">
+                <div className="flex self-end justify-center mb-4">
                     <button
                         className={` py-2 px-4 bg-primary rounded-l-full ${timeRange === 'Year' ? ' text-white underline' : 'text-gray-300'}`}
                         onClick={() => setTimeRange('Year')}
