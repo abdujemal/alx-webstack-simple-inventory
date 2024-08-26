@@ -1,11 +1,11 @@
-import { getRequest,deleteRequest } from '../../../shared/utils/apiHelpers'; // Adjust path as necessary
+import { getRequest, deleteRequest } from '../../../shared/utils/apiHelpers'; // Adjust path as necessary
 import { ACTIVITY_URL, CUSTOMER_URL } from '../../../shared/utils/constants'; // Adjust path as necessary
 
 
 const API_URL = 'http://localhost:3000/api/v1';
-export const fetchCustomers = async () => {
+export const fetchCustomers = async (page, limit) => {
     try {
-        const response = await getRequest(CUSTOMER_URL);
+        const response = await getRequest(CUSTOMER_URL, { page, limit });
         return response.data;
     } catch (error) {
         console.error('Error fetching customer data:', error);
@@ -47,9 +47,9 @@ export const searchCustomers = async (query) => {
 
 export const deleteCustomer = async (id) => {
     try {
-      const response = await deleteRequest(`${API_URL}/customers/${id}`);
-      return response.data;
+        const response = await deleteRequest(`${API_URL}/customers/${id}`);
+        return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Error deleting customer');
+        throw new Error(error.response?.data?.message || 'Error deleting customer');
     }
-  };
+};

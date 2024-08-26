@@ -5,9 +5,10 @@ import { CustomerContext } from '../context/CustomerContext'; // Adjust path as 
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { deleteCustomer } from '../services/customerService';
 import { fetchCustomers } from '../services/customerService';
+import { BsArrowDown } from "react-icons/bs"
 
 const CustomerPage = () => {
-    const { customers, setCustomers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites, filteredCustomers, setFilteredCustomers } = useContext(CustomerContext);
+    const { customers, setCustomers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites, filteredCustomers, setFilteredCustomers, loadMoreCustomers, loading } = useContext(CustomerContext);
     const [searchQuery, setSearchQuery] = useState('');
     const debounceTimeout = useRef(null);
 
@@ -109,6 +110,11 @@ const CustomerPage = () => {
                             </div>
                         </div>
                     ))}
+                    {
+                        loading ?
+                            <p className='self-center bg-white p-1 rounded mt-1'>Loading..</p> :
+                            <p onClick={(e) => loadMoreCustomers()} className='self-center bg-white p-2 rounded my-1 w-fit flex cursor-pointer border border-black border-opacity-15'><BsArrowDown />Load More</p>
+                    }
                 </div>
             </div>
 
@@ -165,6 +171,8 @@ const CustomerPage = () => {
                     )}
                 </div>
             </div>
+
+
         </div>
     );
 };

@@ -10,19 +10,11 @@ export const CustomerProvider = ({ children }) => {
     const [filteredCustomers, setFilteredCustomers] = useState([]);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [preview, setPreview] = useState(false);
-    const [activites, setActivites] = useState(null)
+    const [activites, setActivites] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [page, setPage] = useState(2);
 
     useEffect(() => {
-        const getCustomers = async () => {
-            try {
-                const data = await fetchCustomers();
-                setCustomers(data);
-                setFilteredCustomers(data);
-            } catch (error) {
-                console.error('Error fetching customer data:', error);
-            }
-        };
-
         getCustomers();
     }, []);
 
@@ -33,6 +25,37 @@ export const CustomerProvider = ({ children }) => {
         }
 
     }, [selectedCustomer])
+
+    const loadMoreCustomers = async () => {
+        console.log({customers});
+        setPage((e) => e + 1);
+        await getCustomers(page);
+
+    };
+
+    const getCustomers = async (page, limit) => {
+        setLoading(true);
+        try {
+            const data = await fetchCustomers(page, limit);
+
+            if (page && page > 1) {
+                setCustomers((e) => [...e, ...data]);
+
+                setFilteredCustomers((e) => [...e, ...data])
+            }
+            else {
+                setCustomers(data);
+                setFilteredCustomers(data)
+            }
+
+            ;
+            setLoading(false);
+
+        } catch (error) {
+            setLoading(false);
+            console.error('Error fetching customer data:', error);
+        }
+    };
 
 
 
@@ -57,7 +80,7 @@ export const CustomerProvider = ({ children }) => {
     };
 
     return (
-        <CustomerContext.Provider value={{ customers, setCustomers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites, filteredCustomers, setFilteredCustomers }}>
+        <CustomerContext.Provider value={{ customers, setCustomers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites, filteredCustomers, setFilteredCustomers, loadMoreCustomers, loading }}>
             {children}
         </CustomerContext.Provider>
     );
