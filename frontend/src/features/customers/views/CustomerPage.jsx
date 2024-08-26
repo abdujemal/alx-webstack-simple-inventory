@@ -132,11 +132,11 @@ const CustomerPage = () => {
                                     loading="lazy"
                                     src={selectedCustomer.gender === "Male" ? "../../../../public/icons8-male.svg" : (selectedCustomer.gender === "Female" ? "../../../../public/icons8-female.svg" : "")}
 
-                                    className="object-contain w-40 h-40 mx-auto mb-4 rounded-full border-4 border-white"
+                                    className="object-contain w-40 h-40 mx-auto mb-4 rounded-full border-4 border-white bg-white"
                                 />
-                                <div className="text-xl font-semibold">{selectedCustomer.name}</div>
-                                <div className="text-xl font-semibold">{selectedCustomer.gender}</div>
-                                <div className="text-lg mt-2">{selectedCustomer.phone}</div>
+                                <div className="text-xl font-extrabold">{selectedCustomer.name}</div>
+                                <div className="">{selectedCustomer.gender}</div>
+                                <div className="">{selectedCustomer.phone}</div>
                             </div>
 
                             {/* Products List */}
@@ -151,7 +151,11 @@ const CustomerPage = () => {
                                                 alt="Product"
                                                 className="w-16 h-16 object-cover rounded-md"
                                             />
-                                            <div className="flex-1">{product.pName}</div>
+
+                                            <div className='flex-1'>
+                                                <div className="flex-1">{product.pName}</div>
+                                                <div className="flex-1">{product.pStock} Pieces</div>
+                                            </div>
                                             <div className="text-gray-300">ETB {product.pPrice}</div>
                                         </div>
                                     ))}
