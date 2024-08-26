@@ -4,9 +4,9 @@ import { getToken } from '../../auth/services/localStorageService';
 
 // Base URL for API
 const API_URL = 'http://localhost:3000/api/v1';
-export const getProducts = async () => {
+export const getProducts = async (page, limit) => {
   try {
-    const response = await getRequest(`${API_URL}/products`);
+    const response = await getRequest(`${API_URL}/products`, { page, limit });
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Error fetching products');

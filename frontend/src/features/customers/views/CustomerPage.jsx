@@ -5,9 +5,10 @@ import { CustomerContext } from '../context/CustomerContext'; // Adjust path as 
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { deleteCustomer } from '../services/customerService';
 import { fetchCustomers } from '../services/customerService';
+import { BsArrowDown } from "react-icons/bs"
 
 const CustomerPage = () => {
-    const { customers, setCustomers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites, filteredCustomers, setFilteredCustomers } = useContext(CustomerContext);
+    const { customers, setCustomers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites, filteredCustomers, setFilteredCustomers, loadMoreCustomers, loading } = useContext(CustomerContext);
     const [searchQuery, setSearchQuery] = useState('');
     const debounceTimeout = useRef(null);
 
@@ -64,7 +65,7 @@ const CustomerPage = () => {
 
 
     return (
-        <div className="flex flex-col md:flex-row gap-4 p-16 bg-white w-full h-screen overflow-auto relative">
+        <div className="flex flex-col md:flex-row gap-4 p-16 bg-white w-full h-screen ">
             {/* Main Content */}
             <div className="flex-1">
                 <div className="flex flex-col gap-4">
@@ -80,7 +81,7 @@ const CustomerPage = () => {
                     </div>
 
                     {/* Customer Table Header */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 text-lg font-bold border-b pb-2 mb-4 gap-4">
+                    <div className="hidden md:grid grid-cols-1 md:grid-cols-4 text-lg font-bold border-b pb-2 mb-4 gap-4">
                         <div className="text-center md:text-left">Customer ID</div>
                         <div className="text-center md:text-left">Name</div>
                         <div className="text-center md:text-left">Phone No.</div>
@@ -109,6 +110,11 @@ const CustomerPage = () => {
                             </div>
                         </div>
                     ))}
+                    {
+                        loading ?
+                            <p className='self-center bg-white p-1 rounded mt-1'>Loading..</p> :
+                            <p onClick={(e) => loadMoreCustomers()} className='self-center bg-white p-2 rounded my-1 w-fit flex cursor-pointer border border-black border-opacity-15'><BsArrowDown />Load More</p>
+                    }
                 </div>
             </div>
 
@@ -132,11 +138,11 @@ const CustomerPage = () => {
                                     loading="lazy"
                                     src={selectedCustomer.gender === "Male" ? "../../../../public/icons8-male.svg" : (selectedCustomer.gender === "Female" ? "../../../../public/icons8-female.svg" : "")}
 
-                                    className="object-contain w-40 h-40 mx-auto mb-4 rounded-full border-4 border-white"
+                                    className="object-contain w-40 h-40 mx-auto mb-4 rounded-full border-4 border-white bg-white"
                                 />
-                                <div className="text-xl font-semibold">{selectedCustomer.name}</div>
-                                <div className="text-xl font-semibold">{selectedCustomer.gender}</div>
-                                <div className="text-lg mt-2">{selectedCustomer.phone}</div>
+                                <div className="text-xl font-extrabold">{selectedCustomer.name}</div>
+                                <div className="">{selectedCustomer.gender}</div>
+                                <div className="">{selectedCustomer.phone}</div>
                             </div>
 
                             {/* Products List */}
@@ -151,7 +157,11 @@ const CustomerPage = () => {
                                                 alt="Product"
                                                 className="w-16 h-16 object-cover rounded-md"
                                             />
-                                            <div className="flex-1">{product.pName}</div>
+
+                                            <div className='flex-1'>
+                                                <div className="flex-1">{product.pName}</div>
+                                                <div className="flex-1">{product.pStock} Pieces</div>
+                                            </div>
                                             <div className="text-gray-300">ETB {product.pPrice}</div>
                                         </div>
                                     ))}
@@ -161,6 +171,8 @@ const CustomerPage = () => {
                     )}
                 </div>
             </div>
+
+
         </div>
     );
 };

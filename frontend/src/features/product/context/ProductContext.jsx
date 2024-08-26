@@ -9,26 +9,44 @@ export const ProductProvider = ({ children }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [load, setLoad] = useState(false);
+  const [page, setPage] = useState(2);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        const data = await getProducts();
-        setProducts(data);
-        setFilteredProducts(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchProducts();
   }, []);
 
+
+  const loadMoreProducts = async () => {
+    console.log({ products, 'page': page });
+    setPage((e) => e + 1);
+    await fetchProducts(page);
+
+  };
+
+  const fetchProducts = async (page) => {
+    try {
+      setLoading(true);
+      const data = await getProducts(page);
+      if (page && page > 1) {
+        setProducts((e) => [...e, ...data]);
+        setFilteredProducts((e) => [...e, ...data]);
+      }
+      else {
+        setProducts(data);
+        setFilteredProducts(data);
+      }
+
+    } catch (err) {
+      setLoad(false);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <ProductContext.Provider value={{ products, setProducts, filteredProducts, setFilteredProducts, loading, error }}>
+    <ProductContext.Provider value={{ products, setProducts, filteredProducts, setFilteredProducts, loading, error, loadMoreProducts, load }}>
       {children}
     </ProductContext.Provider>
   );

@@ -14,6 +14,7 @@ const ActivityPage = () => {
   const [isStockTouched, setIsStockTouched] = useState(false);
   const [customerName, setCustomerName] = useState('');
   const [gender, setGender] = useState('');
+  const [stock, setStock] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [canSubmit, setCanSubmit] = useState(true);
   const [alert, setAlert] = useState(null);
@@ -68,6 +69,7 @@ const ActivityPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log('value: ', value);
     if (name === 'stock') {
       const inputValue = parseInt(value, 10) || 0;
       const newStock = initialStock - inputValue;
@@ -82,6 +84,7 @@ const ActivityPage = () => {
         setUpdatedProduct(prevProduct => ({ ...prevProduct, [name]: newStock }));
         setTotalPrice(inputValue * (product?.price || 0));
         setCanSubmit(true);
+        setStock(inputValue);
       }
 
       setIsStockTouched(true);
@@ -112,7 +115,7 @@ const ActivityPage = () => {
         pImage: product?.image,
         pLocation: product?.location,
         pPrice: product?.price,
-        pStock: updatedProduct.stock
+        pStock: stock
       };
 
       console.log('Sending activity data:', activityData);
@@ -129,6 +132,7 @@ const ActivityPage = () => {
   const handleCustomerSelection = (customer) => {
     setCustomerName(customer.name);
     setCustomerPhone(customer.phone);
+    setGender(customer.gender);
     handleSelectCustomer(customer);
   };
 
