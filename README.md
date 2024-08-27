@@ -7,7 +7,7 @@ A comprehensive inventory management application featuring activity tracking, au
 - **Activity Tracking**: Monitor and record activities within the app.
 - **Authentication**: Secure user authentication system.
 - **Chat**: Real-time chat functionality.
-- **Customer Management**: Manage customer details and interactions.
+- **Customer Management**: Manage customer details
 - **Notifications**: Receive and manage notifications within the app.
 - **Product Management**: Manage product details and inventory.
 
