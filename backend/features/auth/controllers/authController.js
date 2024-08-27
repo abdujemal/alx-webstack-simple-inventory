@@ -32,7 +32,7 @@ export const register = async (req, res) => {
           return res.status(404).json({ message: 'Image is required' });
         }
 
-        const imageUrl = await uploadImageToFirebase(req.file);
+        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`//await uploadImageToFirebase(req.file);
 
         // Hash the password using Argon2
         const hashedPassword = await argon2.hash(password);
@@ -96,7 +96,7 @@ export const update = async (req, res) => {
 
         res.status(201).json({ token, user });
       }else{
-        const imageUrl = await uploadImageToFirebase(req.file); 
+        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`//await uploadImageToFirebase(req.file); 
         
         let hashedPassword = null;
         if(password){
