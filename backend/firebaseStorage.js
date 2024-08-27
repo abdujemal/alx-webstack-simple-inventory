@@ -8,23 +8,28 @@ const __fileName = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__fileName);
 
 export const uploadImageToFirebase = async (file) => {
-    const storageRef = admin.storage().bucket();
+    try{
 
-    const filename = `${Date.now()}_${path.basename(file.originalname)}`;
-
-    const p =  path.join(__dirname, 'uploads', file.filename)
-
-    // Upload the File
-    const storage = await storageRef.upload(p, {
-        public: true,
-        destination: `uploads/${filename}`,
-        metadata: {
-            firebaseStorageDownloadTokens: randomUUID(),
-        }
-    });
-
-
-    return storage[0].metadata.mediaLink;
+        const storageRef = admin.storage().bucket();
+    
+        const filename = `${Date.now()}_${path.basename(file.originalname)}`;
+    
+        const p =  path.join(__dirname, 'uploads', file.filename)
+    
+        // Upload the File
+        const storage = await storageRef.upload(p, {
+            public: true,
+            destination: `uploads/${filename}`,
+            // metadata: {
+            //     firebaseStorageDownloadTokens: randomUUID(),
+            // }
+        });
+    
+        return storage[0].metadata.mediaLink;
+    }catch(e){
+        console.log(e);
+        throw Error(e)
+    }
 }
 
 
