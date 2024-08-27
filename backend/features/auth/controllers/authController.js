@@ -11,7 +11,7 @@ import Conversation from '../../chat/models/conversation.js';
 
 env.config();
 
-const redirect_uri = "http://127.0.0.1:3000/api/v1/auth/google/callback";
+const redirect_uri = "https://alx-webstack-simple-inventory.onrender.com/api/v1/auth/google/callback";
 const client = new OAuth2Client(
     process.env.GOOGLE_CLIENT_ID,
     process.env.CLIENT_SECRET,
@@ -264,7 +264,7 @@ export const googleCallback = async (req, res) => {
       
         const token = jwt.sign({ id: user.id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
         // res.json({ token, user });{
-        res.redirect(`http://localhost:5173?token=${token}`);
+        res.redirect(`https://alx-webstack-simple-inventory-frontend.onrender.com?token=${token}`);
     }catch(e){
         res.status(500).json({err: e});
     }
