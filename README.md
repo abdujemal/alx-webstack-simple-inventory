@@ -37,9 +37,9 @@ https://github.com/abdujemal/alx-webstack-simple-inventory.git
 
 ### 4. Start the Application
 
-## Start the Backend Server
+#### Start the Backend Server
 
-### Open a terminal, navigate to the backend directory, and run:
+##### Open a terminal, navigate to the backend directory, and run:
 
 npm run dev
 
