@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getNotification, makeNotificationRead } from "../services/notificationService";
 import { toast } from 'react-hot-toast'
+import { useAuth } from '../../auth/controllers/AuthProvider.jsx'
 
 
 const NotificationContext = createContext();
@@ -10,12 +11,15 @@ const NotificationProvider = ({ children }) => {
     const [notifications, setNotifications] = useState([])
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = useState(false)
+    const { currentUser } = useAuth()
 
 
 
     useEffect(()=>{
+      if(currentUser != null){
         getNotifications(null,5)
-    },[])
+      }
+    },[currentUser])
 
     const getNotifications = async (page, limit = 10) => {
         setLoading(true)
