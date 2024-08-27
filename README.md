@@ -60,9 +60,9 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 ### Contact
 
 For any questions or issues, please contact:
-<li>
-<ul>abdu1994jemal@gmail.com</ul>
-<ul>mameatpickout@gmail.com</ul>
-</li>
+
+<li>abdu1994jemal@gmail.com</li>
+<li>mameatpickout@gmail.com</li>
+
 
 
