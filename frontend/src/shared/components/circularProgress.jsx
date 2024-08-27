@@ -5,6 +5,7 @@ const CircularProgressIndicator = ({ progress, radius = 50, stroke = 8 }) => {
   const normalizedRadius = radius - stroke * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
+  
 
   return (
     <svg
