@@ -13,7 +13,7 @@ A comprehensive inventory management application featuring activity tracking, au
 
 ## Click the button below to launch the website:
 
-[![Launch Website](https://img.shields.io/badge/Launch%20Website-Click%20Here-green?style=for-the-badge)](https://alx-webstack-simple-inventory-frontend.onrender.com)
+[![Launch Website](https://img.shields.io/badge/Launch%20Website-Click%20Here-purple?style=for-the-badge)](https://alx-webstack-simple-inventory-frontend.onrender.com)
 
 ## Installation
 
