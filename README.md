@@ -25,12 +25,12 @@ https://github.com/abdujemal/alx-webstack-simple-inventory.git
 
 ### 3. Install Dependencies
 
-## Frontend
+#### Frontend
 
 <code>cd frontend</code><br>
 <code>npm install</code>
 
-## Backend
+#### Backend
 
 <code>cd backend</code><br>
 <code>npm install</code>
@@ -39,15 +39,15 @@ https://github.com/abdujemal/alx-webstack-simple-inventory.git
 
 #### Start the Backend Server
 
-##### Open a terminal, navigate to the backend directory, and run:
+Open a terminal, navigate to the backend directory, and run:
 
-npm run dev
+<code>npm run dev</code>
 
-## Start the Frontend Client
+#### Start the Frontend Client
 
-# Open another terminal, navigate to the frontend directory, and run:
+ Open another terminal, navigate to the frontend directory, and run:
 
-npm run dev
+<code>npm run dev</code>
 
 ### 5. Access the App
 
