@@ -1,36 +1,38 @@
 // services/firebaseService.js
 import admin from 'firebase-admin';
-import path from 'path'
+import path from 'path';
 import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const __fileName = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__fileName);
 
 export const uploadImageToFirebase = async (file) => {
-    try{
+  try {
+    const storageRef = admin.storage().bucket();
+    const filename = `${Date.now()}_${path.basename(file.originalname)}`;
+    const filePath = path.join(__dirname, 'uploads', file.filename);
 
-        const storageRef = admin.storage().bucket();
-    
-        const filename = `${Date.now()}_${path.basename(file.originalname)}`;
-    
-        const p =  path.join(__dirname, 'uploads', file.filename)
-    
-        // Upload the File
-        const storage = await storageRef.upload(p, {
-            public: true,
-            destination: `uploads/${filename}`,
-            // metadata: {
-            //     firebaseStorageDownloadTokens: randomUUID(),
-            // }
-        });
-    
-        return storage[0].metadata.mediaLink;
-    }catch(e){
-        console.log(e);
-        throw Error(e)
+    // Ensure the file exists before uploading
+    if (!fs.existsSync(filePath)) {
+      throw new Error(`File does not exist: ${filePath}`);
     }
-}
+
+    // Upload the file
+    const [uploadedFile] = await storageRef.upload(filePath, {
+      public: true,
+      destination: `uploads/${filename}`,
+    });
+
+    // Return the public URL
+    return uploadedFile.metadata.mediaLink;
+  } catch (e) {
+    console.error('Error uploading image to Firebase:', e.message);
+    throw new Error(e.message);
+  }
+};
+
 
 
 
