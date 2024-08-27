@@ -137,9 +137,9 @@ const ProductPage = () => {
                 </div>
               </div>
 
-              <div className="shrink-0 mt-10 border-t border-gray-300" />
+              <div className="mx-2 md:mx-5 shrink-0 mt-10 border-t border-gray-300" />
 
-              <div className="overflow-x-auto max-h-[calc(100vh-20rem)] scrollbar"> {/* Adjust height as needed */}
+              <div className="mx-2 md:mx-5 overflow-x-auto max-h-[calc(100vh-20rem)] scrollbar"> {/* Adjust height as needed */}
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead className="bg-gray-100">
                     <tr>

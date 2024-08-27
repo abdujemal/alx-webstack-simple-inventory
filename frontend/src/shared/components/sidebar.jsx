@@ -25,7 +25,7 @@ const SideBarLayout = () => {
 
     return (
         <div className='flex h-screen overflow-hidden'>
-            <aside className={`w-[250px] bg-primary overflow-y-auto transition-transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed top-0 bottom-0 left-0 md:relative md:translate-x-0`}>
+            <aside className={`w-[250px] bg-primary overflow-y-hidden transition-transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed top-0 bottom-0 left-0 md:relative md:translate-x-0`}>
                 <div className="pt-10 pr-8 mx-auto w-full text-lg text-white pb-[636px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                     <Logo />
                     <menu className='mt-20'>

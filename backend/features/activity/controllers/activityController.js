@@ -26,7 +26,7 @@ export const getActivities = async (req, res) => {
       const skip = (page - 1) * limit;
   
       activities = await Activity.find()
-        .sort({ updatedAt: -1 })
+        .sort({ date: -1 })
         .skip(skip)
         .limit(limit);
     }
