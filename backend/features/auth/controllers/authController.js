@@ -8,7 +8,6 @@ import request from 'request'
 import env from 'dotenv'
 import { getUserData } from '../services/authService.js';
 import Conversation from '../../chat/models/conversation.js';
-import { uploadImageToFirebase } from '../../../firebaseStorage.js';
 
 env.config();
 
@@ -32,7 +31,7 @@ export const register = async (req, res) => {
           return res.status(404).json({ message: 'Image is required' });
         }
 
-        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`//await uploadImageToFirebase(req.file);
+        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}` //await uploadImageToFirebase(req.file);
 
         // Hash the password using Argon2
         const hashedPassword = await argon2.hash(password);

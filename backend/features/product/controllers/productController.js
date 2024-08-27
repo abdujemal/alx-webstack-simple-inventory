@@ -1,4 +1,3 @@
-import { uploadImageToFirebase } from '../../../firebaseStorage.js';
 import productService from '../services/productService.js';
 
 const createProduct = async (req, res) => {
