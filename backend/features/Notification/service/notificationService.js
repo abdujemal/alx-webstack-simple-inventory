@@ -45,7 +45,11 @@ class NotificationService {
       const users = await User.find({}, {_id: 1});
 
       for(var i in users){
-        await this.createNotification(users[i]._id, title, message)
+        try{
+          await this.createNotification(users[i]._id.toString(), title, message)
+        }catch(e){
+          console.log(e);
+        }
       }
 
     }catch(e){

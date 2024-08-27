@@ -1,11 +1,11 @@
 import NotificationService from '../../Notification/service/notificationService.js';
 import Product from '../models/productModel.js';
 
-const createProduct = async (productData, imageUrl) => {
+const createProduct = async (productData, imageUrl, username) => {
     try {
         const product = new Product(productData);
         product.image = imageUrl;
-        NotificationService.sendToAll("New Product has been added", `${product.productName} is added by ${req.user.username}`)
+        NotificationService.sendToAll("New Product has been added", `${product.productName} is added by ${username}`)
         return await product.save();
     } catch (error) {
         throw new Error('Error creating product: ' + error.message);

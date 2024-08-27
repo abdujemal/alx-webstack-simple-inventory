@@ -85,10 +85,13 @@ export const sendMessage = async (req, res) => {
       participantId = 1;
     }    
     console.log(conversation.participants[participantId]._id.toString())
-    NotificationService.createNotification(conversation.participants[participantId]._id.toString(), "Unread Message", `${req.user.username}: ${text}`, false);
-
+    
     await message.save();
-
+    try{
+      await NotificationService.createNotification(conversation.participants[participantId]._id.toString(), "Unread Message", `${req.user.username}: ${text}`, false);
+    }catch(e){
+      console.log("notification error: e");
+    }
 
 
     res.status(201).json({ message, conversation });
