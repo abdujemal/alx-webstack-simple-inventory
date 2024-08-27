@@ -49,6 +49,7 @@ app.post("/api/v1/unsubTopic", NotificationController.unsubToTopic);
 
 
 app.use((err, req, res, next) => {
+  console.log(err)
   res.status(500).json({ message: "Server Error Occured" })
 })
 
