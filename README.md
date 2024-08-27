@@ -11,6 +11,10 @@ A comprehensive inventory management application featuring activity tracking, au
 - **Notifications**: Receive and manage notifications within the app.
 - **Product Management**: Manage product details and inventory.
 
+# Click the button below to launch the website:
+
+[![Launch Website](https://img.shields.io/badge/Launch%20Website-Click%20Here-green?style=for-the-badge)](https://myawesomeproject.com)
+
 ## Installation
 
 To run this application locally, follow these steps:
