@@ -61,7 +61,7 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 
 For any questions or issues, please contact:
 
-<li style={color:yellow}>abdu1994jemal@gmail.com</li>
+<li style="color:yellow">abdu1994jemal@gmail.com</li>
 <li>mameatpickout@gmail.com</li>
 
 
