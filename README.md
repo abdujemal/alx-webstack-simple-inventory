@@ -27,19 +27,19 @@ cd your-repo-name
 
 ## Frontend
 
-<code>cd frontend</code>
+<code>cd frontend</code><br>
 <code>npm install</code>
 
 ## Backend
 
-cd backend
-npm install
+<code>cd backend</code><br>
+<code>npm install</code>
 
 ### 4. Start the Application
 
 ## Start the Backend Server
 
-# Open a terminal, navigate to the backend directory, and run:
+### Open a terminal, navigate to the backend directory, and run:
 
 npm run dev
 
@@ -61,7 +61,7 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 
 For any questions or issues, please contact:
 
-<li style="color:yellow">abdu1994jemal@gmail.com</li>
+<li>abdu1994jemal@gmail.com</li>
 <li>mameatpickout@gmail.com</li>
 
 
