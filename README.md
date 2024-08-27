@@ -27,8 +27,8 @@ cd your-repo-name
 
 ## Frontend
 
-cd frontend
-npm install
+<code>cd frontend</code>
+<code>npm install</code>
 
 ## Backend
 
