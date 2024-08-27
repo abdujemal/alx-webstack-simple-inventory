@@ -23,7 +23,7 @@ const ActivityView = () => {
   return (
     <section className='flex-1 pt-4 flex gap-9 px-4 flex-col h-screen overflow-auto'>
       <div>
-        <h1 className='text-4xl ' >Welcome, {currentUser?.name}</h1>
+        <h1 className='text-4xl text-center md:text-start' >Welcome, {currentUser?.name}</h1>
         <h1 className='text-xl text-gray-500 mt-4' >{formatDated()}</h1>
       </div>
       <div className='flex gap-4 relative'>
