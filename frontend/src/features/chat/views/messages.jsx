@@ -64,7 +64,7 @@ const Messages = () => {
     
     
     return (
-        <div ref={containerRef} className={`${selectedConv ? "flex" : "hidden"} relative flex-col w-full overflow-auto h-[70%] bg-[url('chat_bg.jpeg')] bg-opacity-30 bg-center px-5 bg-white mb-5 mt-3 rounded-xl border border-solid border-white border-opacity-20 shadow-lg`}>
+        <div ref={containerRef} className={`${selectedConv ? "flex" : "hidden"} relative flex-col w-full overflow-auto h-[70%] bg-[url('/chat_bg.jpg')] bg-opacity-30 bg-center px-5 bg-white mb-5 mt-3 rounded-xl border border-solid border-white border-opacity-20 shadow-lg`}>
             {
                 loading ?
                 <p className='self-center bg-white p-1 rounded mt-1'>Loading..</p>:
