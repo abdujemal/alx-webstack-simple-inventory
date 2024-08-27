@@ -4,7 +4,7 @@ A comprehensive inventory management application featuring activity tracking, au
 
 ## Features
 
-- **Activity Tracking**: Monitor and record various activities within the app.
+- **Activity Tracking**: Monitor and record activities within the app.
 - **Authentication**: Secure user authentication system.
 - **Chat**: Real-time chat functionality.
 - **Customer Management**: Manage customer details and interactions.
@@ -21,7 +21,7 @@ https://github.com/abdujemal/alx-webstack-simple-inventory.git
 
 ### 2. Navigate to the Project Directory
 
-cd your-repo-name
+<code>cd alx-webstack-simple-inventory</code>
 
 ### 3. Install Dependencies
 
