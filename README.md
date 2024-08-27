@@ -11,9 +11,9 @@ A comprehensive inventory management application featuring activity tracking, au
 - **Notifications**: Receive and manage notifications within the app.
 - **Product Management**: Manage product details and inventory.
 
-# Click the button below to launch the website:
+## Click the button below to launch the website:
 
-[![Launch Website](https://img.shields.io/badge/Launch%20Website-Click%20Here-purple?style=for-the-badge)]([https://myawesomeproject.com](https://alx-webstack-simple-inventory-frontend.onrender.com/))
+[![Launch Website](https://img.shields.io/badge/Launch%20Website-Click%20Here-purple?style=for-the-badge)]([https://alx-webstack-simple-inventory-frontend.onrender.com/](https://alx-webstack-simple-inventory-frontend.onrender.com/)
 
 ## Installation
 
