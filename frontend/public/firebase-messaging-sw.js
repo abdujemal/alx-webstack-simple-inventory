@@ -23,7 +23,7 @@ try {
       const notificationTitle = payload.data.title;
       const notificationOptions = {
         body: payload.data.body,
-        icon: "Google.png"//payload.notification.icon || '/default-icon.png',
+        icon: "favicon.ico"//payload.notification.icon || '/default-icon.png',
       };
 
       self.registration.showNotification(notificationTitle, notificationOptions);

@@ -7,10 +7,12 @@ const createProduct = async (req, res) => {
         }
         const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
 
-        const product = await productService.createProduct(req.body, imageUrl);
+        const product = await productService.createProduct(req.body, imageUrl, req.user.username);
 
         res.status(201).json(product);
     } catch (error) {
+        console.log(error);
+        
         res.status(500).json({ message: error.message });
     }
 };
