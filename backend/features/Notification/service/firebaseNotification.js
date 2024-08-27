@@ -4,8 +4,11 @@ import admin from 'firebase-admin';
 
 admin.initializeApp({
   credential: admin.credential.cert('adminKey.json'),
+  storageBucket: "alx-webstack-simple-inve-7cc76.appspot.com",
 });
 
 const messaging = admin.messaging();
+
+
 
 export default messaging;
