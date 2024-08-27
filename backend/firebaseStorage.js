@@ -5,14 +5,15 @@ import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 
-const __fileName = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__fileName);
+
 
 export const uploadImageToFirebase = async (file) => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
   try {
     const storageRef = admin.storage().bucket();
     const filename = `${Date.now()}_${path.basename(file.originalname)}`;
-    const filePath = path.join(__dirname, 'uploads', file.filename);
+    const filePath =  `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}` //path.join(__dirname, 'uploads', file.filename);
 
     // Ensure the file exists before uploading
     if (!fs.existsSync(filePath)) {
