@@ -32,9 +32,9 @@ export const createProduct = async (productData) => {
   }
 };
 
-export const updateProduct = async (id, productData) => {
+export const updateProduct = async (id, productData, image) => {
   try {
-    const response = await putRequest(`${API_URL}/products/${id}`, productData);
+    const response = await putRequest(`${API_URL}/products/${id}`, productData, true, image);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Error updating product');

@@ -43,7 +43,13 @@ const getProductById = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
-        const product = await productService.updateProduct(req.params.id, req.body);
+        let product;
+        if (!req.file) {
+            product = await productService.updateProduct(req.params.id, req.body);
+        }else{
+            const imageUrl = await uploadImageToFirebase(req.file);
+            product = await productService.updateProduct(req.params.id, req.body, imageUrl);
+        }
         if (product) {
             res.status(200).json(product);
         } else {

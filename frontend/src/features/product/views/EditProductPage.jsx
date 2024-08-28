@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProducts, updateProduct } from '../services/productService';
+import { dataURLtoFile } from '../../auth/services/helpers';
 
 const EditProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [updatedProduct, setUpdatedProduct] = useState({});
+  const [image, setImage] = useState(null);
+  const [urlImage, setUrlImage] = useState("")
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,6 +18,7 @@ const EditProductPage = () => {
         const products = await getProducts();
         const productToEdit = products.find(p => p._id === id);
         setProduct(productToEdit);
+        setUrlImage(productToEdit.image)
         setUpdatedProduct(productToEdit);
       } catch (error) {
         console.error('Error fetching product:', error);
@@ -21,6 +26,19 @@ const EditProductPage = () => {
     };
     fetchProduct();
   }, [id]);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    
+    if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+        setImage(reader.result);
+    };
+    
+    reader.readAsDataURL(file);
+    }
+};  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,9 +48,16 @@ const EditProductPage = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await updateProduct(id, updatedProduct);
+      setLoading(true)
+      let imageFile;
+      if(image){
+        imageFile = dataURLtoFile(image, 'image.jpg')
+      }
+      await updateProduct(id, updatedProduct, imageFile);
+      setLoading(false)
       navigate('/products');
     } catch (error) {
+      setLoading(false)
       console.error('Error updating product:', error);
     }
   };
@@ -43,6 +68,13 @@ const EditProductPage = () => {
     <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md border border-primary">
       <h1 className="text-3xl font-bold mb-6 text-center">Edit Product</h1>
       <form onSubmit={handleUpdate} className="space-y-6">
+        {
+          image ? 
+          <img src={image} className=" h-32 w-32 m-auto mt-6 rounded-full"  alt="user_image"/>  :
+          <img src={urlImage} className=" h-32 w-32 m-auto mt-6 rounded-full" />                      
+        }  
+        <input type="file" accept="image/*" name='image' onChange={handleFileChange} className=" shadow-sm w-fit px-2 py-1 mt-2 rounded self-center"/>
+                    
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-gray-700 text-sm font-semibold mb-2">Product Name</label>
@@ -108,12 +140,19 @@ const EditProductPage = () => {
           >
             Cancel
           </button>
-          <button
-            type="submit"
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            Update Product
-          </button>
+          {
+            loading ?
+            <p
+              className="px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-blue-400"         
+            >
+              Loading...</p>:
+            <button
+              type="submit"
+              className="px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              Update Product
+            </button>
+          }
         </div>
       </form>
     </div>

@@ -53,21 +53,30 @@ export const getRequest = (path = "", payload = {}, withToken = true) => {
 }
 
 export const putRequest = (path = "", payload = {}, withToken = true, image) => {
-    if (image) {
-        payload.append('image', image)
+    var formData = new FormData();
+    
+    if(image){       
+        for(var key in payload){
+            formData.append(key, payload[key])
+            console.log(key);
+            
+        }
+        formData.append('image',image)
+        console.log(image);
     }
-    if (withToken) {
-        if (!token) {
+
+    if(withToken){
+        if(!token){
             return null;
         }
-        return axios.put(path, payload, {
+        return axios.put(path, image ? formData : payload, {
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
+                'Content-Type': image ? 'multipart/form-data' : 'application/json'
             },
-        });
-    } else {
-        return axios.put(path, payload)
+        })
+    }else{
+        return axios.put(path, image ? formData : payload)
     }
 }
 
