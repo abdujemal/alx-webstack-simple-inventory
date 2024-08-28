@@ -1,37 +1,84 @@
 // services/firebaseService.js
 import admin from 'firebase-admin';
 import path from 'path';
-import { randomUUID } from 'crypto';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
+
+const axios = require('axios');
+const path = require('path');
+const { v4: uuidv4 } = require('uuid'); 
 
 
 
 export const uploadImageToFirebase = async (file) => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  try {
-    const storageRef = admin.storage().bucket();
-    const filename = `${Date.now()}_${path.basename(file.originalname)}`;
-    const filePath =  `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}` //path.join(__dirname, 'uploads', file.filename);
+    const bucket = admin.storage().bucket()
 
-    // Ensure the file exists before uploading
-    if (!fs.existsSync(filePath)) {
-      throw new Error(`File does not exist: ${filePath}`);
+    const remoteUrl =  `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}` //path.join(__dirname, 'uploads', file.filename);
+
+
+    try {
+        // Step 1: Fetch the file from the remote URL
+        const response = await axios({
+        url: remoteUrl,
+        method: 'GET',
+        responseType: 'stream'
+        });
+    
+        // Step 2: Generate a unique filename
+        const filename = `${uuidv4()}${path.extname(remoteUrl)}`;
+    
+        // Step 3: Create a file reference in Firebase Storage
+        const file = bucket.file(`uploads/${filename}`);
+    
+        // Step 4: Pipe the remote file's stream to Firebase Storage
+        await new Promise((resolve, reject) => {
+        response.data
+            .pipe(file.createWriteStream({
+            metadata: {
+                contentType: response.headers['content-type'],
+                firebaseStorageDownloadTokens: uuidv4(), // Add download token if you want to make the file public
+            },
+            }))
+            .on('error', (err) => {
+            reject(err);
+            })
+            .on('finish', () => {
+            resolve();
+            });
+        });
+    
+        // Step 5: Get the public URL of the uploaded file
+        const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(file.name)}?alt=media`;
+    
+        return publicUrl;
+    
+    } catch (error) {
+        console.error('Error uploading file to Firebase:', error);
+        throw error;
     }
+      
+//   const __filename = fileURLToPath(import.meta.url);
+//   const __dirname = path.dirname(__filename);
+//   try {
+//     const storageRef = admin.storage().bucket();
+//     const filename = `${Date.now()}_${path.basename(file.originalname)}`;
+//     const filePath =  `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}` //path.join(__dirname, 'uploads', file.filename);
 
-    // Upload the file
-    const [uploadedFile] = await storageRef.upload(filePath, {
-      public: true,
-      destination: `uploads/${filename}`,
-    });
+//     // Ensure the file exists before uploading
+//     if (!fs.existsSync(filePath)) {
+//       throw new Error(`File does not exist: ${filePath}`);
+//     }
 
-    // Return the public URL
-    return uploadedFile.metadata.mediaLink;
-  } catch (e) {
-    console.error('Error uploading image to Firebase:', e.message);
-    throw new Error(e.message);
-  }
+//     // Upload the file
+//     const [uploadedFile] = await storageRef.upload(filePath, {
+//       public: true,
+//       destination: `uploads/${filename}`,
+//     });
+
+//     // Return the public URL
+//     return uploadedFile.metadata.mediaLink;
+//   } catch (e) {
+//     console.error('Error uploading image to Firebase:', e.message);
+//     throw new Error(e.message);
+//   }
 };
 
 
