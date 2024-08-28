@@ -12,7 +12,7 @@ A comprehensive inventory management application featuring activity tracking, au
 - **Product Management**: Manage product details and inventory.
 
 
-## Preview
+## Screenshot
 
 ![Sample Image](./Inventory-Management-screenshot.png)
 
