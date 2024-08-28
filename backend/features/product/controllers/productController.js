@@ -1,3 +1,4 @@
+import { uploadImageToFirebase } from '../../../firebaseStorage.js';
 import productService from '../services/productService.js';
 
 const createProduct = async (req, res) => {
@@ -5,7 +6,7 @@ const createProduct = async (req, res) => {
         if (!req.file) {
             return res.status(404).json({ message: 'Image is required' });
         }
-        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`//await uploadImageToFirebase(req.file);
+        const imageUrl = await uploadImageToFirebase(req.file);
 
         const product = await productService.createProduct(req.body, imageUrl, req.user.username);
 
