@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ActivityContext from '../context/ActivityContext';
-import { getProducts, updateProduct } from '../../product/services/productService';
+import { getProductById, getProducts, updateProduct } from '../../product/services/productService';
 import { createCustomer } from '../services/ActivityService';
 import { createActivity } from '../services/ActivityService';
 
@@ -36,8 +36,7 @@ const ActivityPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const products = await getProducts();
-        const productToEdit = products.find(p => p._id === id);
+        const productToEdit = await getProductById(id)
         setProduct(productToEdit);
         setUpdatedProduct(productToEdit);
         setInitialStock(productToEdit?.stock || 0);
