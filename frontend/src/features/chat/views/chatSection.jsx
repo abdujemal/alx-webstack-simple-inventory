@@ -25,11 +25,11 @@ const ChatSection = () => {
               { currentUser !== null ?
               <div className="flex gap-3.5">
                 <img
-                  onClick={()=>setShowUpdateUser(true)} 
+                  onClick={()=>setShowUpdateUser(true)}
                   loading="lazy"
                   src={currentUser.pp}
                   alt='User Profile'
-                  className="object-fill w-16 rounded-full cursor-pointer"
+                  className="object-fill shrink-0 w-12 h-12 rounded-full cursor-pointer"
                 />                
                 <div className="flex flex-col self-start">
                   <div className="self-start text-white">{currentUser.name}</div>
