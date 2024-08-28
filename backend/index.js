@@ -15,7 +15,6 @@ import { fileURLToPath } from 'url';
 import notificationRouter from './features/Notification/routes/notificationRoute.js';
 import searchRoute from './features/product/routes/productSearchRoute.js';
 import customerSearchRoute from './features/customers/routes/customerSearchRoute.js';
-import admin from 'firebase-admin'
 import NotificationController from './features/Notification/controller/notificationController.js';
 
 env.config();
