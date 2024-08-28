@@ -6,8 +6,10 @@ import  { OAuth2Client } from 'google-auth-library';
 import User from '../models/user.js';
 import request from 'request'
 import env from 'dotenv'
+import path from 'path';
 import { getUserData } from '../services/authService.js';
 import Conversation from '../../chat/models/conversation.js';
+import { uploadImageToFirebase } from '../../../firebaseStorage.js';
 
 env.config();
 
@@ -95,7 +97,11 @@ export const update = async (req, res) => {
 
         res.status(201).json({ token, user });
       }else{
-        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`//await uploadImageToFirebase(req.file); 
+        
+
+        // Upload the image to Firebase
+        const imageUrl = await uploadImageToFirebase(req.file);
+        //const imageUrl = //`${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`//await uploadImageToFirebase(req.file); 
         
         let hashedPassword = null;
         if(password){
