@@ -58,3 +58,12 @@ export const searchProducts = async (query) => {
     throw new Error(error.response?.data?.message || 'Error searching products');
   }
 };
+
+export const getProductById = async (id) => {
+  try {
+    const response = await getRequest(`${API_URL}/products/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Error getting product');
+  }
+};

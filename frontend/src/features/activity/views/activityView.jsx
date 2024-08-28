@@ -3,14 +3,16 @@ import LineChart from './lineChart';
 import { useActivity } from '../context/ActivityContext';
 import { BsArrowDown } from "react-icons/bs";
 import { useAuth } from '../../auth/controllers/AuthProvider';
+import { IoIosRefresh } from "react-icons/io";
+
 
 const ActivityView = () => {
 
-  const { activityChart, activites, loading, loadMoreActivities } = useActivity() 
+  const { activityChart, activites, loading, loadMoreActivities, fetchActivities } = useActivity() 
   const { currentUser } = useAuth()
 
-  const titles = ["Sales ID", "Date", "Product", "Customer", "Total Amount", "Status"]
-  const keys = ["_id", "date", "pName", "customerName", "pPrice", "status"]
+  const titles = ["Sales ID", "Date", "Product", "Customer", "Stock", "Price", "Status"]
+  const keys = ["_id", "date", "pName", "customerName",'pStock', "pPrice", "status"]
 
   const formatDated = () => {
     return new Date().toLocaleDateString('en-GB', {
@@ -40,7 +42,12 @@ const ActivityView = () => {
         </div> */}
       </div>
       <div className='flex flex-col border  border-gray-300 rounded-lg bg-white shadow-xl flex-1 px-5 py-5'>
-        <h2 className='text-2xl pb-7 font-bold'>Recent Sales</h2>
+        <div className='flex justify-between'>
+          <h2 className='text-2xl pb-7 font-bold'>Recent Sales</h2>
+          <button onClick={()=>fetchActivities(1)}>
+            <IoIosRefresh size={30}/>
+          </button>
+        </div>
         <div className='overflow-x-auto mb-3'>
         <table className="min-w-full divide-y  divide-gray-300">
           <thead className="bg-gray-100">

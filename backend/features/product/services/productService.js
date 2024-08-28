@@ -34,8 +34,10 @@ const getProductById = async (id) => {
 const updateProduct = async (id, updateData, imageUrl) => {
     try {
         console.log({imageUrl});
-        
-        return await Product.findByIdAndUpdate(id, imageUrl ? {...updateData, image: imageUrl} : updateData, { new: true });
+        if(!imageUrl){
+            return await Product.findByIdAndUpdate(id, updateData, { new: true });
+        }
+        return await Product.findByIdAndUpdate(id, {...updateData, image: imageUrl}, { new: true });
     } catch (error) {
         throw new Error('Error updating product: ' + error.message);
     }
