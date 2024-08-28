@@ -149,6 +149,8 @@ export const ActivityProvider = ({ children }) => {
       activityChart,
       loading,
       loadMoreActivities,
+      setIsSelected,
+      setSelectedCustomer,
     }}>
       {children}
     </ActivityContext.Provider>

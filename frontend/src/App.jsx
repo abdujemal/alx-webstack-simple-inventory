@@ -51,8 +51,8 @@ function App() {
       console.log("Message received in foreground: ", payload);
       toast(
       <div>
-        <h4 className="font-bold">{payload.data.title}</h4>
-        <p >{payload.data.body}</p>
+        <h4 className="font-bold">{payload.notification.title}</h4>
+        <p >{payload.notification.body}</p>
       </div>
       )
       // setNotification(payloa.notification.titleion);

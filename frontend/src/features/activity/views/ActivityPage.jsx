@@ -31,9 +31,13 @@ const ActivityPage = () => {
     handleSelectCustomer,
     isSelected,
     selectedCustomer,
+    setIsSelected,
+    setSelectedCustomer,
   } = useContext(ActivityContext);
 
   useEffect(() => {
+    setIsSelected(false)
+    setSelectedCustomer(null);
     const fetchProduct = async () => {
       try {
         const productToEdit = await getProductById(id)
@@ -274,7 +278,7 @@ const ActivityPage = () => {
               Total Price
             </label>
             <div className="mt-1 block w-full px-4 py-2.5 bg-gray-100 rounded-lg shadow-md border border-gray-300">
-              ${totalPrice.toFixed(2)}
+              ETB {totalPrice.toFixed(2)}
             </div>
           </div>
         )}

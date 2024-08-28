@@ -207,7 +207,7 @@ const ProductPage = () => {
                 <h2 className="text-xl font-semibold mb-2">{preview.productName}</h2>
                 <p><strong>SKU:</strong> {preview.SKU}</p>
                 <p><strong>Location:</strong> {preview.location}</p>
-                <p><strong>Price:</strong> ${preview.price}</p>
+                <p><strong>Price:</strong> ETB {preview.price}</p>
                 <p><strong>Stock:</strong> {preview.stock}</p>
               </div>
               <button onClick={() => setPreview(null)} className="mt-auto py-2 px-4 bg-secondary text-white rounded-lg w-full">Close</button>
