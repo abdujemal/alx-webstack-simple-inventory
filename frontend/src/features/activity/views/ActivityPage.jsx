@@ -117,14 +117,16 @@ const ActivityPage = () => {
         pPrice: product?.price,
         pStock: stock
       };
+      console.log({updateProduct});
+      
+      await updateProduct(id, updatedProduct);
 
       console.log('Sending activity data:', activityData);
       await createActivity(activityData);
 
-      await updateProduct(id, updatedProduct, customerName, customerPhone);
       navigate('/products');
     } catch (error) {
-      console.error('Error updating product:', error);
+      console.error('Error reording  activity:', error);
       setAlert({ type: 'error', message: error.message });
     }
   };

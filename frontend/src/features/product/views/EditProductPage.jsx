@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getProducts, updateProduct } from '../services/productService';
+import { getProductById, getProducts, searchProducts, updateProduct } from '../services/productService';
 import { dataURLtoFile } from '../../auth/services/helpers';
 
 const EditProductPage = () => {
@@ -15,10 +15,11 @@ const EditProductPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const products = await getProducts();
-        const productToEdit = products.find(p => p._id === id);
+        console.log({id});
+        
+        const productToEdit = await getProductById(id);
         setProduct(productToEdit);
-        setUrlImage(productToEdit.image)
+        setUrlImage(productToEdit?.image)
         setUpdatedProduct(productToEdit);
       } catch (error) {
         console.error('Error fetching product:', error);
