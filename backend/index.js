@@ -16,6 +16,8 @@ import notificationRouter from './features/Notification/routes/notificationRoute
 import searchRoute from './features/product/routes/productSearchRoute.js';
 import customerSearchRoute from './features/customers/routes/customerSearchRoute.js';
 import NotificationController from './features/Notification/controller/notificationController.js';
+import helmet from 'helmet'
+
 
 env.config();
 
@@ -33,6 +35,18 @@ app.use(cors(
   }
 ));
 
+//Protection
+app.use(helmet());
+
+// Configure CSP
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'"],
+    styleSrc: ["'self'"]
+  }
+}));
+
 //Routes
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/activity', authorizeUser, activityRoutes)
@@ -49,7 +63,7 @@ app.post("/api/v1/unsubTopic", NotificationController.unsubToTopic);
 
 app.use((err, req, res, next) => {
   console.log(err)
-  res.status(500).json({ message: "Server Error Occured" })
+  res.status(500).json({ message: `Server Error Occured ${err}` })
 })
 
 // Search for products route
