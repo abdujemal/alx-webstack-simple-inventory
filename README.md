@@ -11,7 +11,11 @@ A comprehensive inventory management application featuring activity tracking, au
 - **Notifications**: Receive and manage notifications within the app.
 - **Product Management**: Manage product details and inventory.
 
+
+## Installation
+
 ![Sample Image](./Inventory-Management-screenshot.png)
+
 
 ## Click the button below to launch the website:
 
