@@ -14,7 +14,7 @@ const productRoutes = express.Router();
 productRoutes.post('/', upload.single('image'), productController.createProduct);
 productRoutes.get('/', productController.getProducts);
 productRoutes.get('/:id', productController.getProductById);
-productRoutes.put('/:id', productController.updateProduct);
+productRoutes.put('/:id', upload.single('image'), productController.updateProduct);
 productRoutes.delete('/:id', productController.deleteProduct);
 
 // Search route
