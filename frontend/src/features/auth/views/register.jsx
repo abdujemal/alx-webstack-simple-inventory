@@ -143,7 +143,7 @@ const Register = () => {
                   </div>
                 </div>
                 <p className="text-red-700 mt-2 text-sm sm:text-base">{error}</p>
-                <div className="flex flex-row sm:flex-row justify-between mt-5">
+                {/* <div className="flex flex-row sm:flex-row justify-between mt-5">
                   <div className="flex gap-2 items-center mb-3 sm:mb-0">
                     <input id="rememberme" type="checkbox" />
                     <label htmlFor="rememberme" className="text-sm sm:text-base">
@@ -153,7 +153,7 @@ const Register = () => {
                   <Link className="text-blue-800 text-sm sm:text-base hover:underline" to={'/register'}>
                     Forgot password?
                   </Link>
-                </div>
+                </div> */}
                 <MainButton isLoading={loading} text={"Submit"} isSubmit />
                 <div className="flex flex-row sm:flex-row gap-2.5 items-center justify-center mt-6 text-base sm:text-lg">
                   <div className="shrink-0 self-stretch my-auto h-px border border-black border-solid w-[70px] sm:w-[97px]" />

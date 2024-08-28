@@ -40,7 +40,7 @@ const Login = () => {
                                 <div className="flex-1 my-auto "><input onChange={(e)=>setPassword(e.target.value)} className="w-full" placeholder="Password" type="password" name="password" /></div>
                             </div>
                             <p className="text-red-700 mt-2 text-sm md:text-base">{error}</p>
-                            <div className="flex flex-row md:flex-row justify-between mt-5 md:mt-7">
+                            {/* <div className="flex flex-row md:flex-row justify-between mt-5 md:mt-7">
                                 <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-0">
                                     <input type="checkbox" />
                                     <div className="text-black text-sm md:text-base">
@@ -50,7 +50,7 @@ const Login = () => {
                                 <Link className="text-blue-800 text-sm md:text-base cursor-pointer hover:underline" to={'/register'}>
                                     Forgot password?
                                 </Link>
-                            </div>
+                            </div> */}
                             <MainButton isLoading={loading} text={"Login"} isSubmit/>
                             <div className="flex flex-row md:flex-row gap-2.5 items-center justify-center mt-6 md:mt-9 text-lg md:text-xl text-black whitespace-nowrap">
                                 <div className="shrink-0 self-stretch my-auto h-px border border-black border-solid w-[70px] md:w-[97px]" />
