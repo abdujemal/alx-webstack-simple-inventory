@@ -12,7 +12,7 @@ import { BsArrowDown } from "react-icons/bs"
 
 
 const ProductPage = () => {
-  const { products, setProducts, filteredProducts, setFilteredProducts, loadMoreProducts, loading, load } = useProducts();
+  const { products, setProducts, filteredProducts, setFilteredProducts, loadMoreProducts, loading, setLoading, load } = useProducts();
   const [searchQuery, setSearchQuery] = useState("");
   const [preview, setPreview] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -86,11 +86,14 @@ const ProductPage = () => {
       formData.append(key, newProduct[key]);
     }
     try {
+      setLoading(true)
       const addedProduct = await createProduct(formData);
       setProducts((prevProducts) => [...prevProducts, addedProduct]);
       setFilteredProducts((prevProducts) => [...prevProducts, addedProduct]);
       resetForm();
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.error('Error adding product:', error);
     }
   };
@@ -283,7 +286,11 @@ const ProductPage = () => {
             </div>
             <div className="flex justify-between">
               <button type="button" onClick={() => setShowAddForm(false)} className="px-4 py-2 bg-gray-500 text-white rounded-md">Cancel</button>
-              <button type="submit" className="px-4 py-2 bg-primary text-white rounded-md">Add Product</button>
+              {
+                loading ?
+                  <p className='px-4 py-2 bg-secondary text-white rounded-md'>Loading...</p>:
+                  <button type="submit" className="px-4 py-2 bg-primary text-white rounded-md">Add Product</button>
+              }
             </div>
           </form>
         </div>

@@ -9,6 +9,7 @@ const EditProductPage = () => {
   const [updatedProduct, setUpdatedProduct] = useState({});
   const [image, setImage] = useState(null);
   const [urlImage, setUrlImage] = useState("")
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,17 +41,23 @@ const EditProductPage = () => {
 };  
 
   const handleChange = (e) => {
-    const { name, value } = e.target;payload.image
+    const { name, value } = e.target;
     setUpdatedProduct(prevProduct => ({ ...prevProduct, [name]: value }));
   };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const imageFile = dataURLtoFile(image, 'image.jpg')
+      setLoading(true)
+      let imageFile;
+      if(image){
+        imageFile = dataURLtoFile(image, 'image.jpg')
+      }
       await updateProduct(id, updatedProduct, imageFile);
+      setLoading(false)
       navigate('/products');
     } catch (error) {
+      setLoading(false)
       console.error('Error updating product:', error);
     }
   };
@@ -133,12 +140,19 @@ const EditProductPage = () => {
           >
             Cancel
           </button>
-          <button
-            type="submit"
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            Update Product
-          </button>
+          {
+            loading ?
+            <p
+              className="px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-blue-400"         
+            >
+              Loading...</p>:
+            <button
+              type="submit"
+              className="px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              Update Product
+            </button>
+          }
         </div>
       </form>
     </div>

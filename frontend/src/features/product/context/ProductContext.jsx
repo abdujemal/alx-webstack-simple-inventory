@@ -7,7 +7,7 @@ const ProductContext = createContext();
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [load, setLoad] = useState(false);
   const [page, setPage] = useState(2);
@@ -26,7 +26,7 @@ export const ProductProvider = ({ children }) => {
 
   const fetchProducts = async (page) => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const data = await getProducts(page);
       if (page && page > 1) {
         setProducts((e) => [...e, ...data]);
@@ -41,12 +41,12 @@ export const ProductProvider = ({ children }) => {
       setLoad(false);
       setError(err.message);
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
   return (
-    <ProductContext.Provider value={{ products, setProducts, filteredProducts, setFilteredProducts, loading, error, loadMoreProducts, load }}>
+    <ProductContext.Provider value={{ products, setProducts, filteredProducts, setFilteredProducts, loading, setLoading, error, loadMoreProducts, load }}>
       {children}
     </ProductContext.Provider>
   );
