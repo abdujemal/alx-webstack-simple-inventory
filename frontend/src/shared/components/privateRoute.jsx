@@ -16,7 +16,10 @@ const PrivateRoute = ({ children }) => {
     }
   }, [search]);
 
-  if(pathname == "/login" || pathname == "/register"){
+  if(pathname == "/login" 
+    || pathname == "/register" 
+    || pathname == '/forgot-password' 
+  ){
     return isAuthenticated ? <Navigate to="/" /> : children;
   }else{
     return isAuthenticated ? children : <Navigate to="/login" />;
