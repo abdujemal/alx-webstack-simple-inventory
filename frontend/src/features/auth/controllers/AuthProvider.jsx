@@ -15,6 +15,8 @@ const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const {login:loginAction, logout:logoutAction} = useAuthState();
   const [loading, setLoading] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+
 
   useEffect(() => {
     loginAction()
@@ -68,6 +70,41 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const sendPasswordChangeEmail = async ( email ) => {
+    setLoading(true);
+    try {
+      setError(null);
+      const { msg } = await authApi.sendPasswordChangeEmail( email );
+      // setCurrentUser(user);
+      setLoading(false);
+      setIsSent(true)
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
+  const resetPassword = async ( password, confirmPassword, token ) => {
+    if(password !== confirmPassword){
+      setError("Password does not match");
+      return;
+    }
+    setLoading(true);
+    try {
+      setError(null);
+      const { msg } = await authApi.resetPassword( password, token );
+      // setCurrentUser(user);
+      setLoading(false);
+      toast.success("Your password has been successfully changed.")
+      setTimeout(()=>{
+        window.location.href = '/';
+      }, 2000)
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
   const login = async (email, password) => {
     setLoading(true);
 
@@ -108,6 +145,7 @@ const AuthProvider = ({ children }) => {
       currentUser, 
       error, 
       loading, 
+      isSent,
       // sets
       setError, 
       // functions
@@ -116,6 +154,8 @@ const AuthProvider = ({ children }) => {
       update, 
       logout, 
       google, 
+      resetPassword,
+      sendPasswordChangeEmail,
     }}>
       {children}
       <Toaster/>

@@ -35,7 +35,13 @@ const userSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  resetToken: {
+    type: String,
+  }, 
+  resetTokenExpiration: {
+    type: Date,
+  },
 });
 
 // Create the User model using the schema

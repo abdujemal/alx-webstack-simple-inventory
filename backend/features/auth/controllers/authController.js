@@ -10,8 +10,20 @@ import path from 'path';
 import { getUserData } from '../services/authService.js';
 import Conversation from '../../chat/models/conversation.js';
 import { uploadImageToFirebase } from '../../../firebaseStorage.js';
+import crypto from 'crypto';
+import nodemailer from 'nodemailer';
 
 env.config();
+
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.ADMIN_EMAIL,
+    pass: process.env.ADMIN_PASSWORD,
+  },
+});
+
 
 const redirect_uri = "https://alx-webstack-simple-inventory.onrender.com/api/v1/auth/google/callback";
 const client = new OAuth2Client(
@@ -20,35 +32,104 @@ const client = new OAuth2Client(
     redirect_uri,
 )
 
+export const sendResetPasswordEmail = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    const token = crypto.randomBytes(32).toString('hex');
+    // user.resetToken = token;
+    // user.resetTokenExpiration = Date.now() + 3600000; // 1 hour
+    await User.findByIdAndUpdate(
+      user._id, 
+      {
+        resetToken: token, 
+        resetTokenExpiration: Date.now() + 3600000,
+      },
+      {
+        new: true,        // Return the updated document
+        runValidators: true // Validate the update against the schema
+      }
+    );
+
+    const resetLink = `https://alx-webstack-simple-inventory-frontend.onrender.com/reset-password/${token}`;
+    await transporter.sendMail({
+      to: email,
+      from: process.env.ADMIN_EMAIL,//no-reply@yourdomain.com
+      subject: 'Password Reset',
+      html: `<p>You requested a password reset for Inventory Management App</p><p>Click this <a href="${resetLink}">Reset Password</a> to reset your password.</p>`,
+    });
+
+    res.status(200).json({ message: 'Password reset email sent' });
+  } catch (error) {
+    res.status(500).json({ message: `Server error ${error}` });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  try {
+    const user = await User.findOne({
+      resetToken: token,
+      resetTokenExpiration: { $gt: Date.now() },
+    });
+
+    if (!user) return res.status(400).json({ message: 'Token is invalid or has expired' });
+
+    const hashedPassword = await argon2.hash(password);
+    // user.password = hashedPassword;
+    // user.resetToken = undefined;
+    // user.resetTokenExpiration = undefined;
+    await User.findByIdAndUpdate(
+      user._id, 
+      {
+        password: hashedPassword
+      },
+      {
+        new: true,        // Return the updated document
+        runValidators: true // Validate the update against the schema
+      }
+    );;
+
+    res.status(200).json({ message: 'Password has been reset' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 export const register = async (req, res) => {
-    const { name, email, password, role, } = req.body;
-    try{      
-        // Check if user already exists
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-          return res.status(401).json({ message: 'User already exists' });
-        }
+  const { name, email, password, role, } = req.body;
+  try{      
+      // Check if user already exists
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(401).json({ message: 'User already exists' });
+      }
 
-        if(!req.file){
-          return res.status(404).json({ message: 'Image is required' });
-        }
+      if(!req.file){
+        return res.status(404).json({ message: 'Image is required' });
+      }
 
-        const imageUrl = await uploadImageToFirebase(req.file);
+      const imageUrl = await uploadImageToFirebase(req.file);
 
-        // Hash the password using Argon2
-        const hashedPassword = await argon2.hash(password);
-      
-        // Create a new user
-        const user = new User({ name, email, role, pp:imageUrl, password: hashedPassword });
-        await user.save();
-      
-        // Generate a JWT token
-        const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
-      
-        res.status(201).json({ token, user });
-    }catch(e){
-        res.status(500).json({ error: 'Internal server error' });
-    }
+      // Hash the password using Argon2
+      const hashedPassword = await argon2.hash(password);
+    
+      // Create a new user
+      const user = new User({ name, email, role, pp:imageUrl, password: hashedPassword });
+      await user.save();
+    
+      // Generate a JWT token
+      const token = jwt.sign({ id: user._id, username: user.name, profileImage: user.pp }, process.env.JWT_SECRET, { expiresIn: '3d' });
+    
+      res.status(201).json({ token, user });
+  }catch(e){
+      res.status(500).json({ error: 'Internal server error' });
+  }
 };
 
 export const update = async (req, res) => {
@@ -215,19 +296,19 @@ export const logout = async (req, res) => {
     res.json({ message: 'Logged out successfully' });
 };
   
-export const resetPassword = async (req, res) => {
-    try {
-        const { email } = req.body;
-        const user = await User.findOne({ email });
-        if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-        }
-        // Implement password reset logic, e.g., sending a reset password email
-        res.json({ message: 'Password reset instructions sent' });
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-};
+// export const resetPassword = async (req, res) => {
+//     try {
+//         const { email } = req.body;
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//         return res.status(404).json({ message: 'User not found' });
+//         }
+//         // Implement password reset logic, e.g., sending a reset password email
+//         res.json({ message: 'Password reset instructions sent' });
+//     } catch (err) {
+//         res.status(400).json({ message: err.message });
+//     }
+// };
 
 export const googleAuth = (req, res) => {
   const url = client.generateAuthUrl({

@@ -16,6 +16,8 @@ import Dashboard from './shared/components/dashboard.jsx'
 import { getFcmToken, messaging, subscribeToTopic } from "./shared/utils/firebase.js";
 import { onMessage } from 'firebase/messaging'
 import { toast } from 'react-toastify'
+import ResetPassword from './features/auth/views/resetPassword.jsx'
+import ForgotPassword from './features/auth/views/forgetPassword.jsx'
 
 function App() {
 
@@ -81,6 +83,12 @@ function App() {
             <Login />
           </PrivateRoute>
         } />
+        <Route path="/forgot-password" element={
+          <PrivateRoute>
+            <ForgotPassword />
+          </PrivateRoute>
+          } />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path='/register' element={
           <PrivateRoute>
             <Register />

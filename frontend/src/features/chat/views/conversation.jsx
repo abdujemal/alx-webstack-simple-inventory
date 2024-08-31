@@ -35,10 +35,10 @@ const Conversations = () => {
         {
             conversations.map((e)=>{
               var participantId = 0;
-              var amItheLastSender = e.lastMessage.sender == currentUser._id;
+              var amItheLastSender = e.lastMessage.sender == currentUser?._id;
               const formattedTime = formatDate(e.lastMessageTimestamp);
               
-              if(e.participants[0]._id != currentUser._id){
+              if(e.participants[0]._id != currentUser?._id){
                 participantId = 0;
               }else{
                 participantId = 1;

@@ -60,6 +60,34 @@ export const update = async (name, email, password, role, pp, image) =>{
     }
 }
 
+export const sendPasswordChangeEmail = async ( email) =>{
+    try{
+        const res = await postRequest(
+            `${AUTH_URL}/forgot-password`, 
+            { email },
+            false,       
+        );
+       
+        return res.data;
+    }catch(error){
+        throw new Error(error.response?.data?.message || 'Sending password reset email failed');
+    }
+}
+
+export const resetPassword = async ( password, token) =>{
+    try{
+        const res = await postRequest(
+            `${AUTH_URL}/reset-password/${token}`, 
+            { password },
+            false,       
+        );
+       
+        return res.data;
+    }catch(error){
+        throw new Error(error.response?.data?.message || 'reset password failed');
+    }
+}
+
 export const getUser = async () =>{
     try{
         const res = await getRequest(`${AUTH_URL}`, {}, true);

@@ -2,7 +2,7 @@
 import express from 'express';
 import upload from '../../shared/middleware/mutlerMiddleware.js';
 
-import {login, register, logout, resetPassword, googleAuth, googleCallback, update, getUser} from '../controllers/authController.js';
+import {login, register, logout, resetPassword, googleAuth, googleCallback, update, getUser, sendResetPasswordEmail} from '../controllers/authController.js';
 import authorizeUser from '../../shared/middleware/authMiddleware.js';
 
 const authRoute = express.Router();
@@ -17,14 +17,15 @@ authRoute.post('/update', authorizeUser, upload.single('image'), update);
 // get user
 authRoute.get('/', authorizeUser, getUser)
 
+// reeset password
+authRoute.post('/forgot-password', sendResetPasswordEmail);
+authRoute.post('/reset-password/:token', resetPassword);
+
 // Login route
 authRoute.post('/login', login);
 
 // Logout route
 authRoute.post('/logout', logout);
-
-// Password reset route
-authRoute.post('/reset-password', resetPassword);
 
 // Google OAuth route
 authRoute.get('/google', googleAuth);
