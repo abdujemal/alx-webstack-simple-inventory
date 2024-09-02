@@ -21,7 +21,16 @@ const getAllCustomers = async (page = 1, limit = 10) => {
 
 
 const updateCustomer = async (id, updateData) => {
-  return await Customer.findByIdAndUpdate(id, updateData, { new: true });
+  try {
+    // console.log({ imageUrl });
+    // if (!imageUrl) {
+    // }
+    return await Customer.findByIdAndUpdate(id, updateData, { new: true });
+
+  } catch (error) {
+    throw new Error('Error updating customer: ' + error.message);
+
+  }
 };
 
 const deleteCustomer = async (id) => {
