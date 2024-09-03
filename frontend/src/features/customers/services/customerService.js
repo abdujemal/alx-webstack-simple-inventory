@@ -1,6 +1,5 @@
-import { getRequest, deleteRequest } from '../../../shared/utils/apiHelpers'; // Adjust path as necessary
+import { getRequest, deleteRequest, putRequest } from '../../../shared/utils/apiHelpers'; // Adjust path as necessary
 import { ACTIVITY_URL, CUSTOMER_URL } from '../../../shared/utils/constants'; // Adjust path as necessary
-
 
 const API_URL = 'https://alx-webstack-simple-inventory.onrender.com/api/v1';
 export const fetchCustomers = async (page, limit) => {
@@ -51,5 +50,14 @@ export const deleteCustomer = async (id) => {
         return response?.data;
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Error deleting customer');
+    }
+};
+
+export const updateCustomer = async (id, customerData) => {
+    try {
+        const response = await putRequest(`${CUSTOMER_URL}/${id}`, customerData, true);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Error updating customer');
     }
 };

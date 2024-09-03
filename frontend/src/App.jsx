@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import ProductPage from './features/product/views/ProductPage.jsx'
 import EditProductPage from './features/product/views/EditProductPage.jsx'
 import CustomerPage from './features/customers/views/CustomerPage.jsx'
+import EditCustomerPage from './features/customers/views/EditCustomerPage.jsx'
 import ActivityPage from './features/activity/views/ActivityPage.jsx'
 import Dashboard from './shared/components/dashboard.jsx'
 import { getFcmToken, messaging, subscribeToTopic } from "./shared/utils/firebase.js";
@@ -35,7 +36,7 @@ function App() {
       // const token = await getToken(messaging, {
       //   vapidKey:  process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
       // });
-      
+
       console.log("Notification works");
     } else if (permission === "denied") {
       console.log("Denied for the notification");
@@ -44,7 +45,7 @@ function App() {
   useEffect(() => {
     // getFcmToken()
     requestPermission()
-    
+
   }, []);
 
   useEffect(() => {
@@ -52,10 +53,10 @@ function App() {
     const unsubscribe = onMessage(messaging, (payload) => {
       console.log("Message received in foreground: ", payload);
       toast(
-      <div>
-        <h4 className="font-bold">{payload.notification.title}</h4>
-        <p >{payload.notification.body}</p>
-      </div>
+        <div>
+          <h4 className="font-bold">{payload.notification.title}</h4>
+          <p >{payload.notification.body}</p>
+        </div>
       )
       // setNotification(payloa.notification.titleion);
     });
@@ -76,6 +77,8 @@ function App() {
           <Route path="/edit-product/:id" element={<EditProductPage />} />
           <Route path="/buy-product/:id" element={<ActivityPage />} />
           <Route path="customers" element={<CustomerPage />} />
+          <Route path="/edit-customer/:id" element={<EditCustomerPage />} />
+
         </Route>
         <Route path="*" element={<NotFound />} />
         <Route path='/login' element={
@@ -87,7 +90,7 @@ function App() {
           <PrivateRoute>
             <ForgotPassword />
           </PrivateRoute>
-          } />
+        } />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path='/register' element={
           <PrivateRoute>

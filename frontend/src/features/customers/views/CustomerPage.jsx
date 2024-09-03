@@ -3,9 +3,11 @@ import { BiSolidUserDetail } from "react-icons/bi";
 import { IoIosCloseCircle } from "react-icons/io";
 import { CustomerContext } from '../context/CustomerContext'; // Adjust path as necessary
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { MdOutlineEdit } from "react-icons/md";
 import { deleteCustomer } from '../services/customerService';
 import { fetchCustomers } from '../services/customerService';
 import { BsArrowDown } from "react-icons/bs"
+import { Link } from 'react-router-dom';
 
 const CustomerPage = () => {
     const { customers, setCustomers, selectedCustomer, preview, handlePreview, setPreview, searchCustomers, activites, filteredCustomers, setFilteredCustomers, loadMoreCustomers, loading } = useContext(CustomerContext);
@@ -98,12 +100,17 @@ const CustomerPage = () => {
                             <div className="text-center md:text-left">{customer.name}</div>
                             <div className="text-center md:text-left">{customer.phone}</div>
                             <div className="text-center">
-                                <button onClick={() => handleDeleteCustomer(customer._id)} className="text-red-400 size-5">
-                                    <RiDeleteBin5Line />
-                                </button>
                                 <button
-                                    onClick={() => handlePreview(customer._id)} className="text-blue-500 hover:text-blue-700 transition size-5 ml-10" >
+                                    onClick={() => handlePreview(customer._id)} className="text-blue-500 hover:text-blue-700 transition size-5" >
                                     <BiSolidUserDetail className="inline-block w-6 h-6" />
+                                </button>
+                                <button className="size-5 ml-5">
+                                    <Link to={`/edit-customer/${customer._id}`} className="text-yellow-400 size-5">
+                                        <MdOutlineEdit className="inline-block w-6 h-6" />
+                                    </Link>
+                                </button>
+                                <button onClick={() => handleDeleteCustomer(customer._id)} className="text-red-400 size-5 ml-5">
+                                    <RiDeleteBin5Line className="inline-block w-5 h-5" />
                                 </button>
 
 
